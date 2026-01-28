@@ -1,0 +1,22 @@
+# 忽略图片和矢量图
+*.svg
+*.SVG
+*.png
+*.PNG
+
+# 忽略常见临时和缓存文件
+__pycache__/
+*.py[cod]
+*.log
+*.tmp
+*.DS_Store
+
+# 忽略典型数据集/输出目录
+random2000/
+random2000_placeholder/
+random2000_PNG/
+random2000_semantic/
+
+# 如果未来有数据库文件，可按扩展名忽略，例如：
+# *.db
+# *.sqlite
