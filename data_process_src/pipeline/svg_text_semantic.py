@@ -69,17 +69,91 @@ def parse_json_from_text(text: str) -> Optional[Dict[str, object]]:
         cleaned = re.sub(r"^```[a-zA-Z]*\n", "", cleaned).strip()
         if cleaned.endswith("```"):
             cleaned = cleaned[:-3].strip()
+    
+    # 处理多个 JSON 对象用空格拼接的情况（LLM 有时会重复输出）
+    # 尝试找到第一个完整的 JSON 对象
+    # 策略：从第一个 { 开始，逐步扩展，找到第一个能成功解析的 JSON
+    brace_count = 0
+    start_idx = -1
+    for i, char in enumerate(cleaned):
+        if char == '{':
+            if start_idx == -1:
+                start_idx = i
+            brace_count += 1
+        elif char == '}':
+            brace_count -= 1
+            if brace_count == 0 and start_idx != -1:
+                # 找到一个完整的 JSON 对象
+                candidate = cleaned[start_idx:i+1]
+                try:
+                    parsed = json.loads(candidate)
+                    # 检查是否有必需的字段
+                    if isinstance(parsed, dict) and "nodes" in parsed:
+                        return parsed
+                except Exception:
+                    # 解析失败，继续找下一个
+                    start_idx = -1
+                    brace_count = 0
+    
+    # 如果上面的方法失败，尝试修复不完整的 JSON（被截断的情况）
+    # 策略：找到最后一个完整的节点，然后手动闭合 JSON
+    if cleaned.startswith('{') and '"nodes"' in cleaned and not cleaned.rstrip().endswith('}'):
+        # 找到最后一个完整的节点（以 } 结尾的节点对象）
+        # 从后往前找，找到最后一个完整的节点
+        nodes_start = cleaned.find('"nodes": [')
+        if nodes_start != -1:
+            # 找到最后一个完整的节点对象（以 }, 或 }] 结尾）
+            # 尝试找到最后一个完整的节点：以 }, 结尾，且前面有完整的结构
+            last_complete_node_pos = -1
+            for i in range(len(cleaned) - 1, nodes_start, -1):
+                if cleaned[i] == '}' and (i + 1 >= len(cleaned) or cleaned[i + 1] in [',', ']', ' ']):
+                    # 检查这个 } 前面是否有完整的节点结构
+                    # 简单检查：前面有 "item_ids" 或 "children"
+                    before_brace = cleaned[max(0, i - 200):i]
+                    if ('"item_ids"' in before_brace or '"children"' in before_brace) and '"id"' in before_brace:
+                        last_complete_node_pos = i + 1
+                        break
+            
+            if last_complete_node_pos > 0:
+                # 构造完整的 JSON
+                candidate = cleaned[:last_complete_node_pos] + ']'
+                # 检查是否有 root 字段，如果没有就添加一个默认的
+                if '"root"' not in candidate:
+                    # 尝试从 nodes 中提取第一个节点的 id 作为 root
+                    root_match = re.search(r'"id"\s*:\s*"([^"]+)"', candidate)
+                    if root_match:
+                        root_id = root_match.group(1)
+                        candidate = candidate + f', "root": "{root_id}"'
+                    else:
+                        candidate = candidate + ', "root": "g-root"'
+                candidate = candidate + '}'
+                try:
+                    parsed = json.loads(candidate)
+                    if isinstance(parsed, dict) and "nodes" in parsed:
+                        return parsed
+                except Exception:
+                    pass
+    
+    # 如果上面的方法失败，回退到原来的正则匹配
     match = re.search(r"\{.*\}", cleaned, re.S)
     if match:
         candidate = match.group(0)
         try:
-            return json.loads(candidate)
+            parsed = json.loads(candidate)
+            if isinstance(parsed, dict) and "nodes" in parsed:
+                return parsed
         except Exception:
             pass
+    
+    # 最后尝试直接解析整个文本
     try:
-        return json.loads(cleaned)
+        parsed = json.loads(cleaned)
+        if isinstance(parsed, dict) and "nodes" in parsed:
+            return parsed
     except Exception:
-        return None
+        pass
+    
+    return None
 
 
 class RateLimiter:

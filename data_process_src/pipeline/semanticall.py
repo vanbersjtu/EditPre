@@ -52,51 +52,44 @@ def build_cmd(
     out_dir: Path,
     args: argparse.Namespace,
 ) -> list:
-    """构造调用 `python -m pipeline.svg_text_semantic` 的命令行。"""
+    """构造调用 `python -m pipeline.svg_text_semantic_vllm` 的命令行。"""
     cmd = [
         sys.executable,
         "-m",
-        "pipeline.svg_text_semantic",
+        "pipeline.svg_text_semantic_vllm",
         "--input",
         str(svg_dir),
         "--output",
         str(out_dir),
     ]
 
+    # vLLM / 引擎相关参数透传
+    if getattr(args, "model", None):
+        cmd += ["--model", args.model]
+    if getattr(args, "tp", None) is not None:
+        cmd += ["--tp", str(args.tp)]
+    if getattr(args, "gpu_mem_util", None) is not None:
+        cmd += ["--gpu-mem-util", str(args.gpu_mem_util)]
+    if getattr(args, "max_model_len", None) is not None:
+        cmd += ["--max-model-len", str(args.max_model_len)]
+    if getattr(args, "max_batched_tokens", None) is not None:
+        cmd += ["--max-batched-tokens", str(args.max_batched_tokens)]
+    if getattr(args, "max_num_seqs", None) is not None:
+        cmd += ["--max-num-seqs", str(args.max_num_seqs)]
+
+    # 语义 LLM 相关参数透传
     if args.meta:
         cmd += ["--meta", str(Path(args.meta).expanduser().resolve())]
     if args.config:
         cmd += ["--config", args.config]
-    if args.base_url:
-        cmd += ["--base-url", args.base_url]
-    if args.api_key:
-        cmd += ["--api-key", args.api_key]
-    if args.model:
-        cmd += ["--model", args.model]
     if args.max_tokens is not None:
         cmd += ["--max-tokens", str(args.max_tokens)]
     if args.temperature is not None:
         cmd += ["--temperature", str(args.temperature)]
-    if args.timeout is not None:
-        cmd += ["--timeout", str(args.timeout)]
-    if args.workers is not None:
-        cmd += ["--workers", str(args.workers)]
-    if args.qps is not None:
-        cmd += ["--qps", str(args.qps)]
     if args.retries is not None:
         cmd += ["--retries", str(args.retries)]
-    if args.pad is not None:
-        cmd += ["--pad", str(args.pad)]
-    if args.keep_ids:
-        cmd += ["--keep-ids"]
     if args.prompt:
         cmd += ["--prompt", args.prompt]
-    if args.enforce_font_size:
-        cmd += ["--enforce-font-size"]
-    if args.font_size_tol is not None:
-        cmd += ["--font-size-tol", str(args.font_size_tol)]
-    if args.require_success:
-        cmd += ["--require-success"]
 
     return cmd
 
@@ -115,7 +108,7 @@ def run_for_dir(svg_dir: Path, out_root: Path, in_root: Path, args: argparse.Nam
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run svg_text_semantic on all subdirectories (semantic text grouping)."
+        description="Run svg_text_semantic_vllm on all subdirectories (semantic text grouping with vLLM)."
     )
     parser.add_argument("--input", required=True, help="输入根目录（占位符 SVG 的根），包含多个子目录。")
     parser.add_argument("--output", required=True, help="输出根目录，将按相同子目录结构写入语义 SVG。")
@@ -124,36 +117,47 @@ def main() -> None:
         default="",
         help="可选：统一的 meta 根目录（items/plans/raw）。若为空则每个子目录各自使用 output/meta。",
     )
-    parser.add_argument("--config", default="", help="传给 svg_text_semantic 的 config 路径（可选）。")
+    parser.add_argument("--config", default="", help="文本参数的 config 路径（可选，仅用于 max_tokens / temperature 等）。")
 
-    # 透传给 svg_text_semantic 的 LLM 相关参数（HTTP / OpenAI 兼容接口）
-    parser.add_argument("--base-url", default="", help="OpenAI-compatible base URL.")
-    parser.add_argument("--api-key", default="", help="API key.")
-    parser.add_argument("--model", default="", help="Text model name.")
-    parser.add_argument("--max-tokens", type=int, default=None, help="LLM 输出最大 token 数。")
-    parser.add_argument("--temperature", type=float, default=None, help="LLM 采样温度。")
-    parser.add_argument("--timeout", type=int, default=None, help="请求超时时间（秒）。")
-    parser.add_argument("--workers", type=int, default=None, help="单目录内部并行 worker 数。")
-    parser.add_argument("--qps", type=float, default=None, help="全局 QPS 限制。")
-    parser.add_argument("--retries", type=int, default=None, help="失败重试次数。")
-    parser.add_argument("--pad", type=float, default=None, help="textbox/group 外框 padding。")
-    parser.add_argument("--keep-ids", action="store_true", help="保留 data-extract-id。")
-    parser.add_argument("--prompt", default="", help="自定义 LLM prompt。")
+    # 透传给 vLLM 本地引擎的参数（与 svg_text_semantic_vllm 对齐）
     parser.add_argument(
-        "--enforce-font-size",
-        action="store_true",
-        help="强制同一 textbox 内字号归一逻辑（转发给 svg_text_semantic）。",
+        "--model",
+        default="/mnt/cache/liwenbo/data/model/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        help="本地 vLLM 模型路径（Qwen3-Coder-30B-A3B-Instruct）。",
     )
+    parser.add_argument("--tp", type=int, default=4, help="vLLM tensor parallel size（建议与 GPU 数量一致）。")
     parser.add_argument(
-        "--font-size-tol",
+        "--gpu-mem-util",
         type=float,
-        default=None,
-        help="字体容差，建议 0.2 左右（不填则沿用 svg_text_semantic 默认值）。",
+        default=0.85,
+        help="vLLM GPU 显存利用率（0-1）。",
     )
     parser.add_argument(
-        "--require-success",
-        action="store_true",
-        help="若某子目录存在失败项，则让子进程以非零退出（便于上层检测）。",
+        "--max-model-len",
+        type=int,
+        default=4096,
+        help="vLLM 最大上下文长度（用于控制显存）。",
+    )
+    parser.add_argument(
+        "--max-batched-tokens",
+        type=int,
+        default=16384,
+        help="vLLM 单 batch 最大 token 数，用于提高吞吐。",
+    )
+    parser.add_argument(
+        "--max-num-seqs",
+        type=int,
+        default=256,
+        help="vLLM 引擎内同时保留的最大序列数。",
+    )
+
+    parser.add_argument("--max-tokens", type=int, default=None, help="LLM 输出最大 token 数（单 SVG）。")
+    parser.add_argument("--temperature", type=float, default=None, help="LLM 采样温度。")
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=1,
+        help="解析失败时重试次数（vLLM 内部再次生成）。",
     )
 
     parser.add_argument(
