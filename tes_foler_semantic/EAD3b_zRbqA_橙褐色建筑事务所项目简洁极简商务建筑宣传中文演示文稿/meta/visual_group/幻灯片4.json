@@ -1,0 +1,88 @@
+{
+  "nodes": [
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "body",
+      "order": 0,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "Architecture should speak of its time and place,"
+        }
+      ],
+      "text": "Architecture should speak of its time and place,"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "but yearn for timelessness."
+        }
+      ],
+      "text": "but yearn for timelessness."
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "建筑应该注重它的时间和地点，同时力求流芳百世。"
+        }
+      ],
+      "text": "建筑应该注重它的时间和地点，同时力求流芳百世。"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "title",
+      "order": 3,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "人生箴言"
+        }
+      ],
+      "text": "人生箴言"
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0001",
+        "t0002",
+        "t0003",
+        "t0004"
+      ],
+      "confidence": 1.0,
+      "text": "Architecture should speak of its time and place,\nbut yearn for timelessness.\n建筑应该注重它的时间和地点，同时力求流芳百世。\n人生箴言"
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

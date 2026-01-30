@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "tb_1",
+      "type": "textbox",
+      "role": "section",
+      "order": 0,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_2",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0003",
+        "t0004",
+        "t0005"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "grp_1",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "tb_1",
+        "tb_2"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_3",
+      "type": "textbox",
+      "role": "section",
+      "order": 0,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_4",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0007",
+        "t0008",
+        "t0009"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "grp_2",
+      "type": "group",
+      "role": "section",
+      "order": 1,
+      "children": [
+        "tb_3",
+        "tb_4"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "root",
+      "type": "group",
+      "role": "unknown",
+      "order": 7,
+      "children": [
+        "grp_1",
+        "grp_2"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "root",
+  "unassigned": []
+}

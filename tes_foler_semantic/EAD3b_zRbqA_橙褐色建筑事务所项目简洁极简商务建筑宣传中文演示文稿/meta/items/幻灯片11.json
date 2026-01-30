@@ -1,0 +1,68 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "99%",
+      "bbox": {
+        "x": 372.42,
+        "y": 262.0,
+        "w": 278.0,
+        "h": 154.0
+      },
+      "style": {
+        "fontSize": "139px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "我们的客户对我们的工作很满意",
+      "bbox": {
+        "x": 184.12,
+        "y": 454.0,
+        "w": 602.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "97%",
+      "bbox": {
+        "x": 1282.73,
+        "y": 262.0,
+        "w": 278.0,
+        "h": 154.0
+      },
+      "style": {
+        "fontSize": "139px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "人们对我们的服务体验非常满意",
+      "bbox": {
+        "x": 1094.43,
+        "y": 454.0,
+        "w": 602.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

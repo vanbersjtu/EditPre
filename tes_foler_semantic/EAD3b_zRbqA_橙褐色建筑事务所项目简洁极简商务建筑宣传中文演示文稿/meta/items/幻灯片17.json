@@ -1,0 +1,203 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "可瓦建筑事务所",
+      "bbox": {
+        "x": 1466.94,
+        "y": 989.0,
+        "w": 224.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0002",
+      "text": "2020",
+      "bbox": {
+        "x": 1726.48,
+        "y": 989.0,
+        "w": 64.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交流工具。",
+      "bbox": {
+        "x": 898.46,
+        "y": 345.0,
+        "w": 864.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "大多数情况下，它们是在观众面前展示的。",
+      "bbox": {
+        "x": 898.46,
+        "y": 396.0,
+        "w": 608.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "它有多种用途，这",
+      "bbox": {
+        "x": 1533.89,
+        "y": 396.0,
+        "w": 256.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "使得使它们成为说服和教学他人的强大工具。",
+      "bbox": {
+        "x": 898.46,
+        "y": 446.0,
+        "w": 640.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0008",
+      "text": "要做一个精彩的演讲，最好简化你的思想。从主题的大纲开始",
+      "bbox": {
+        "x": 898.46,
+        "y": 548.0,
+        "w": 864.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0009",
+      "text": "，找出重点，它可以应用到你计划讨论的任何主题上。然后你",
+      "bbox": {
+        "x": 898.46,
+        "y": 598.0,
+        "w": 864.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0010",
+      "text": "可以把它们组织成你的引言、主要内容和结论。确保你做了足",
+      "bbox": {
+        "x": 898.46,
+        "y": 649.0,
+        "w": 864.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0011",
+      "text": "够的研究来支持你的观点。将数据与图表、图形或图像等可视",
+      "bbox": {
+        "x": 898.46,
+        "y": 700.0,
+        "w": 864.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0012",
+      "text": "化辅助工具配对也是一个好主意。",
+      "bbox": {
+        "x": 898.46,
+        "y": 750.0,
+        "w": 480.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0013",
+      "text": "可瓦建筑事务所",
+      "bbox": {
+        "x": 898.46,
+        "y": 109.0,
+        "w": 525.0,
+        "h": 83.0
+      },
+      "style": {
+        "fontSize": "75px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0014",
+      "text": "我们的故事",
+      "bbox": {
+        "x": 898.46,
+        "y": 217.0,
+        "w": 240.0,
+        "h": 53.0
+      },
+      "style": {
+        "fontSize": "48px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

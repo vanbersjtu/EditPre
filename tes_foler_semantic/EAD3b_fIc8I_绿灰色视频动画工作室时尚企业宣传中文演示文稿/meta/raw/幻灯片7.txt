@@ -1,0 +1,64 @@
+ 
+
+OUTPUT_JSON:
+{
+  "nodes": [
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [
+        "t0002",
+        "t0003",
+        "t0004"
+      ]
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "body",
+      "order": 1,
+      "children": [
+        "t0005"
+      ]
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0002"
+      ]
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0003"
+      ]
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 2,
+      "item_ids": [
+        "t0004"
+      ]
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 0,
+      "item_ids": [
+        "t0005"
+      ]
+    }
+  ],
+  "root": "g0001"
+}

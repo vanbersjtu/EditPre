@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "视频动画工作室"
+        }
+      ],
+      "text": "视频动画工作室"
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "可瓦工作室"
+        }
+      ],
+      "text": "可瓦工作室"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "title",
+      "order": 2,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "CANVA STUDIO"
+        }
+      ],
+      "text": "CANVA STUDIO"
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0005",
+        "t0006",
+        "t0007"
+      ],
+      "confidence": 1.0,
+      "text": "视频动画工作室\n可瓦工作室\nCANVA STUDIO"
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

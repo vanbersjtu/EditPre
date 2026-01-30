@@ -1,0 +1,85 @@
+{
+  "nodes": [
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0003",
+        "t0004",
+        "t0005",
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "t0007",
+        "t0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "section",
+      "order": 1,
+      "children": [
+        "t0012",
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "body",
+      "order": 2,
+      "children": [
+        "g0001",
+        "g0002"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "g0003",
+  "unassigned": []
+}

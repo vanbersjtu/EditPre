@@ -1,0 +1,698 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "讨论的话题",
+      "bbox": {
+        "x": 1207.47998046875,
+        "y": 256,
+        "w": 256,
+        "h": 56
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1207.47998046875,
+        "f": 301
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "51px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "讨论的话题"
+    },
+    {
+      "id": "t0002",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 368,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 404
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0003",
+      "text": "产品概述",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 368,
+        "w": 160,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 404
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "产品概述"
+    },
+    {
+      "id": "t0004",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 428,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 464
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0005",
+      "text": "背景和优势",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 428,
+        "w": 200,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 464
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "背景和优势"
+    },
+    {
+      "id": "t0006",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 488,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 524
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0007",
+      "text": "策略",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 488,
+        "w": 80,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 524
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "策略"
+    },
+    {
+      "id": "t0008",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 548,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 584
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0009",
+      "text": "宣传",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 548,
+        "w": 80,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 584
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "宣传"
+    },
+    {
+      "id": "t0010",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 608,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 644
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0011",
+      "text": "预算",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 608,
+        "w": 80,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 644
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "预算"
+    },
+    {
+      "id": "t0012",
+      "text": "•",
+      "bbox": {
+        "x": 1233.47998046875,
+        "y": 668,
+        "w": 14.015625,
+        "h": 44
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1233.47998046875,
+        "f": 704
+      },
+      "style": {
+        "fontFamily": "Arial, Arial_MSFontService, sans-serif",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "•"
+    },
+    {
+      "id": "t0013",
+      "text": "时间线",
+      "bbox": {
+        "x": 1259.47998046875,
+        "y": 668,
+        "w": 120,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1259.47998046875,
+        "f": 704
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "时间线"
+    },
+    {
+      "id": "t0014",
+      "text": "演讲大纲",
+      "bbox": {
+        "x": 356.4909973144531,
+        "y": 323,
+        "w": 348,
+        "h": 97
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 356.4909973144531,
+        "f": 401
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "87px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲大纲"
+    },
+    {
+      "id": "t0015",
+      "text": "Presentation",
+      "bbox": {
+        "x": 356.4909973144531,
+        "y": 454,
+        "w": 391.984375,
+        "h": 81
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 356.4909973144531,
+        "f": 519
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "73px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "Presentation"
+    },
+    {
+      "id": "t0016",
+      "text": "Outline",
+      "bbox": {
+        "x": 356.4909973144531,
+        "y": 542,
+        "w": 235.265625,
+        "h": 81
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 356.4909973144531,
+        "f": 607
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "73px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "Outline"
+    },
+    {
+      "id": "t0017",
+      "text": "可瓦奶昔店新品宣传计划",
+      "bbox": {
+        "x": 1297.0999755859375,
+        "y": 1005,
+        "w": 231,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1297.0999755859375,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "可瓦奶昔店新品宣传计划"
+    },
+    {
+      "id": "t0018",
+      "text": "• 2020",
+      "bbox": {
+        "x": 1587.800048828125,
+        "y": 1005,
+        "w": 54.609375,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1587.800048828125,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "• 2020"
+    },
+    {
+      "id": "t0019",
+      "text": "年",
+      "bbox": {
+        "x": 1686.9000244140625,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1686.9000244140625,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "年"
+    },
+    {
+      "id": "t0020",
+      "text": "9",
+      "bbox": {
+        "x": 1712.5,
+        "y": 1005,
+        "w": 10.5,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1712.5,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "9"
+    },
+    {
+      "id": "t0021",
+      "text": "月",
+      "bbox": {
+        "x": 1728.5999755859375,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1728.5999755859375,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "月"
+    },
+    {
+      "id": "t0022",
+      "text": "25",
+      "bbox": {
+        "x": 1754.199951171875,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1754.199951171875,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "25"
+    },
+    {
+      "id": "t0023",
+      "text": "日",
+      "bbox": {
+        "x": 1786.4000244140625,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1786.4000244140625,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "日"
+    }
+  ]
+}

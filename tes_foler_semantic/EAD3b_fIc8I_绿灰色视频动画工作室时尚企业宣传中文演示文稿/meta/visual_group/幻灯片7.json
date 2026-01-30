@@ -1,0 +1,98 @@
+{
+  "nodes": [
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [
+        "t0002",
+        "t0003",
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "text": "去年最大的数据\n趋势是什么\n?"
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "body",
+      "order": 1,
+      "children": [
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "text": "视频营销"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "去年最大的数据"
+        }
+      ],
+      "text": "去年最大的数据"
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "趋势是什么"
+        }
+      ],
+      "text": "趋势是什么"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 2,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "?"
+        }
+      ],
+      "text": "?"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 0,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "视频营销"
+        }
+      ],
+      "text": "视频营销"
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

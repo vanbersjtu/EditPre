@@ -1,0 +1,128 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "Work on the business first,",
+      "bbox": {
+        "x": 150.62100219726562,
+        "y": 245,
+        "w": 765.046875,
+        "h": 74
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 150.62100219726562,
+        "f": 305
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "67px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "Work on the business first,"
+    },
+    {
+      "id": "t0003",
+      "text": "before it works for you.",
+      "bbox": {
+        "x": 150.62100219726562,
+        "y": 325,
+        "w": 669.328125,
+        "h": 74
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 150.62100219726562,
+        "f": 385
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "67px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "before it works for you."
+    },
+    {
+      "id": "t0004",
+      "text": "在你成功之前，先谈生意。",
+      "bbox": {
+        "x": 149.62100219726562,
+        "y": 463,
+        "w": 721,
+        "h": 67
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 150.62100219726562,
+        "f": 517
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "60px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "在你成功之前，先谈生意。"
+    },
+    {
+      "id": "t0005",
+      "text": "我们的至理名言",
+      "bbox": {
+        "x": 1510,
+        "y": 925,
+        "w": 282,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1511,
+        "f": 961
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "我们的至理名言"
+    }
+  ]
+}

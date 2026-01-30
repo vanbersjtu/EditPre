@@ -1,0 +1,818 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "可瓦奶昔店新品宣传计划",
+      "bbox": {
+        "x": 1297.0999755859375,
+        "y": 1005,
+        "w": 231,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1297.0999755859375,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "可瓦奶昔店新品宣传计划"
+    },
+    {
+      "id": "t0002",
+      "text": "• 2020",
+      "bbox": {
+        "x": 1587.800048828125,
+        "y": 1005,
+        "w": 54.609375,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1587.800048828125,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "• 2020"
+    },
+    {
+      "id": "t0003",
+      "text": "年",
+      "bbox": {
+        "x": 1686.9000244140625,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1686.9000244140625,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "年"
+    },
+    {
+      "id": "t0004",
+      "text": "9",
+      "bbox": {
+        "x": 1712.5,
+        "y": 1005,
+        "w": 10.5,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1712.5,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "9"
+    },
+    {
+      "id": "t0005",
+      "text": "月",
+      "bbox": {
+        "x": 1728.5999755859375,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1728.5999755859375,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "月"
+    },
+    {
+      "id": "t0006",
+      "text": "25",
+      "bbox": {
+        "x": 1754.199951171875,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1754.199951171875,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "25"
+    },
+    {
+      "id": "t0007",
+      "text": "日",
+      "bbox": {
+        "x": 1786.4000244140625,
+        "y": 1005,
+        "w": 21,
+        "h": 24
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1786.4000244140625,
+        "f": 1024
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "日"
+    },
+    {
+      "id": "t0008",
+      "text": "只做优质奶昔",
+      "bbox": {
+        "x": 173.12100219726562,
+        "y": 780,
+        "w": 242,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 174.12100219726562,
+        "f": 816
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "只做优质奶昔"
+    },
+    {
+      "id": "t0009",
+      "text": "我们的奶",
+      "bbox": {
+        "x": 130.12100219726562,
+        "y": 226,
+        "w": 321,
+        "h": 88
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 131.12100219726562,
+        "f": 297
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "我们的奶"
+    },
+    {
+      "id": "t0010",
+      "text": "昔有什么",
+      "bbox": {
+        "x": 131.12100219726562,
+        "y": 338,
+        "w": 324,
+        "h": 88
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 131.12100219726562,
+        "f": 409
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "昔有什么"
+    },
+    {
+      "id": "t0011",
+      "text": "特别之处",
+      "bbox": {
+        "x": 130.12100219726562,
+        "y": 449,
+        "w": 321,
+        "h": 89
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 131.12100219726562,
+        "f": 521
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "特别之处"
+    },
+    {
+      "id": "t0012",
+      "text": "演讲是一种交流工具，可以",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 258,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 289
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0013",
+      "text": "是演示演讲等等。大多数时",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 310,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 341
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0014",
+      "text": "候呈现在观众面前。",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 362,
+        "w": 315,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 393
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0015",
+      "text": "丰富的奶油",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 174,
+        "w": 200,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 210
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "丰富的奶油"
+    },
+    {
+      "id": "t0016",
+      "text": "演讲是一种交流工具，可以",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 258,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 289
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0017",
+      "text": "是演示演讲等等。大多数时",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 310,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 341
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0018",
+      "text": "候呈现在观众面前。",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 362,
+        "w": 315,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 393
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0019",
+      "text": "味美可口",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 173,
+        "w": 160,
+        "h": 46
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 210
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "味美可口"
+    },
+    {
+      "id": "t0020",
+      "text": "演讲是一种交流工具，可以",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 566,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 597
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0021",
+      "text": "是演示演讲等等。大多数时",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 618,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 649
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0022",
+      "text": "候呈现在观众面前。",
+      "bbox": {
+        "x": 771.6209716796875,
+        "y": 670,
+        "w": 315,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 701
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0023",
+      "text": "各种口味",
+      "bbox": {
+        "x": 770.6209716796875,
+        "y": 481,
+        "w": 163,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 771.6209716796875,
+        "f": 517
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "各种口味"
+    },
+    {
+      "id": "t0024",
+      "text": "演讲是一种交流工具，可以",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 566,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 597
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0025",
+      "text": "是演示演讲等等。大多数时",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 618,
+        "w": 420,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 649
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0026",
+      "text": "候呈现在观众面前。",
+      "bbox": {
+        "x": 1285.6199951171875,
+        "y": 670,
+        "w": 315,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 701
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0027",
+      "text": "优质成分",
+      "bbox": {
+        "x": 1284.6199951171875,
+        "y": 481,
+        "w": 163,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1285.6199951171875,
+        "f": 517
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "优质成分"
+    }
+  ]
+}

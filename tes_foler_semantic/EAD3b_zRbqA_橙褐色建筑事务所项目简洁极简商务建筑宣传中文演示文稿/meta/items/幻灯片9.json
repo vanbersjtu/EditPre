@@ -1,0 +1,98 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "可瓦建筑事务所",
+      "bbox": {
+        "x": 1466.94,
+        "y": 989.0,
+        "w": 224.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0002",
+      "text": "2020",
+      "bbox": {
+        "x": 1726.48,
+        "y": 989.0,
+        "w": 64.0,
+        "h": 36.0
+      },
+      "style": {
+        "fontSize": "32px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "我们的服务",
+      "bbox": {
+        "x": 108.0,
+        "y": 108.0,
+        "w": 375.0,
+        "h": 83.0
+      },
+      "style": {
+        "fontSize": "75px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "建筑风格",
+      "bbox": {
+        "x": 261.53,
+        "y": 737.0,
+        "w": 193.0,
+        "h": 53.0
+      },
+      "style": {
+        "fontSize": "48px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "建筑规划",
+      "bbox": {
+        "x": 856.76,
+        "y": 737.0,
+        "w": 193.0,
+        "h": 53.0
+      },
+      "style": {
+        "fontSize": "48px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "内部装饰",
+      "bbox": {
+        "x": 1452.99,
+        "y": 737.0,
+        "w": 192.0,
+        "h": 53.0
+      },
+      "style": {
+        "fontSize": "48px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "我们用最新鲜和最好的原料制作。",
+      "bbox": {
+        "x": 658.8309936523438,
+        "y": 243,
+        "w": 901,
+        "h": 67
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 659.8309936523438,
+        "f": 297
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "60px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "我们用最新鲜和最好的原料制作。"
+    },
+    {
+      "id": "t0003",
+      "text": "我们追求卓越的品质",
+      "bbox": {
+        "x": 959,
+        "y": 925,
+        "w": 362,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 960,
+        "f": 961
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "我们追求卓越的品质"
+    },
+    {
+      "id": "t0004",
+      "text": "。",
+      "bbox": {
+        "x": 1347,
+        "y": 925,
+        "w": 40,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1347,
+        "f": 961
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "。"
+    }
+  ]
+}

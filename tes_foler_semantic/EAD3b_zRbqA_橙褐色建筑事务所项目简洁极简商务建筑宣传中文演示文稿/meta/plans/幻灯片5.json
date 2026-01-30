@@ -1,0 +1,243 @@
+{
+  "nodes": [
+    {
+      "id": "t0020",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0020"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0021",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0021"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0022",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 2,
+      "item_ids": [
+        "t0022"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 4,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 5,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 6,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "body",
+      "order": 7,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "body",
+      "order": 8,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "body",
+      "order": 9,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "body",
+      "order": 10,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "body",
+      "order": 11,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "body",
+      "order": 12,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "body",
+      "order": 13,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "body",
+      "order": 14,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "body",
+      "order": 15,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0015",
+      "type": "textbox",
+      "role": "body",
+      "order": 16,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0016",
+      "type": "textbox",
+      "role": "body",
+      "order": 17,
+      "item_ids": [
+        "t0016"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0017",
+      "type": "textbox",
+      "role": "body",
+      "order": 18,
+      "item_ids": [
+        "t0017"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0018",
+      "type": "textbox",
+      "role": "footer",
+      "order": 19,
+      "item_ids": [
+        "t0018"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0019",
+      "type": "textbox",
+      "role": "footer",
+      "order": 20,
+      "item_ids": [
+        "t0019"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "body",
+      "order": 21,
+      "children": [
+        "t0021",
+        "t0022",
+        "t0002",
+        "t0003",
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007",
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0012",
+        "t0013",
+        "t0014",
+        "t0015",
+        "t0016",
+        "t0017"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

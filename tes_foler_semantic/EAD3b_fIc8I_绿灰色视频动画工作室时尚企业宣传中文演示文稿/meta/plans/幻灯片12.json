@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb-auto-2",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 2,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.1
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

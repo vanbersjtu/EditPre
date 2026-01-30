@@ -1,0 +1,250 @@
+{
+  "nodes": [
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "报告主要内容"
+        }
+      ],
+      "text": "报告主要内容"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 1,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 2,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "关于可瓦工作室"
+        }
+      ],
+      "text": "关于可瓦工作室"
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 3,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 4,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0010",
+          "text": "服务项目"
+        }
+      ],
+      "text": "服务项目"
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 5,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0011",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 6,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0012",
+          "text": "视频营销"
+        }
+      ],
+      "text": "视频营销"
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 7,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0013",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 8,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0014",
+          "text": "运作方法"
+        }
+      ],
+      "text": "运作方法"
+    },
+    {
+      "id": "t0015",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 9,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0015",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0016",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 10,
+      "item_ids": [
+        "t0016"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0016",
+          "text": "主要趋势"
+        }
+      ],
+      "text": "主要趋势"
+    },
+    {
+      "id": "t0017",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 11,
+      "item_ids": [
+        "t0017"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0017",
+          "text": "•"
+        }
+      ],
+      "text": "•"
+    },
+    {
+      "id": "t0018",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 12,
+      "item_ids": [
+        "t0018"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0018",
+          "text": "客户群体"
+        }
+      ],
+      "text": "客户群体"
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0001",
+        "t0007",
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0012",
+        "t0013",
+        "t0014",
+        "t0015",
+        "t0016",
+        "t0017",
+        "t0018"
+      ],
+      "confidence": 1.0,
+      "text": "报告主要内容\n•\n关于可瓦工作室\n•\n服务项目\n•\n视频营销\n•\n运作方法\n•\n主要趋势\n•\n客户群体"
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

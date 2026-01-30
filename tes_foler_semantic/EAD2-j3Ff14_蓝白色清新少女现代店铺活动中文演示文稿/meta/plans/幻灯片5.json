@@ -1,0 +1,129 @@
+{
+  "nodes": [
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "header",
+      "order": 0,
+      "children": [
+        "g0002",
+        "g0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "subtitle",
+      "order": 1,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0004",
+      "type": "group",
+      "role": "body",
+      "order": 2,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0005",
+      "type": "group",
+      "role": "callout",
+      "order": 3,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb-auto-6",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 6,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-7",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 7,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-8",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 8,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-9",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 9,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-10",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 10,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-11",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 11,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-12",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 12,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-13",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 13,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.1
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

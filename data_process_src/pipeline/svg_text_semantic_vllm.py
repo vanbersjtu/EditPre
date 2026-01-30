@@ -177,9 +177,10 @@ def build_prompt(role_list: List[str]) -> str:
 def slim_item(item: Dict[str, object]) -> Dict[str, object]:
     """
     精简单个 item，只保留语义分组所需的核心字段。
-    保留：id, text, bbox (x,y,w,h 保留2位小数), style.fontSize, style.fontWeight, style.textAnchor
-    删除：ctm (对语义分组无用，最终输出 SVG 时也不需要), 
-         style 其他字段 (fontFamily, fill, opacity, letterSpacing, dominantBaseline), text_xml
+    保留：id, text, bbox (x,y,w,h 保留2位小数), style.fontSize, style.fontWeight,
+         style.textAnchor, style.fontFamily, style.fill, style.opacity
+    删除：ctm (对语义分组无用，最终输出 SVG 时也不需要),
+         style 其他字段 (letterSpacing, dominantBaseline), text_xml
     """
     if not isinstance(item, dict):
         return item
@@ -209,6 +210,12 @@ def slim_item(item: Dict[str, object]) -> Dict[str, object]:
             slimmed_style["fontWeight"] = style["fontWeight"]
         if style.get("textAnchor"):
             slimmed_style["textAnchor"] = style["textAnchor"]
+        if style.get("fontFamily"):
+            slimmed_style["fontFamily"] = style["fontFamily"]
+        if style.get("fill"):
+            slimmed_style["fill"] = style["fill"]
+        if style.get("opacity"):
+            slimmed_style["opacity"] = style["opacity"]
         if slimmed_style:
             slimmed["style"] = slimmed_style
 

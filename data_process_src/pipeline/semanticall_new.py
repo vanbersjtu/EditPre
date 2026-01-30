@@ -11,6 +11,7 @@ svg_text_semantic_vllm_global.py
 - 每个子目录下仍然有各自的：
   - `meta/items/<name>.json`
   - `meta/plans/<name>.json`
+  - `meta/visual_group/<name>.json`
   - `meta/raw/<name>.txt` / `<name>_retry.txt`（这里沿用单文件名，不加 retry 后缀）
   - `meta/failed_tasks.json`
 
@@ -22,7 +23,7 @@ svg_text_semantic_vllm_global.py
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 import xml.etree.ElementTree as ET
 
@@ -86,6 +87,113 @@ def save_failed_map(meta_dir: Path, failures: Dict[str, str]) -> None:
     failed_tasks_path.write_text(json.dumps(failed_items, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def build_visual_group_plan(
+    plan: Dict[str, object],
+    items: List[Dict[str, object]],
+) -> Dict[str, object]:
+    nodes_raw = plan.get("nodes") if isinstance(plan, dict) else None
+    if not isinstance(nodes_raw, list):
+        return {
+            "nodes": [],
+            "root": plan.get("root") if isinstance(plan, dict) else None,
+            "unassigned": plan.get("unassigned") if isinstance(plan, dict) else [],
+        }
+
+    id_to_text: Dict[str, str] = {}
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        item_id = item.get("id")
+        if not isinstance(item_id, str):
+            continue
+        text_val = item.get("text")
+        id_to_text[item_id] = "" if text_val is None else str(text_val)
+
+    nodes_map: Dict[str, Dict[str, object]] = {}
+    for node in nodes_raw:
+        if not isinstance(node, dict):
+            continue
+        node_id = node.get("id")
+        if not isinstance(node_id, str):
+            continue
+        nodes_map[node_id] = dict(node)
+
+    for node in nodes_map.values():
+        if node.get("type") != "textbox":
+            continue
+        item_ids = node.get("item_ids")
+        if not isinstance(item_ids, list):
+            item_ids = []
+        items_payload: List[Dict[str, str]] = []
+        texts: List[str] = []
+        for iid in item_ids:
+            if not isinstance(iid, str):
+                continue
+            text = id_to_text.get(iid, "")
+            items_payload.append({"id": iid, "text": text})
+            if text:
+                texts.append(text)
+        node["items"] = items_payload
+        node["text"] = "\n".join(texts).strip()
+
+    text_cache: Dict[str, str] = {}
+
+    def collect_text(node_id: str, stack: Set[str]) -> str:
+        cached = text_cache.get(node_id)
+        if cached is not None:
+            return cached
+        node = nodes_map.get(node_id)
+        if not node:
+            text_cache[node_id] = ""
+            return ""
+        if node.get("type") == "textbox":
+            text = str(node.get("text") or "")
+            text_cache[node_id] = text
+            return text
+        if node.get("type") != "group":
+            text_cache[node_id] = ""
+            return ""
+        if node_id in stack:
+            text_cache[node_id] = ""
+            return ""
+
+        stack.add(node_id)
+        children = node.get("children")
+        if not isinstance(children, list):
+            children = []
+        texts: List[str] = []
+        for child_id in children:
+            if not isinstance(child_id, str):
+                continue
+            child_text = collect_text(child_id, stack)
+            if child_text:
+                texts.append(child_text)
+        stack.remove(node_id)
+
+        group_text = "\n".join(texts).strip()
+        node["text"] = group_text
+        text_cache[node_id] = group_text
+        return group_text
+
+    for node_id, node in nodes_map.items():
+        if node.get("type") == "group":
+            collect_text(node_id, set())
+
+    visual_nodes: List[Dict[str, object]] = []
+    for node in nodes_raw:
+        if not isinstance(node, dict):
+            continue
+        node_id = node.get("id")
+        if isinstance(node_id, str) and node_id in nodes_map:
+            visual_nodes.append(nodes_map[node_id])
+
+    return {
+        "nodes": visual_nodes,
+        "root": plan.get("root"),
+        "unassigned": plan.get("unassigned", []),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Global semantic grouping for all SVGs under a root directory using local vLLM."
@@ -144,6 +252,17 @@ def main() -> None:
         action="store_true",
         help="强制重算所有 SVG，忽略已有输出与 failed_tasks.json。",
     )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=64,
+        help="每批处理的 SVG 数量（控制内存占用）。",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="打印 prompt 调试信息（长度预警与预览）。",
+    )
 
     args = parser.parse_args()
 
@@ -178,8 +297,8 @@ def main() -> None:
     prompt_template = system_prefix + build_prompt(ROLE_SET)
 
     # 构造全局任务列表
-    # 每个任务包含：svg_path / out_svg / meta_dir / items_doc
-    tasks: List[Dict[str, object]] = []
+    # 每个任务包含：svg_path / out_svg / meta_dir
+    tasks: List[Dict[str, Path]] = []
     failed_cache: Dict[Path, Dict[str, str]] = {}
 
     for svg_path in svg_files:
@@ -198,13 +317,11 @@ def main() -> None:
             if svg_path.name not in failed_prev and out_svg.exists():
                 continue
 
-        items_doc = extract_items_for_svg(svg_path, meta_dir / "items")
         tasks.append(
             {
                 "svg_path": svg_path,
                 "out_svg": out_svg,
                 "meta_dir": meta_dir,
-                "items_doc": items_doc,
             }
         )
 
@@ -215,93 +332,101 @@ def main() -> None:
     total = len(tasks)
     print(f"Semantic (vLLM global): {total} SVGs to process.")
 
-    # 构造 prompts
-    prompts: List[str] = []
-    for t in tasks:
-        items_doc = t["items_doc"]  # type: ignore[assignment]
-        text = prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
-        prompts.append(text)
-
-    # 调试：打印所有 prompt 的长度，并打印超长的详情
-    print(f"[semantic-vllm] total prompts: {len(prompts)}")
-    max_safe_chars = args.max_model_len * 2  # 粗略估算：1 token ≈ 2-4 字符，取保守值 2
-    long_prompts = []
-    for i, (t, p) in enumerate(zip(tasks, prompts)):
-        char_len = len(p)
-        svg_path: Path = t["svg_path"]  # type: ignore[assignment]
-        if char_len > max_safe_chars * 0.8:  # 超过 80% 阈值就记录
-            long_prompts.append((i, svg_path.name, char_len))
-
-    if long_prompts:
-        print(f"[semantic-vllm] WARNING: Found {len(long_prompts)} potentially long prompts (may exceed max_model_len):")
-        for idx, name, char_len in long_prompts[:10]:  # 最多打印前10个
-            print(f"  [{idx}] {name}: {char_len} chars")
-            print(f"    Preview: {prompts[idx][:200]}...")
-
-    # 打印前几个 prompt 的详情（用于调试）
-    for i, p in enumerate(prompts[:3]):
-        print(f"\n[semantic-vllm] prompt[{i}] char_len={len(p)}")
-        print(p[:600])
-        print("-" * 80)
-
-    # 批量推理（一次性或多次调 vLLM，由 vLLM 内部调度控制）
+    batch_size = max(args.batch_size, 1)
     retry_max_tokens = min(max_tokens * 2, 2000)
-    results = engine.generate_with_retry(prompts, max_tokens=max_tokens, retry_max_tokens=retry_max_tokens)
-
-    # 按 meta_dir 归档失败信息
     failures_by_meta: Dict[Path, Dict[str, str]] = {m: {} for m in failed_cache.keys()}
-
     processed = 0
-    for t, (raw_text, err) in zip(tasks, results):
-        svg_path: Path = t["svg_path"]  # type: ignore[assignment]
-        out_svg: Path = t["out_svg"]  # type: ignore[assignment]
-        meta_dir: Path = t["meta_dir"]  # type: ignore[assignment]
-        items_doc = t["items_doc"]  # type: ignore[assignment]
-        name = svg_path.stem
 
-        items = items_doc.get("items") if isinstance(items_doc, dict) else None
-        if not isinstance(items, list):
-            items = []
+    for start in range(0, total, batch_size):
+        batch_tasks = tasks[start : start + batch_size]
+        prompts: List[str] = []
+        batch_items_docs: List[Dict[str, object]] = []
 
-        meta_raw_dir = meta_dir / "raw"
-        meta_plans_dir = meta_dir / "plans"
+        for t in batch_tasks:
+            svg_path: Path = t["svg_path"]
+            meta_dir: Path = t["meta_dir"]
+            items_doc = extract_items_for_svg(svg_path, meta_dir / "items")
+            batch_items_docs.append(items_doc)
+            text = prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+            prompts.append(text)
 
-        # 写 raw 响应
-        meta_raw_dir.mkdir(parents=True, exist_ok=True)
-        raw_path = meta_raw_dir / f"{name}.txt"
-        raw_path.write_text(raw_text or (err or ""), encoding="utf-8")
+        if args.debug:
+            print(f"[semanticall] total prompts: {len(prompts)}")
+            max_safe_chars = args.max_model_len * 2
+            long_prompts = []
+            for i, (t, p) in enumerate(zip(batch_tasks, prompts)):
+                char_len = len(p)
+                svg_path: Path = t["svg_path"]
+                if char_len > max_safe_chars * 0.8:
+                    long_prompts.append((i, start + i, svg_path.name, char_len))
 
-        if err:
-            failures_by_meta.setdefault(meta_dir, {})[svg_path.name] = err
+            if long_prompts:
+                print(
+                    f"[semanticall] WARNING: Found {len(long_prompts)} potentially long prompts (may exceed max_model_len):"
+                )
+                for local_idx, global_idx, name, char_len in long_prompts[:10]:
+                    print(f"  [{global_idx}] {name}: {char_len} chars")
+                    print(f"    Preview: {prompts[local_idx][:200]}...")
+
+            for i, p in enumerate(prompts[:3]):
+                print(f"\n[semanticall] prompt[{start + i}] char_len={len(p)}")
+                print(p[:600])
+                print("-" * 80)
+
+        results = engine.generate_with_retry(prompts, max_tokens=max_tokens, retry_max_tokens=retry_max_tokens)
+
+        for t, items_doc, (raw_text, err) in zip(batch_tasks, batch_items_docs, results):
+            svg_path: Path = t["svg_path"]
+            out_svg: Path = t["out_svg"]
+            meta_dir: Path = t["meta_dir"]
+            name = svg_path.stem
+
+            items = items_doc.get("items") if isinstance(items_doc, dict) else None
+            if not isinstance(items, list):
+                items = []
+
+            meta_raw_dir = meta_dir / "raw"
+            meta_plans_dir = meta_dir / "plans"
+
+            meta_raw_dir.mkdir(parents=True, exist_ok=True)
+            raw_path = meta_raw_dir / f"{name}.txt"
+            raw_path.write_text(raw_text or (err or ""), encoding="utf-8")
+
+            if err:
+                failures_by_meta.setdefault(meta_dir, {})[svg_path.name] = err
+                processed += 1
+                print(f"Semantic (vLLM global): {processed}/{total} (FAILED: {svg_path})")
+                continue
+
+            parsed = parse_json_from_text(raw_text or "")
+            if not parsed:
+                failures_by_meta.setdefault(meta_dir, {})[svg_path.name] = "invalid JSON after retry"
+                processed += 1
+                print(f"Semantic (vLLM global): {processed}/{total} (FAILED: {svg_path})")
+                continue
+
+            item_ids = [it.get("id") for it in items if isinstance(it, dict) and it.get("id")]
+            plan = normalize_tree_plan(parsed or {}, item_ids)  # type: ignore[arg-type]
+
+            meta_plans_dir.mkdir(parents=True, exist_ok=True)
+            plan_path = meta_plans_dir / f"{name}.json"
+            plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            meta_visual_dir = meta_dir / "visual_group"
+            meta_visual_dir.mkdir(parents=True, exist_ok=True)
+            visual_plan = build_visual_group_plan(plan, items)
+            visual_path = meta_visual_dir / f"{name}.json"
+            visual_path.write_text(json.dumps(visual_plan, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            tree = ET.parse(svg_path)
+            root = tree.getroot()
+            ET.register_namespace("", SVG_NS)
+            apply_plan_to_svg(tree, items, plan, pad=0.0, keep_ids=False)
+            out_svg.parent.mkdir(parents=True, exist_ok=True)
+            tree.write(out_svg, encoding="utf-8", xml_declaration=True)
+
             processed += 1
-            print(f"Semantic (vLLM global): {processed}/{total} (FAILED: {svg_path})")
-            continue
-
-        parsed = parse_json_from_text(raw_text or "")
-        if not parsed:
-            failures_by_meta.setdefault(meta_dir, {})[svg_path.name] = "invalid JSON after retry"
-            processed += 1
-            print(f"Semantic (vLLM global): {processed}/{total} (FAILED: {svg_path})")
-            continue
-
-        item_ids = [it.get("id") for it in items if isinstance(it, dict) and it.get("id")]
-        plan = normalize_tree_plan(parsed or {}, item_ids)  # type: ignore[arg-type]
-
-        # 写 plan
-        meta_plans_dir.mkdir(parents=True, exist_ok=True)
-        plan_path = meta_plans_dir / f"{name}.json"
-        plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
-
-        # 应用 plan 到 SVG
-        tree = ET.parse(svg_path)
-        root = tree.getroot()
-        ET.register_namespace("", SVG_NS)
-        apply_plan_to_svg(tree, items, plan, pad=0.0, keep_ids=False)
-        out_svg.parent.mkdir(parents=True, exist_ok=True)
-        tree.write(out_svg, encoding="utf-8", xml_declaration=True)
-
-        processed += 1
-        print(f"Semantic (vLLM global): {processed}/{total}")
+            print(f"Semantic (vLLM global): {processed}/{total}")
 
     # 写回各 meta_dir 下的 failed_tasks.json
     for meta_dir, prev in failed_cache.items():
@@ -316,4 +441,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

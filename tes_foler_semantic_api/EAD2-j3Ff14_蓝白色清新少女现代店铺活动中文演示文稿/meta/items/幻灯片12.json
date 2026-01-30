@@ -1,0 +1,278 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "策略和促销活动",
+      "bbox": {
+        "x": 270.0509948730469,
+        "y": 796,
+        "w": 280,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 270.0509948730469,
+        "f": 832
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "策略和促销活动"
+    },
+    {
+      "id": "t0003",
+      "text": "发布会",
+      "bbox": {
+        "x": 290.5710144042969,
+        "y": 339,
+        "w": 244,
+        "h": 88
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 291.5710144042969,
+        "f": 410
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(31, 185, 212)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "发布会"
+    },
+    {
+      "id": "t0004",
+      "text": "当天计划",
+      "bbox": {
+        "x": 248.55099487304688,
+        "y": 451,
+        "w": 320,
+        "h": 88
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 248.55099487304688,
+        "f": 522
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(31, 185, 212)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "当天计划"
+    },
+    {
+      "id": "t0005",
+      "text": "演讲是一种对外交流工具，可",
+      "bbox": {
+        "x": 1283,
+        "y": 643,
+        "w": 455,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 674
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种对外交流工具，可"
+    },
+    {
+      "id": "t0006",
+      "text": "以是演示演讲等等。大多数时",
+      "bbox": {
+        "x": 1283,
+        "y": 695,
+        "w": 455,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 726
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "以是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0007",
+      "text": "候，他们都会呈现在观众的面",
+      "bbox": {
+        "x": 1283,
+        "y": 747,
+        "w": 455,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 778
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "候，他们都会呈现在观众的面"
+    },
+    {
+      "id": "t0008",
+      "text": "前。他有各种各样的目的，使",
+      "bbox": {
+        "x": 1283,
+        "y": 799,
+        "w": 455,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 830
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "前。他有各种各样的目的，使"
+    },
+    {
+      "id": "t0009",
+      "text": "他们成为令人信服和教学的有",
+      "bbox": {
+        "x": 1283,
+        "y": 851,
+        "w": 455,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 882
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "他们成为令人信服和教学的有"
+    },
+    {
+      "id": "t0010",
+      "text": "力工具。",
+      "bbox": {
+        "x": 1283,
+        "y": 903,
+        "w": 140,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1283,
+        "f": 934
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(255, 255, 255)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "力工具。"
+    }
+  ]
+}

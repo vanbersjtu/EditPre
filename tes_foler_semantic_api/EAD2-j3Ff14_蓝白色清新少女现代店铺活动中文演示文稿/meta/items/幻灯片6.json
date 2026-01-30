@@ -1,0 +1,158 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0004",
+      "text": "演讲是一种对外交流工具，可以是演示演",
+      "bbox": {
+        "x": 1085.5,
+        "y": 258,
+        "w": 630,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1085.5,
+        "f": 289
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "演讲是一种对外交流工具，可以是演示演"
+    },
+    {
+      "id": "t0005",
+      "text": "讲等等。大多数时候，他们会呈现在观众",
+      "bbox": {
+        "x": 1085.5,
+        "y": 310,
+        "w": 630,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1085.5,
+        "f": 341
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "讲等等。大多数时候，他们会呈现在观众"
+    },
+    {
+      "id": "t0006",
+      "text": "面前。他们有各种各样的目的，使他们成",
+      "bbox": {
+        "x": 1085.5,
+        "y": 362,
+        "w": 630,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1085.5,
+        "f": 393
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "面前。他们有各种各样的目的，使他们成"
+    },
+    {
+      "id": "t0007",
+      "text": "为令人信服和教学的有力工具。",
+      "bbox": {
+        "x": 1085.5,
+        "y": 414,
+        "w": 490,
+        "h": 39
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1085.5,
+        "f": 445
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "为令人信服和教学的有力工具。"
+    },
+    {
+      "id": "t0008",
+      "text": "做奶昔是爱的劳动",
+      "bbox": {
+        "x": 1084.5,
+        "y": 173,
+        "w": 321,
+        "h": 45
+      },
+      "ctm": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 1085.5,
+        "f": 209
+      },
+      "style": {
+        "fontFamily": "\"Times New Roman\"",
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "fontStyle": "normal",
+        "fill": "rgb(84, 84, 84)",
+        "opacity": "1",
+        "letterSpacing": "normal",
+        "textAnchor": "start",
+        "dominantBaseline": "auto"
+      },
+      "text_xml": "做奶昔是爱的劳动"
+    }
+  ]
+}

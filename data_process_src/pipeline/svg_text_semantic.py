@@ -939,7 +939,10 @@ def process_svg(
         tree.write(tmp_path, encoding="utf-8", xml_declaration=True)
 
     items = extract_items_with_playwright(tmp_path)
-    tmp_path.unlink(missing_ok=True)
+    try:
+        tmp_path.unlink()
+    except FileNotFoundError:
+        pass
 
     for item in items:
         item_id = item.get("id")
@@ -1163,7 +1166,10 @@ def main() -> None:
             raise SystemExit(1)
     else:
         if failed_tasks_path.exists():
-            failed_tasks_path.unlink(missing_ok=True)
+            try:
+                failed_tasks_path.unlink()
+            except FileNotFoundError:
+                pass
 
 
 if __name__ == "__main__":

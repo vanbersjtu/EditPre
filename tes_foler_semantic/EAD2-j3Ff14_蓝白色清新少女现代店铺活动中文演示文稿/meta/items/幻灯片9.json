@@ -1,0 +1,128 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0003",
+      "text": "演讲是一种交流工具，可以是演",
+      "bbox": {
+        "x": 216.05,
+        "y": 825.0,
+        "w": 490.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "示演讲等等。大多数时候呈现在",
+      "bbox": {
+        "x": 216.05,
+        "y": 877.0,
+        "w": 490.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "观众面前。",
+      "bbox": {
+        "x": 216.05,
+        "y": 929.0,
+        "w": 175.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "经典的味道",
+      "bbox": {
+        "x": 372.05,
+        "y": 740.0,
+        "w": 201.0,
+        "h": 45.0
+      },
+      "style": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "演讲是一种交流工具，可以是演",
+      "bbox": {
+        "x": 1174.95,
+        "y": 825.0,
+        "w": 490.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0008",
+      "text": "示演讲等等。大多数时候呈现在",
+      "bbox": {
+        "x": 1174.95,
+        "y": 877.0,
+        "w": 490.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0009",
+      "text": "观众面前。",
+      "bbox": {
+        "x": 1174.95,
+        "y": 929.0,
+        "w": 175.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0010",
+      "text": "季节限定",
+      "bbox": {
+        "x": 1352.45,
+        "y": 740.0,
+        "w": 161.0,
+        "h": 45.0
+      },
+      "style": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

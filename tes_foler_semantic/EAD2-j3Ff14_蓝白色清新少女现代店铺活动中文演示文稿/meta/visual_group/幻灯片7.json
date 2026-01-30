@@ -1,0 +1,502 @@
+{
+  "nodes": [
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "只做优质奶昔"
+        }
+      ],
+      "text": "只做优质奶昔"
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "我们的奶"
+        }
+      ],
+      "text": "我们的奶"
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "title",
+      "order": 2,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0010",
+          "text": "昔有什么"
+        }
+      ],
+      "text": "昔有什么"
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "title",
+      "order": 3,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0011",
+          "text": "特别之处"
+        }
+      ],
+      "text": "特别之处"
+    },
+    {
+      "id": "t0015",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 4,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0015",
+          "text": "丰富的奶油"
+        }
+      ],
+      "text": "丰富的奶油"
+    },
+    {
+      "id": "t0019",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 5,
+      "item_ids": [
+        "t0019"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0019",
+          "text": "味美可口"
+        }
+      ],
+      "text": "味美可口"
+    },
+    {
+      "id": "t0023",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 6,
+      "item_ids": [
+        "t0023"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0023",
+          "text": "各种口味"
+        }
+      ],
+      "text": "各种口味"
+    },
+    {
+      "id": "t0027",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 7,
+      "item_ids": [
+        "t0027"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0027",
+          "text": "优质成分"
+        }
+      ],
+      "text": "优质成分"
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "body",
+      "order": 8,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0012",
+          "text": "演讲是一种交流工具，可以"
+        }
+      ],
+      "text": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "body",
+      "order": 9,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0013",
+          "text": "是演示演讲等等。大多数时"
+        }
+      ],
+      "text": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "body",
+      "order": 10,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0014",
+          "text": "候呈现在观众面前。"
+        }
+      ],
+      "text": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0016",
+      "type": "textbox",
+      "role": "body",
+      "order": 11,
+      "item_ids": [
+        "t0016"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0016",
+          "text": "演讲是一种交流工具，可以"
+        }
+      ],
+      "text": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0017",
+      "type": "textbox",
+      "role": "body",
+      "order": 12,
+      "item_ids": [
+        "t0017"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0017",
+          "text": "是演示演讲等等。大多数时"
+        }
+      ],
+      "text": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0018",
+      "type": "textbox",
+      "role": "body",
+      "order": 13,
+      "item_ids": [
+        "t0018"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0018",
+          "text": "候呈现在观众面前。"
+        }
+      ],
+      "text": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0020",
+      "type": "textbox",
+      "role": "body",
+      "order": 14,
+      "item_ids": [
+        "t0020"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0020",
+          "text": "演讲是一种交流工具，可以"
+        }
+      ],
+      "text": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0021",
+      "type": "textbox",
+      "role": "body",
+      "order": 15,
+      "item_ids": [
+        "t0021"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0021",
+          "text": "是演示演讲等等。大多数时"
+        }
+      ],
+      "text": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0022",
+      "type": "textbox",
+      "role": "body",
+      "order": 16,
+      "item_ids": [
+        "t0022"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0022",
+          "text": "候呈现在观众面前。"
+        }
+      ],
+      "text": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0024",
+      "type": "textbox",
+      "role": "body",
+      "order": 17,
+      "item_ids": [
+        "t0024"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0024",
+          "text": "演讲是一种交流工具，可以"
+        }
+      ],
+      "text": "演讲是一种交流工具，可以"
+    },
+    {
+      "id": "t0025",
+      "type": "textbox",
+      "role": "body",
+      "order": 18,
+      "item_ids": [
+        "t0025"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0025",
+          "text": "是演示演讲等等。大多数时"
+        }
+      ],
+      "text": "是演示演讲等等。大多数时"
+    },
+    {
+      "id": "t0026",
+      "type": "textbox",
+      "role": "body",
+      "order": 19,
+      "item_ids": [
+        "t0026"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0026",
+          "text": "候呈现在观众面前。"
+        }
+      ],
+      "text": "候呈现在观众面前。"
+    },
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "title",
+      "order": 20,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "可瓦奶昔店新品宣传计划"
+        }
+      ],
+      "text": "可瓦奶昔店新品宣传计划"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 21,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "• 2020"
+        }
+      ],
+      "text": "• 2020"
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 22,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "年"
+        }
+      ],
+      "text": "年"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 23,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "9"
+        }
+      ],
+      "text": "9"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 24,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "月"
+        }
+      ],
+      "text": "月"
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 25,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "25"
+        }
+      ],
+      "text": "25"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "bullet",
+      "order": 26,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "日"
+        }
+      ],
+      "text": "日"
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0015",
+        "t0019",
+        "t0023",
+        "t0027",
+        "t0012",
+        "t0013",
+        "t0014",
+        "t0016",
+        "t0017",
+        "t0018",
+        "t0020",
+        "t0021",
+        "t0022",
+        "t0024",
+        "t0025",
+        "t0026",
+        "t0001",
+        "t0002",
+        "t0003",
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007"
+      ],
+      "confidence": 1.0,
+      "text": "只做优质奶昔\n我们的奶\n昔有什么\n特别之处\n丰富的奶油\n味美可口\n各种口味\n优质成分\n演讲是一种交流工具，可以\n是演示演讲等等。大多数时\n候呈现在观众面前。\n演讲是一种交流工具，可以\n是演示演讲等等。大多数时\n候呈现在观众面前。\n演讲是一种交流工具，可以\n是演示演讲等等。大多数时\n候呈现在观众面前。\n演讲是一种交流工具，可以\n是演示演讲等等。大多数时\n候呈现在观众面前。\n可瓦奶昔店新品宣传计划\n• 2020\n年\n9\n月\n25\n日"
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

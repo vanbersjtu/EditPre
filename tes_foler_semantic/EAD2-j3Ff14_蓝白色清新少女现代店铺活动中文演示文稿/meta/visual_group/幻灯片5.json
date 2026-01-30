@@ -1,0 +1,190 @@
+{
+  "nodes": [
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "header",
+      "order": 0,
+      "children": [
+        "g0002",
+        "g0003"
+      ],
+      "confidence": 0.5,
+      "text": ""
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [],
+      "confidence": 0.5,
+      "text": ""
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "subtitle",
+      "order": 1,
+      "children": [],
+      "confidence": 0.5,
+      "text": ""
+    },
+    {
+      "id": "g0004",
+      "type": "group",
+      "role": "body",
+      "order": 2,
+      "children": [],
+      "confidence": 0.5,
+      "text": ""
+    },
+    {
+      "id": "g0005",
+      "type": "group",
+      "role": "callout",
+      "order": 3,
+      "children": [],
+      "confidence": 0.5,
+      "text": ""
+    },
+    {
+      "id": "tb-auto-6",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 6,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "我们的至理名言"
+        }
+      ],
+      "text": "我们的至理名言"
+    },
+    {
+      "id": "tb-auto-7",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 7,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "演讲等等。大多数时候，他们会呈现在"
+        }
+      ],
+      "text": "演讲等等。大多数时候，他们会呈现在"
+    },
+    {
+      "id": "tb-auto-8",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 8,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "来自澳洲的经典品牌"
+        }
+      ],
+      "text": "来自澳洲的经典品牌"
+    },
+    {
+      "id": "tb-auto-9",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 9,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "演讲是一种对外交流工具，可以是演示"
+        }
+      ],
+      "text": "演讲是一种对外交流工具，可以是演示"
+    },
+    {
+      "id": "tb-auto-10",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 10,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "观众面前。他们有各种各样的目的，使"
+        }
+      ],
+      "text": "观众面前。他们有各种各样的目的，使"
+    },
+    {
+      "id": "tb-auto-11",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 11,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "他们成为令人信服和教学的有力工具。"
+        }
+      ],
+      "text": "他们成为令人信服和教学的有力工具。"
+    },
+    {
+      "id": "tb-auto-12",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 12,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "店铺历史简介"
+        }
+      ],
+      "text": "店铺历史简介"
+    },
+    {
+      "id": "tb-auto-13",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 13,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.1,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "可瓦奶昔店"
+        }
+      ],
+      "text": "可瓦奶昔店"
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

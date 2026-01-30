@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0007",
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0011",
+        "t0012"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "body",
+      "order": 4,
+      "children": [
+        "t0007",
+        "t0009",
+        "t0010",
+        "t0011"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "footer",
+      "order": 5,
+      "item_ids": [
+        "t0005",
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "header",
+      "order": 6,
+      "children": [
+        "g0001",
+        "t0005"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "g0002",
+  "unassigned": []
+}

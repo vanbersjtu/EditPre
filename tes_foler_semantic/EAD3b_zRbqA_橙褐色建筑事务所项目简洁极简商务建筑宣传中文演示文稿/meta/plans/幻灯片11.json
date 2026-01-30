@@ -1,0 +1,79 @@
+{
+  "nodes": [
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 0,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.95
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.95
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 2,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.95
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.95
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "bullet",
+      "order": 0,
+      "children": [
+        "t0002",
+        "t0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "bullet",
+      "order": 1,
+      "children": [
+        "t0004",
+        "t0005"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "g0001",
+        "g0002"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "g0003",
+  "unassigned": []
+}

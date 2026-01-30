@@ -1,0 +1,300 @@
+{
+  "nodes": [
+    {
+      "id": "t0015",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0015",
+          "text": "我们的预期增长"
+        }
+      ],
+      "text": "我们的预期增长"
+    },
+    {
+      "id": "t0016",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0016"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0016",
+          "text": "预计销售额"
+        }
+      ],
+      "text": "预计销售额"
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "演示文稿是可以用作演示，讲座，演讲，报告等"
+        }
+      ],
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "的交流工具。"
+        }
+      ],
+      "text": "的交流工具。"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 4,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "大多数情况下，它们是在观众面前"
+        }
+      ],
+      "text": "大多数情况下，它们是在观众面前"
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "body",
+      "order": 5,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "展示的。"
+        }
+      ],
+      "text": "展示的。"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "body",
+      "order": 6,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "它有多种用途，这使得使它们成为说服"
+        }
+      ],
+      "text": "它有多种用途，这使得使它们成为说服"
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "body",
+      "order": 7,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "和教学他人的强大工具。"
+        }
+      ],
+      "text": "和教学他人的强大工具。"
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "body",
+      "order": 8,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "要做一个精彩的演讲，最好简化你的思想。从主"
+        }
+      ],
+      "text": "要做一个精彩的演讲，最好简化你的思想。从主"
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "body",
+      "order": 9,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0010",
+          "text": "题的大纲开始，找出重点，它可以应用到你计划"
+        }
+      ],
+      "text": "题的大纲开始，找出重点，它可以应用到你计划"
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "body",
+      "order": 10,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0011",
+          "text": "讨论的任何主题上。然后你可以把它们组织成你"
+        }
+      ],
+      "text": "讨论的任何主题上。然后你可以把它们组织成你"
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "body",
+      "order": 11,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0012",
+          "text": "的引言、主要内容和结论。确保你做了足够的研"
+        }
+      ],
+      "text": "的引言、主要内容和结论。确保你做了足够的研"
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "body",
+      "order": 12,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0013",
+          "text": "究来支持你的观点。将数据与图表、图形或图像"
+        }
+      ],
+      "text": "究来支持你的观点。将数据与图表、图形或图像"
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "body",
+      "order": 13,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0014",
+          "text": "等可视化辅助工具配对也是一个好主意。"
+        }
+      ],
+      "text": "等可视化辅助工具配对也是一个好主意。"
+    },
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "footer",
+      "order": 14,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "可瓦建筑事务所"
+        }
+      ],
+      "text": "可瓦建筑事务所"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "footer",
+      "order": 15,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "2020"
+        }
+      ],
+      "text": "2020"
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "body",
+      "order": 16,
+      "children": [
+        "t0003",
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007",
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0012",
+        "t0013",
+        "t0014"
+      ],
+      "confidence": 0.5,
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等\n的交流工具。\n大多数情况下，它们是在观众面前\n展示的。\n它有多种用途，这使得使它们成为说服\n和教学他人的强大工具。\n要做一个精彩的演讲，最好简化你的思想。从主\n题的大纲开始，找出重点，它可以应用到你计划\n讨论的任何主题上。然后你可以把它们组织成你\n的引言、主要内容和结论。确保你做了足够的研\n究来支持你的观点。将数据与图表、图形或图像\n等可视化辅助工具配对也是一个好主意。"
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}

@@ -1,0 +1,86 @@
+{
+  "nodes": [
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "关于"
+        }
+      ],
+      "text": "关于"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "可瓦工作室"
+        }
+      ],
+      "text": "可瓦工作室"
+    },
+    {
+      "id": "t0003",
+      "type": "group",
+      "role": "body",
+      "order": 2,
+      "children": [
+        "t0004",
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告\n等的交流工具。它们是在观众面前展示的。"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 0,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "演示文稿是可以用作演示，讲座，演讲，报告"
+        }
+      ],
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "等的交流工具。它们是在观众面前展示的。"
+        }
+      ],
+      "text": "等的交流工具。它们是在观众面前展示的。"
+    }
+  ],
+  "root": "t0003",
+  "unassigned": []
+}

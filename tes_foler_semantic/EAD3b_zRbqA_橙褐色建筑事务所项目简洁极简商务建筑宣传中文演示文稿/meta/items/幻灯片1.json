@@ -1,0 +1,68 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "项目计划",
+      "bbox": {
+        "x": 108.0,
+        "y": 643.0,
+        "w": 768.0,
+        "h": 213.0
+      },
+      "style": {
+        "fontSize": "192px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0002",
+      "text": "2020 Projects",
+      "bbox": {
+        "x": 108.0,
+        "y": 503.0,
+        "w": 578.69,
+        "h": 112.0
+      },
+      "style": {
+        "fontSize": "101px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "可瓦设计小组",
+      "bbox": {
+        "x": 108.0,
+        "y": 984.0,
+        "w": 258.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "可瓦建筑事务所",
+      "bbox": {
+        "x": 108.0,
+        "y": 54.0,
+        "w": 259.0,
+        "h": 41.0
+      },
+      "style": {
+        "fontSize": "37px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

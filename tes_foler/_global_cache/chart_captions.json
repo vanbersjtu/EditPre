@@ -1,0 +1,12 @@
+{
+  "2eb42bb92b233691fa1ef79ec58241f4182d7491": {
+    "hash": "2eb42bb92b233691fa1ef79ec58241f4182d7491",
+    "caption": "A bar chart with four vertical bars, each representing a different project labeled as Project 1, Project 2, Project 3, and Project 4 on the x-axis. The y-axis is labeled with numerical values ranging from 0 to 40, with increments of 10. The bars are colored in a solid orange hue and increase in height from left to right, indicating increasing values. The first bar (Project 1) reaches approximately 10, the second (Project 2) reaches approximately 20, the third (Project 3) reaches approximately 30, and the fourth (Project 4) reaches approximately 40. The background is white, and the chart has a clean, minimalist design with no grid lines or additional annotations.",
+    "is_chart": true
+  },
+  "a00c8f744349f5343eeca9b7d83735f6ae36ca47": {
+    "hash": "a00c8f744349f5343eeca9b7d83735f6ae36ca47",
+    "caption": "A clean and minimalist pie chart with five equal segments, each representing 20% of the total. The segments are colored in varying shades of gray, ranging from light gray to dark gray, creating a subtle gradient effect. The chart is centered on a white background, with labels for each segment positioned outside the chart in a light gray font. The labels read 'Project 1', 'Project 2', 'Project 3', 'Project 4', and 'Project 5', each accompanied by '20%' below the label. The overall design is simple, modern, and visually balanced, suitable for presentations or reports.",
+    "is_chart": true
+  }
+}

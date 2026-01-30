@@ -1,0 +1,286 @@
+{
+  "nodes": [
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "footer",
+      "order": 0,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0001",
+          "text": "可瓦建筑事务所"
+        }
+      ],
+      "text": "可瓦建筑事务所"
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "footer",
+      "order": 1,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "2020"
+        }
+      ],
+      "text": "2020"
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "title",
+      "order": 2,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "我们的使命"
+        }
+      ],
+      "text": "我们的使命"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+        }
+      ],
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 4,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "流工具。"
+        }
+      ],
+      "text": "流工具。"
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "body",
+      "order": 5,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "大多数情况下，它们是在观众面前展示的。"
+        }
+      ],
+      "text": "大多数情况下，它们是在观众面前展示的。"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 6,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "重新定义体系结构"
+        }
+      ],
+      "text": "重新定义体系结构"
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "body",
+      "order": 7,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+        }
+      ],
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "body",
+      "order": 8,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0009",
+          "text": "流工具。"
+        }
+      ],
+      "text": "流工具。"
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "body",
+      "order": 9,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0010",
+          "text": "大多数情况下，它们是在观众面前展示的。"
+        }
+      ],
+      "text": "大多数情况下，它们是在观众面前展示的。"
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 10,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0011",
+          "text": "为每个人建立安全的空间"
+        }
+      ],
+      "text": "为每个人建立安全的空间"
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "body",
+      "order": 11,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0012",
+          "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+        }
+      ],
+      "text": "演示文稿是可以用作演示，讲座，演讲，报告等的交"
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "body",
+      "order": 12,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0013",
+          "text": "流工具。"
+        }
+      ],
+      "text": "流工具。"
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "body",
+      "order": 13,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0014",
+          "text": "大多数情况下，它们是在观众面前展示的。"
+        }
+      ],
+      "text": "大多数情况下，它们是在观众面前展示的。"
+    },
+    {
+      "id": "t0015",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 14,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.5,
+      "items": [
+        {
+          "id": "t0015",
+          "text": "让世界变得更美好"
+        }
+      ],
+      "text": "让世界变得更美好"
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0001",
+        "t0002",
+        "t0003",
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007",
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0012",
+        "t0013",
+        "t0014",
+        "t0015"
+      ],
+      "confidence": 1.0,
+      "text": "可瓦建筑事务所\n2020\n我们的使命\n演示文稿是可以用作演示，讲座，演讲，报告等的交\n流工具。\n大多数情况下，它们是在观众面前展示的。\n重新定义体系结构\n演示文稿是可以用作演示，讲座，演讲，报告等的交\n流工具。\n大多数情况下，它们是在观众面前展示的。\n为每个人建立安全的空间\n演示文稿是可以用作演示，讲座，演讲，报告等的交\n流工具。\n大多数情况下，它们是在观众面前展示的。\n让世界变得更美好"
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

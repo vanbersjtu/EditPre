@@ -1,0 +1,128 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "我们的至理名言",
+      "bbox": {
+        "x": 328.5,
+        "y": 925.0,
+        "w": 281.0,
+        "h": 45.0
+      },
+      "style": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "演讲是一种对外交流工具，可以是演示",
+      "bbox": {
+        "x": 1121.5,
+        "y": 721.0,
+        "w": 595.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "演讲等等。大多数时候，他们会呈现在",
+      "bbox": {
+        "x": 1121.5,
+        "y": 773.0,
+        "w": 595.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "观众面前。他们有各种各样的目的，使",
+      "bbox": {
+        "x": 1121.5,
+        "y": 825.0,
+        "w": 595.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "他们成为令人信服和教学的有力工具。",
+      "bbox": {
+        "x": 1121.5,
+        "y": 877.0,
+        "w": 595.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "来自澳洲的经典品牌",
+      "bbox": {
+        "x": 1370.5,
+        "y": 636.0,
+        "w": 361.0,
+        "h": 45.0
+      },
+      "style": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0008",
+      "text": "可瓦奶昔店",
+      "bbox": {
+        "x": 1327.57,
+        "y": 177.0,
+        "w": 401.0,
+        "h": 88.0
+      },
+      "style": {
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0009",
+      "text": "店铺历史简介",
+      "bbox": {
+        "x": 1240.5,
+        "y": 289.0,
+        "w": 482.0,
+        "h": 88.0
+      },
+      "style": {
+        "fontSize": "80px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

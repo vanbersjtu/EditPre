@@ -1,0 +1,68 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0002",
+      "text": "Work on the business first,",
+      "bbox": {
+        "x": 150.62,
+        "y": 245.0,
+        "w": 765.05,
+        "h": 74.0
+      },
+      "style": {
+        "fontSize": "67px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "before it works for you.",
+      "bbox": {
+        "x": 150.62,
+        "y": 325.0,
+        "w": 669.33,
+        "h": 74.0
+      },
+      "style": {
+        "fontSize": "67px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "在你成功之前，先谈生意。",
+      "bbox": {
+        "x": 148.62,
+        "y": 464.0,
+        "w": 722.0,
+        "h": 66.0
+      },
+      "style": {
+        "fontSize": "60px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "我们的至理名言",
+      "bbox": {
+        "x": 1510.0,
+        "y": 925.0,
+        "w": 281.0,
+        "h": 45.0
+      },
+      "style": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

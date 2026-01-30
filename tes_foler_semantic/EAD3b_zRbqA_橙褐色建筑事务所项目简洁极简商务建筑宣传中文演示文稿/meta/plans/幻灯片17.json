@@ -1,0 +1,187 @@
+{
+  "nodes": [
+    {
+      "id": "g1",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [
+        "g2",
+        "g3"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "role": "header",
+      "order": 0,
+      "children": [
+        "t0013",
+        "t0014"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0014",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "role": "body",
+      "order": 1,
+      "children": [
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007",
+        "t0008",
+        "t0009",
+        "t0010",
+        "t0011",
+        "t0012"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 0,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "body",
+      "order": 4,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0009",
+      "type": "textbox",
+      "role": "body",
+      "order": 5,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0010",
+      "type": "textbox",
+      "role": "body",
+      "order": 6,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0011",
+      "type": "textbox",
+      "role": "body",
+      "order": 7,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0012",
+      "type": "textbox",
+      "role": "body",
+      "order": 8,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "role": "footer",
+      "order": 2,
+      "children": [
+        "t0001",
+        "t0002"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0001",
+      "type": "textbox",
+      "role": "footer",
+      "order": 0,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "footer",
+      "order": 1,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "g1",
+  "unassigned": []
+}

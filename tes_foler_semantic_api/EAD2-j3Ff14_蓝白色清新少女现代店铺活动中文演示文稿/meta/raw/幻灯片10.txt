@@ -1,0 +1,36 @@
+```json
+{
+  "nodes": [
+    {
+      "id": "tb_1",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0002"
+      ]
+    },
+    {
+      "id": "tb_2",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0003",
+        "t0004"
+      ]
+    },
+    {
+      "id": "g_root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "tb_1",
+        "tb_2"
+      ]
+    }
+  ],
+  "root": "g_root"
+}
+```

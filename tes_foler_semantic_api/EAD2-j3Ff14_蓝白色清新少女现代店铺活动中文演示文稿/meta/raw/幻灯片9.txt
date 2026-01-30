@@ -1,0 +1,76 @@
+```json
+{
+  "nodes": [
+    {
+      "id": "tb_1",
+      "type": "textbox",
+      "role": "section",
+      "order": 0,
+      "item_ids": [
+        "t0006"
+      ]
+    },
+    {
+      "id": "tb_2",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0003",
+        "t0004",
+        "t0005"
+      ]
+    },
+    {
+      "id": "grp_1",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "tb_1",
+        "tb_2"
+      ]
+    },
+    {
+      "id": "tb_3",
+      "type": "textbox",
+      "role": "section",
+      "order": 0,
+      "item_ids": [
+        "t0010"
+      ]
+    },
+    {
+      "id": "tb_4",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0007",
+        "t0008",
+        "t0009"
+      ]
+    },
+    {
+      "id": "grp_2",
+      "type": "group",
+      "role": "section",
+      "order": 1,
+      "children": [
+        "tb_3",
+        "tb_4"
+      ]
+    },
+    {
+      "id": "root",
+      "type": "group",
+      "role": "unknown",
+      "children": [
+        "grp_1",
+        "grp_2"
+      ]
+    }
+  ],
+  "root": "root"
+}
+```

@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 0,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.95,
+      "items": [
+        {
+          "id": "t0002",
+          "text": "99%"
+        }
+      ],
+      "text": "99%"
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.95,
+      "items": [
+        {
+          "id": "t0003",
+          "text": "我们的客户对我们的工作很满意"
+        }
+      ],
+      "text": "我们的客户对我们的工作很满意"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "kpi",
+      "order": 2,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.95,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "97%"
+        }
+      ],
+      "text": "97%"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.95,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "人们对我们的服务体验非常满意"
+        }
+      ],
+      "text": "人们对我们的服务体验非常满意"
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "bullet",
+      "order": 0,
+      "children": [
+        "t0002",
+        "t0003"
+      ],
+      "confidence": 0.5,
+      "text": "99%\n我们的客户对我们的工作很满意"
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "bullet",
+      "order": 1,
+      "children": [
+        "t0004",
+        "t0005"
+      ],
+      "confidence": 0.5,
+      "text": "97%\n人们对我们的服务体验非常满意"
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "g0001",
+        "g0002"
+      ],
+      "confidence": 0.5,
+      "text": "99%\n我们的客户对我们的工作很满意\n97%\n人们对我们的服务体验非常满意"
+    }
+  ],
+  "root": "g0003",
+  "unassigned": []
+}

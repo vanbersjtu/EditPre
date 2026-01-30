@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "id": "root",
+      "type": "group",
+      "role": "section",
+      "order": 0,
+      "children": [
+        "g_title",
+        "tb_footer"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g_title",
+      "type": "group",
+      "role": "title",
+      "order": 0,
+      "children": [
+        "tb_main",
+        "tb_chn"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_main",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0004",
+        "t0005",
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_chn",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_footer",
+      "type": "textbox",
+      "role": "footer",
+      "order": 1,
+      "item_ids": [
+        "t0002",
+        "t0003"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "root",
+  "unassigned": []
+}

@@ -22,6 +22,7 @@ import argparse
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 
@@ -111,6 +112,32 @@ def apply_image_token(prompt: str, image_token: str) -> str:
     return f"{token}\n{prompt}"
 
 
+@lru_cache(maxsize=4)
+def _load_vllm_engine(
+    model_source: str,
+    max_model_len: Optional[int],
+    max_batched_tokens: Optional[int],
+    tensor_parallel_size: Optional[int],
+    enable_chunked_prefill: bool,
+):
+    from vllm import LLM
+    from transformers import AutoProcessor
+
+    engine_kwargs: Dict[str, object] = {"model": model_source, "trust_remote_code": True}
+    if enable_chunked_prefill:
+        engine_kwargs["enable_chunked_prefill"] = True
+    if max_model_len:
+        engine_kwargs["max_model_len"] = max_model_len
+    if max_batched_tokens:
+        engine_kwargs["max_num_batched_tokens"] = max_batched_tokens
+    if tensor_parallel_size:
+        engine_kwargs["tensor_parallel_size"] = tensor_parallel_size
+
+    llm = LLM(**engine_kwargs)
+    processor = AutoProcessor.from_pretrained(model_source, trust_remote_code=True)
+    return llm, processor
+
+
 def run_vllm_batch(
     items: List[Dict[str, str]],
     model_source: str,
@@ -120,6 +147,7 @@ def run_vllm_batch(
     concurrency: int,
     max_model_len: Optional[int],
     max_batched_tokens: Optional[int],
+    tensor_parallel_size: Optional[int],
     enable_chunked_prefill: bool,
     ray_address: str,
     ray_log_to_driver: bool,
@@ -128,57 +156,99 @@ def run_vllm_batch(
         return []
 
     try:
-        import ray
-        from ray.data.llm import build_llm_processor, vLLMEngineProcessorConfig
+        from vllm import SamplingParams
+        from qwen_vl_utils import process_vision_info
+        from PIL import Image
     except Exception as exc:
-        raise RuntimeError("Ray Data vLLM is required for batch inference.") from exc
+        raise RuntimeError("vLLM + qwen_vl_utils + pillow are required for batch inference.") from exc
 
-    if not ray.is_initialized():
-        init_kwargs = {"log_to_driver": ray_log_to_driver}
-        if ray_address:
-            init_kwargs["address"] = ray_address
-        ray.init(**init_kwargs)
-
-    engine_kwargs: Dict[str, object] = {}
-    if enable_chunked_prefill:
-        engine_kwargs["enable_chunked_prefill"] = True
-    if max_model_len:
-        engine_kwargs["max_model_len"] = max_model_len
-    if max_batched_tokens:
-        engine_kwargs["max_num_batched_tokens"] = max_batched_tokens
-
-    config = vLLMEngineProcessorConfig(
-        model_source=model_source,
-        engine_kwargs=engine_kwargs,
-        concurrency=max(1, concurrency),
-        batch_size=max(1, batch_size),
+    llm, processor = _load_vllm_engine(
+        model_source,
+        max_model_len,
+        max_batched_tokens,
+        tensor_parallel_size,
+        enable_chunked_prefill,
     )
+    patch_size = processor.image_processor.patch_size
 
-    def preprocess(row: Dict[str, object]) -> Dict[str, object]:
-        image_path = str(row.get("image_path", ""))
-        image_bytes = None
-        if image_path:
-            try:
-                image_bytes = Path(image_path).read_bytes()
-            except Exception:
-                image_bytes = None
+    sampling_params = SamplingParams(temperature=temperature, max_tokens=max_tokens)
 
-        payload: Dict[str, object] = {
-            "prompt": row.get("prompt", ""),
-            "sampling_params": {"temperature": temperature, "max_tokens": max_tokens},
-        }
-        if image_bytes is not None:
-            payload["multi_modal_data"] = {"image": image_bytes}
-        return payload
+    outputs: List[Dict[str, object]] = []
+    step = max(1, batch_size)
+    for start in range(0, len(items), step):
+        batch = items[start : start + step]
+        inputs: List[Dict[str, object]] = []
+        hashes: List[str] = []
 
-    def postprocess(row: Dict[str, object]) -> Dict[str, object]:
-        row["generated_text"] = row.get("generated_text", "")
-        return row
+        for row in batch:
+            image_path = str(row.get("image_path", ""))
+            prompt = str(row.get("prompt", ""))
+            if image_path:
+                image_item: Dict[str, object] = {"type": "image", "image": image_path}
+                resized_height: Optional[int] = None
+                resized_width: Optional[int] = None
+                image_obj = None
+                try:
+                    with Image.open(image_path) as img:
+                        width, height = img.size
+                        max_edge = max(width, height)
+                        if max_edge > 0:
+                            scale = min(1.0, 1024 / max_edge)
+                            resized_width = max(1, int(round(width * scale)))
+                            resized_height = max(1, int(round(height * scale)))
+                        image_obj = img.convert("RGB")
+                except Exception:
+                    resized_height = None
+                    resized_width = None
+                    image_obj = None
 
-    ds = ray.data.from_items(items)
-    vllm_processor = build_llm_processor(config, preprocess=preprocess, postprocess=postprocess)
-    ds = vllm_processor(ds)
-    return list(ds.iter_rows())
+                if image_obj is not None:
+                    image_item["image"] = image_obj
+                if resized_height and resized_width:
+                    image_item["resized_height"] = resized_height
+                    image_item["resized_width"] = resized_width
+
+                content = [
+                    image_item,
+                    {"type": "text", "text": prompt},
+                ]
+            else:
+                content = [{"type": "text", "text": prompt}]
+
+            messages = [{"role": "user", "content": content}]
+            text_prompt = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            image_inputs, video_inputs, video_kwargs = process_vision_info(
+                messages,
+                image_patch_size=patch_size,
+                return_video_kwargs=True,
+                return_video_metadata=True,
+            )
+
+            mm_data: Dict[str, object] = {}
+            if image_inputs is not None:
+                mm_data["image"] = image_inputs
+            if video_inputs is not None:
+                mm_data["video"] = video_inputs
+
+            payload: Dict[str, object] = {
+                "prompt": text_prompt,
+                "multi_modal_data": mm_data,
+            }
+            if video_kwargs:
+                payload["mm_processor_kwargs"] = video_kwargs
+
+            inputs.append(payload)
+            hashes.append(str(row.get("image_hash", "")))
+
+        results = llm.generate(inputs, sampling_params=sampling_params)
+        for h, result in zip(hashes, results):
+            text = ""
+            outputs_list = getattr(result, "outputs", None)
+            if outputs_list:
+                text = getattr(outputs_list[0], "text", "") or ""
+            outputs.append({"image_hash": h, "generated_text": text})
+
+    return outputs
 
 
 def run_for_dir_collect(
@@ -431,6 +501,12 @@ def main() -> None:
     parser.add_argument("--vllm-model", default="", help="vLLM batch 模式模型路径（默认沿用 --model）。")
     parser.add_argument("--vllm-batch-size", type=int, default=64, help="vLLM batch 推理 batch size。")
     parser.add_argument("--vllm-concurrency", type=int, default=1, help="vLLM batch 并行副本数。")
+    parser.add_argument(
+        "--vllm-tensor-parallel-size",
+        type=int,
+        default=None,
+        help="vLLM tensor parallel size（多卡模型并行）。",
+    )
     parser.add_argument("--vllm-max-model-len", type=int, default=None, help="vLLM max_model_len。")
     parser.add_argument("--vllm-max-batched-tokens", type=int, default=None, help="vLLM max_num_batched_tokens。")
     parser.add_argument("--vllm-enable-chunked-prefill", action="store_true", help="启用 vLLM chunked prefill。")
@@ -439,7 +515,7 @@ def main() -> None:
     parser.add_argument(
         "--image-token",
         default="<|image_1|>",
-        help="多模态 prompt 的图像占位 token（为空则不追加）。",
+        help="多模态 prompt 的图像占位 token（仅 API 后端使用，vllm-batch 会忽略）。",
     )
 
     parser.add_argument(
@@ -546,6 +622,19 @@ def main() -> None:
             if h not in caption_cache_global:
                 all_unique_images.setdefault(h, info)
 
+    for image_cache in dir_image_caches.values():
+        for info in image_cache.values():
+            h = info.get("hash")
+            if not h or str(h).startswith("missing:"):
+                continue
+            if h in caption_cache_global or h in all_unique_images:
+                continue
+            all_unique_images[h] = {
+                "mime": info.get("mime", "application/octet-stream"),
+                "path": info.get("path", ""),
+                "has_alpha": info.get("has_alpha", False),
+            }
+
     print(f"[placeholderall] 全局待 caption 图片数（去重后）: {len(all_unique_images)}")
 
     def run_replace_stage(
@@ -612,7 +701,7 @@ def main() -> None:
                 sleep_sec,
             )
         else:
-            caption_prompt = apply_image_token(prompt, args.image_token)
+            caption_prompt = prompt
             caption_items: List[Dict[str, str]] = []
             for h, info in all_unique_images.items():
                 img_path = info.get("path", "")
@@ -631,6 +720,7 @@ def main() -> None:
                 concurrency=args.vllm_concurrency,
                 max_model_len=args.vllm_max_model_len,
                 max_batched_tokens=args.vllm_max_batched_tokens,
+                tensor_parallel_size=args.vllm_tensor_parallel_size,
                 enable_chunked_prefill=args.vllm_enable_chunked_prefill,
                 ray_address=args.ray_address,
                 ray_log_to_driver=args.ray_log_to_driver,
@@ -689,7 +779,7 @@ def main() -> None:
             '{"is_chart": true}；否则输出 {"is_chart": false}。'
             "只输出 JSON，不要输出任何多余文字。"
         )
-        chart_prompt = apply_image_token(chart_prompt, args.image_token)
+        chart_prompt = chart_prompt
         chart_items: List[Dict[str, str]] = []
         for h in suspicious_hashes:
             info = hash_to_image.get(h) or {}
@@ -707,6 +797,7 @@ def main() -> None:
             concurrency=args.vllm_concurrency,
             max_model_len=args.vllm_max_model_len,
             max_batched_tokens=args.vllm_max_batched_tokens,
+            tensor_parallel_size=args.vllm_tensor_parallel_size,
             enable_chunked_prefill=args.vllm_enable_chunked_prefill,
             ray_address=args.ray_address,
             ray_log_to_driver=args.ray_log_to_driver,

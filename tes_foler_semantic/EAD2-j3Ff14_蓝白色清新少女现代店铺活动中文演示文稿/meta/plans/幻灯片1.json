@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "title",
+      "order": 2,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "title",
+      "order": 3,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0002",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 4,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 5,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g-root",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007",
+        "t0002",
+        "t0003"
+      ],
+      "confidence": 1.0
+    }
+  ],
+  "root": "g-root",
+  "unassigned": []
+}

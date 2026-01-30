@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    {
+      "id": "tb_1",
+      "type": "textbox",
+      "role": "title",
+      "order": 1,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb_2",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "root_group",
+      "type": "group",
+      "role": "unknown",
+      "order": 0,
+      "children": [
+        "tb_1",
+        "tb_2"
+      ],
+      "confidence": 0.5
+    }
+  ],
+  "root": "root_group",
+  "unassigned": []
+}

@@ -1,0 +1,143 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "可瓦奶昔店新品宣传计划",
+      "bbox": {
+        "x": 1845.35,
+        "y": 392.0,
+        "w": 24.0,
+        "h": 231.0
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0002",
+      "text": "• 2020",
+      "bbox": {
+        "x": 1845.35,
+        "y": 277.39,
+        "w": 24.0,
+        "h": 54.61
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "年",
+      "bbox": {
+        "x": 1845.35,
+        "y": 212.0,
+        "w": 24.0,
+        "h": 21.0
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "9",
+      "bbox": {
+        "x": 1845.35,
+        "y": 197.5,
+        "w": 24.0,
+        "h": 10.5
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "月",
+      "bbox": {
+        "x": 1845.35,
+        "y": 170.0,
+        "w": 24.0,
+        "h": 21.0
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "25",
+      "bbox": {
+        "x": 1845.35,
+        "y": 145.0,
+        "w": 24.0,
+        "h": 21.0
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "日",
+      "bbox": {
+        "x": 1845.35,
+        "y": 113.0,
+        "w": 24.0,
+        "h": 21.0
+      },
+      "style": {
+        "fontSize": "21px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0009",
+      "text": "89%",
+      "bbox": {
+        "x": 257.63,
+        "y": 347.0,
+        "w": 466.0,
+        "h": 258.0
+      },
+      "style": {
+        "fontSize": "233px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0010",
+      "text": "的顾客表示喜爱",
+      "bbox": {
+        "x": 276.82,
+        "y": 624.0,
+        "w": 420.0,
+        "h": 66.0
+      },
+      "style": {
+        "fontSize": "60px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

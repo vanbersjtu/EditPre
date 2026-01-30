@@ -1,0 +1,53 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0005",
+      "text": "视频动画工作室",
+      "bbox": {
+        "x": 1508.5,
+        "y": 107.0,
+        "w": 259.0,
+        "h": 41.0
+      },
+      "style": {
+        "fontSize": "37px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "可瓦工作室",
+      "bbox": {
+        "x": 923.27,
+        "y": 782.0,
+        "w": 800.0,
+        "h": 179.0
+      },
+      "style": {
+        "fontSize": "160px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "CANVA STUDIO",
+      "bbox": {
+        "x": 1142.79,
+        "y": 675.0,
+        "w": 548.33,
+        "h": 81.0
+      },
+      "style": {
+        "fontSize": "73px",
+        "fontWeight": "700",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

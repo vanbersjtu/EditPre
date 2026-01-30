@@ -1,0 +1,286 @@
+{
+  "nodes": [
+    {
+      "id": "t0003",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0003"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 1,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0013",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 2,
+      "item_ids": [
+        "t0013"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0018",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 3,
+      "item_ids": [
+        "t0018"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "t0023",
+      "type": "textbox",
+      "role": "subtitle",
+      "order": 4,
+      "item_ids": [
+        "t0023"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "body",
+      "order": 5,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0002",
+      "type": "group",
+      "role": "body",
+      "order": 6,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0003",
+      "type": "group",
+      "role": "body",
+      "order": 7,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0004",
+      "type": "group",
+      "role": "body",
+      "order": 8,
+      "children": [],
+      "confidence": 0.5
+    },
+    {
+      "id": "g0005",
+      "type": "group",
+      "role": "section",
+      "order": 9,
+      "children": [
+        "t0003",
+        "t0008",
+        "t0013",
+        "t0018",
+        "t0023",
+        "g0001",
+        "g0002",
+        "g0003",
+        "g0004"
+      ],
+      "confidence": 0.5
+    },
+    {
+      "id": "tb-auto-11",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 11,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-12",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 12,
+      "item_ids": [
+        "t0002"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-13",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 13,
+      "item_ids": [
+        "t0021"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-14",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 14,
+      "item_ids": [
+        "t0017"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-15",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 15,
+      "item_ids": [
+        "t0019"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-16",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 16,
+      "item_ids": [
+        "t0015"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-17",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 17,
+      "item_ids": [
+        "t0020"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-18",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 18,
+      "item_ids": [
+        "t0010"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-19",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 19,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-20",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 20,
+      "item_ids": [
+        "t0014"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-21",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 21,
+      "item_ids": [
+        "t0011"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-22",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 22,
+      "item_ids": [
+        "t0022"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-23",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 23,
+      "item_ids": [
+        "t0001"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-24",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 24,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-25",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 25,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-26",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 26,
+      "item_ids": [
+        "t0016"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-27",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 27,
+      "item_ids": [
+        "t0012"
+      ],
+      "confidence": 0.1
+    },
+    {
+      "id": "tb-auto-28",
+      "type": "textbox",
+      "role": "unknown",
+      "order": 28,
+      "item_ids": [
+        "t0009"
+      ],
+      "confidence": 0.1
+    }
+  ],
+  "root": "g0005",
+  "unassigned": []
+}

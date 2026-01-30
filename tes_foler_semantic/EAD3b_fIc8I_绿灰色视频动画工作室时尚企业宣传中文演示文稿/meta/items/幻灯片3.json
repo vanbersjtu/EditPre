@@ -1,0 +1,113 @@
+{
+  "canvas": {
+    "w": 1920.0,
+    "h": 1080.0
+  },
+  "items": [
+    {
+      "id": "t0001",
+      "text": "创造力几乎可以",
+      "bbox": {
+        "x": 108.0,
+        "y": 196.0,
+        "w": 672.0,
+        "h": 107.0
+      },
+      "style": {
+        "fontSize": "96px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0002",
+      "text": "解决任何问题。",
+      "bbox": {
+        "x": 108.0,
+        "y": 330.0,
+        "w": 672.0,
+        "h": 107.0
+      },
+      "style": {
+        "fontSize": "96px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0003",
+      "text": "张",
+      "bbox": {
+        "x": 100.85,
+        "y": 645.0,
+        "w": 43.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0004",
+      "text": "小",
+      "bbox": {
+        "x": 100.85,
+        "y": 710.0,
+        "w": 43.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0005",
+      "text": "可",
+      "bbox": {
+        "x": 100.85,
+        "y": 776.0,
+        "w": 43.0,
+        "h": 47.0
+      },
+      "style": {
+        "fontSize": "43px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0006",
+      "text": "可瓦工作室",
+      "bbox": {
+        "x": 1499.99,
+        "y": 932.0,
+        "w": 175.0,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    },
+    {
+      "id": "t0007",
+      "text": "| 2020",
+      "bbox": {
+        "x": 1699.64,
+        "y": 932.0,
+        "w": 85.77,
+        "h": 39.0
+      },
+      "style": {
+        "fontSize": "35px",
+        "fontWeight": "400",
+        "textAnchor": "start"
+      }
+    }
+  ]
+}

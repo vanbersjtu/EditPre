@@ -1,0 +1,105 @@
+{
+  "nodes": [
+    {
+      "id": "t0008",
+      "type": "textbox",
+      "role": "title",
+      "order": 0,
+      "item_ids": [
+        "t0008"
+      ],
+      "confidence": 0.95,
+      "items": [
+        {
+          "id": "t0008",
+          "text": "做奶昔是爱的劳动"
+        }
+      ],
+      "text": "做奶昔是爱的劳动"
+    },
+    {
+      "id": "t0004",
+      "type": "textbox",
+      "role": "body",
+      "order": 1,
+      "item_ids": [
+        "t0004"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0004",
+          "text": "演讲是一种对外交流工具，可以是演示演"
+        }
+      ],
+      "text": "演讲是一种对外交流工具，可以是演示演"
+    },
+    {
+      "id": "t0005",
+      "type": "textbox",
+      "role": "body",
+      "order": 2,
+      "item_ids": [
+        "t0005"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0005",
+          "text": "讲等等。大多数时候，他们会呈现在观众"
+        }
+      ],
+      "text": "讲等等。大多数时候，他们会呈现在观众"
+    },
+    {
+      "id": "t0006",
+      "type": "textbox",
+      "role": "body",
+      "order": 3,
+      "item_ids": [
+        "t0006"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0006",
+          "text": "面前。他们有各种各样的目的，使他们成"
+        }
+      ],
+      "text": "面前。他们有各种各样的目的，使他们成"
+    },
+    {
+      "id": "t0007",
+      "type": "textbox",
+      "role": "body",
+      "order": 4,
+      "item_ids": [
+        "t0007"
+      ],
+      "confidence": 0.9,
+      "items": [
+        {
+          "id": "t0007",
+          "text": "为令人信服和教学的有力工具。"
+        }
+      ],
+      "text": "为令人信服和教学的有力工具。"
+    },
+    {
+      "id": "g0001",
+      "type": "group",
+      "role": "body",
+      "order": 1,
+      "children": [
+        "t0004",
+        "t0005",
+        "t0006",
+        "t0007"
+      ],
+      "confidence": 0.95,
+      "text": "演讲是一种对外交流工具，可以是演示演\n讲等等。大多数时候，他们会呈现在观众\n面前。他们有各种各样的目的，使他们成\n为令人信服和教学的有力工具。"
+    }
+  ],
+  "root": "g0001",
+  "unassigned": []
+}
