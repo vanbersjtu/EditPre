@@ -151,6 +151,7 @@ def run_vllm_batch(
     enable_chunked_prefill: bool,
     ray_address: str,
     ray_log_to_driver: bool,
+    progress_label: str = "",
 ) -> List[Dict[str, object]]:
     if not items:
         return []
@@ -175,7 +176,8 @@ def run_vllm_batch(
 
     outputs: List[Dict[str, object]] = []
     step = max(1, batch_size)
-    for start in range(0, len(items), step):
+    total_items = len(items)
+    for start in range(0, total_items, step):
         batch = items[start : start + step]
         inputs: List[Dict[str, object]] = []
         hashes: List[str] = []
@@ -247,6 +249,12 @@ def run_vllm_batch(
             if outputs_list:
                 text = getattr(outputs_list[0], "text", "") or ""
             outputs.append({"image_hash": h, "generated_text": text})
+        if progress_label:
+            processed = min(start + step, total_items)
+            pct = (processed / total_items * 100.0) if total_items else 100.0
+            print(
+                f"[placeholderall] {progress_label}: {processed}/{total_items} ({pct:.1f}%)"
+            )
 
     return outputs
 
@@ -529,8 +537,28 @@ def main() -> None:
         action="store_true",
         help="强制重新生成 caption 与图表判断（忽略已有全局缓存）。",
     )
+    parser.add_argument(
+        "--stage",
+        nargs="+",
+        choices=["placeholder", "caption", "chart", "all"],
+        default=["placeholder", "caption", "chart"],
+        help="仅运行指定阶段（placeholder/caption/chart），默认全部。",
+    )
 
     args = parser.parse_args()
+
+    stage_tokens = args.stage or ["placeholder", "caption", "chart"]
+    if "all" in stage_tokens:
+        selected_stages = ["placeholder", "caption", "chart"]
+    else:
+        order = ["placeholder", "caption", "chart"]
+        selected_stages = [name for name in order if name in stage_tokens]
+    if not selected_stages:
+        selected_stages = ["placeholder", "caption", "chart"]
+    run_placeholder = "placeholder" in selected_stages
+    run_caption = "caption" in selected_stages
+    run_chart = "chart" in selected_stages
+    print(f"[placeholderall] 运行阶段: {', '.join(selected_stages)}")
 
     in_root = Path(args.input).expanduser().resolve()
     out_root = Path(args.output).expanduser().resolve()
@@ -542,6 +570,13 @@ def main() -> None:
         return
 
     print(f"[placeholderall] 将处理 {len(svg_dirs)} 个目录（包含 SVG）。")
+
+    def log_progress(label: str, done: int, total: int) -> None:
+        if total <= 0:
+            pct = 100.0
+        else:
+            pct = done / total * 100.0
+        print(f"[placeholderall] {label} 进度: {done}/{total} ({pct:.1f}%)")
 
     # 读取 config 与基础 VLM 配置（与 svg_image_placeholder 保持一致）
     config_path = Path(args.config) if args.config else None
@@ -594,13 +629,14 @@ def main() -> None:
     all_unique_images: Dict[str, Dict[str, str]] = {}
     dir_image_caches: Dict[Path, Dict[str, Dict[str, str]]] = {}
 
+    results: List[Tuple[Path, Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]] = []
+    total_dirs = len(svg_dirs)
     if args.folder_workers <= 1:
-        results = [
-            run_for_dir_collect(d, out_root / d.relative_to(in_root), caption_cache_global, chart_cache_global)
-            for d in svg_dirs
-        ]
+        for idx, d in enumerate(svg_dirs, start=1):
+            res = run_for_dir_collect(d, out_root / d.relative_to(in_root), caption_cache_global, chart_cache_global)
+            results.append(res)
+            log_progress("Collect", idx, total_dirs)
     else:
-        results: List[Tuple[Path, Dict[str, Dict[str, str]], Dict[str, Dict[str, str]]]] = []
         with ThreadPoolExecutor(max_workers=args.folder_workers) as executor:
             futures = {
                 executor.submit(
@@ -612,9 +648,12 @@ def main() -> None:
                 ): d
                 for d in svg_dirs
             }
+            done = 0
             for fut in as_completed(futures):
                 svg_dir, unique_images, image_cache = fut.result()
                 results.append((svg_dir, unique_images, image_cache))
+                done += 1
+                log_progress("Collect", done, total_dirs)
 
     for svg_dir, unique_images, image_cache in results:
         dir_image_caches[svg_dir] = image_cache
@@ -635,13 +674,18 @@ def main() -> None:
                 "has_alpha": info.get("has_alpha", False),
             }
 
-    print(f"[placeholderall] 全局待 caption 图片数（去重后）: {len(all_unique_images)}")
+    if run_caption:
+        print(f"[placeholderall] 全局待 caption 图片数（去重后）: {len(all_unique_images)}")
+    else:
+        print("[placeholderall] 已跳过 caption 阶段，跳过待 caption 统计。")
 
     def run_replace_stage(
         stage_label: str,
         caption_cache: Dict[str, str],
         chart_cache: Dict[str, bool],
     ) -> None:
+        total_dirs_local = len(svg_dirs)
+
         def stage_worker(svg_dir: Path) -> None:
             rel = svg_dir.relative_to(in_root)
             out_dir = out_root / rel
@@ -657,65 +701,158 @@ def main() -> None:
             )
 
         if args.folder_workers <= 1:
-            for d in svg_dirs:
+            for idx, d in enumerate(svg_dirs, start=1):
                 stage_worker(d)
+                log_progress(stage_label, idx, total_dirs_local)
         else:
             with ThreadPoolExecutor(max_workers=args.folder_workers) as executor:
                 futures = {executor.submit(stage_worker, d): d for d in svg_dirs}
+                done = 0
                 for fut in as_completed(futures):
                     d = futures[fut]
                     try:
                         fut.result()
                     except Exception as exc:
                         print(f"[placeholderall] 子目录 {stage_label} 失败: {d} -> {exc}")
+                    finally:
+                        done += 1
+                        log_progress(stage_label, done, total_dirs_local)
 
     # 阶段1：生成初始占位（不触发 VLM，使用已有缓存）
-    stage1_caption_cache = dict(caption_cache_global)
-    stage1_chart_cache = dict(chart_cache_global)
-    run_replace_stage("Placeholder", stage1_caption_cache, stage1_chart_cache)
+    if run_placeholder:
+        stage1_caption_cache = dict(caption_cache_global)
+        stage1_chart_cache = dict(chart_cache_global)
+        run_replace_stage("Placeholder", stage1_caption_cache, stage1_chart_cache)
+    else:
+        print("[placeholderall] 跳过 Placeholder 阶段 (--stage 未包含 placeholder)")
 
     # 阶段2：全局批量 caption（此处只负责 caption，本阶段不更新图表判断）
-    if all_unique_images:
-        prompt = args.prompt or (
-            "请根据图片输出严格的 JSON："
-            "{\"caption\":\"...\"}。"
-            "caption 用英文详尽描述画面，适合作为生图提示词。只输出 JSON。"
-        )
+    if run_caption:
+        if all_unique_images:
+            prompt = args.prompt or (
+                "请根据图片输出严格的 JSON："
+                "{\"caption\":\"...\"}。"
+                "caption 用英文详尽描述画面，适合作为生图提示词。只输出 JSON。"
+            )
+            if vlm_backend == "api":
+                # 这里传入一个临时 chart_cache，避免在 caption 阶段就写入图表判断结果
+                dummy_chart_cache: Dict[str, bool] = {}
+                generate_captions(
+                    all_unique_images,
+                    caption_cache_global,
+                    dummy_chart_cache,
+                    base_url,
+                    api_key,
+                    api_model,
+                    prompt,
+                    caption_max_tokens,
+                    temperature,
+                    timeout,
+                    retries,
+                    workers,
+                    qps,
+                    sleep_sec,
+                )
+            else:
+                caption_prompt = prompt
+                caption_items: List[Dict[str, str]] = []
+                for h, info in all_unique_images.items():
+                    img_path = info.get("path", "")
+                    if not img_path or not Path(img_path).exists():
+                        caption_cache_global[h] = "图片占位"
+                        continue
+                    caption_items.append(
+                        {"image_hash": h, "image_path": img_path, "prompt": caption_prompt}
+                    )
+                outputs = run_vllm_batch(
+                    caption_items,
+                    model_source=vllm_model,
+                    temperature=temperature,
+                    max_tokens=caption_max_tokens,
+                    batch_size=args.vllm_batch_size,
+                    concurrency=args.vllm_concurrency,
+                    max_model_len=args.vllm_max_model_len,
+                    max_batched_tokens=args.vllm_max_batched_tokens,
+                    tensor_parallel_size=args.vllm_tensor_parallel_size,
+                    enable_chunked_prefill=args.vllm_enable_chunked_prefill,
+                    ray_address=args.ray_address,
+                    ray_log_to_driver=args.ray_log_to_driver,
+                    progress_label="Caption VLM",
+                )
+                for row in outputs:
+                    h = str(row.get("image_hash", ""))
+                    if not h:
+                        continue
+                    caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
+        else:
+            print("[placeholderall] 无需 caption：没有新图片需要处理。")
+
+    else:
+        print("[placeholderall] 跳过 Caption 阶段 (--stage 未包含 caption)")
+
+    # 基于 caption 关键词，筛选“可疑图表”图片 hash
+    if run_chart:
+        # 仅对这些 hash 再走一次 VLM，专门进行图表判断
+        hash_to_image: Dict[str, Dict[str, str]] = {}
+        for image_cache in dir_image_caches.values():
+            for info in image_cache.values():
+                h = info.get("hash")
+                if not h:
+                    continue
+                if h not in hash_to_image:
+                    hash_to_image[h] = info
+        for h, info in all_unique_images.items():
+            if h not in hash_to_image:
+                hash_to_image[h] = info
+    
+        suspicious_hashes: List[str] = []
+        for h, cap in caption_cache_global.items():
+            if not cap:
+                continue
+            if not is_suspicious_chart_caption(cap):
+                continue
+            # 非 force 模式下，如果已有图表判断结果，则跳过，避免重复推理
+            if not args.force and h in chart_cache_global:
+                continue
+            suspicious_hashes.append(h)
+    
+        print(f"[placeholderall] 可疑图表图片数: {len(suspicious_hashes)}")
+    
         if vlm_backend == "api":
-            # 这里传入一个临时 chart_cache，避免在 caption 阶段就写入图表判断结果
-            dummy_chart_cache: Dict[str, bool] = {}
-            generate_captions(
-                all_unique_images,
-                caption_cache_global,
-                dummy_chart_cache,
-                base_url,
-                api_key,
-                api_model,
-                prompt,
-                caption_max_tokens,
-                temperature,
-                timeout,
-                retries,
-                workers,
-                qps,
-                sleep_sec,
+            chart_updates = detect_charts_with_vlm(
+                suspicious_hashes,
+                hash_to_image,
+                base_url=base_url,
+                api_key=api_key,
+                model=api_model,
+                timeout=timeout,
+                retries=retries,
+                qps=qps,
+                sleep_sec=sleep_sec,
+                workers=workers,
             )
         else:
-            caption_prompt = prompt
-            caption_items: List[Dict[str, str]] = []
-            for h, info in all_unique_images.items():
+            chart_prompt = (
+                "你是图像类型判定助手。请仅根据图片内容判断这是否是“纯数据可视化图表”，"
+                "例如：柱状图、折线图、饼图、散点图、面积图、雷达图、直方图等。"
+                "如果是纯图表（主要内容是数据可视化），请输出严格 JSON："
+                '{"is_chart": true}；否则输出 {"is_chart": false}。'
+                "只输出 JSON，不要输出任何多余文字。"
+            )
+            chart_prompt = chart_prompt
+            chart_items: List[Dict[str, str]] = []
+            for h in suspicious_hashes:
+                info = hash_to_image.get(h) or {}
                 img_path = info.get("path", "")
                 if not img_path or not Path(img_path).exists():
-                    caption_cache_global[h] = "图片占位"
+                    chart_cache_global[h] = False
                     continue
-                caption_items.append(
-                    {"image_hash": h, "image_path": img_path, "prompt": caption_prompt}
-                )
+                chart_items.append({"image_hash": h, "image_path": img_path, "prompt": chart_prompt})
             outputs = run_vllm_batch(
-                caption_items,
+                chart_items,
                 model_source=vllm_model,
-                temperature=temperature,
-                max_tokens=caption_max_tokens,
+                temperature=0.0,
+                max_tokens=64,
                 batch_size=args.vllm_batch_size,
                 concurrency=args.vllm_concurrency,
                 max_model_len=args.vllm_max_model_len,
@@ -724,98 +861,25 @@ def main() -> None:
                 enable_chunked_prefill=args.vllm_enable_chunked_prefill,
                 ray_address=args.ray_address,
                 ray_log_to_driver=args.ray_log_to_driver,
+                progress_label="Chart VLM",
             )
-            for row in outputs:
-                h = str(row.get("image_hash", ""))
-                if not h:
-                    continue
-                caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
-
-    # 基于 caption 关键词，筛选“可疑图表”图片 hash
-    # 仅对这些 hash 再走一次 VLM，专门进行图表判断
-    hash_to_image: Dict[str, Dict[str, str]] = {}
-    for image_cache in dir_image_caches.values():
-        for info in image_cache.values():
-            h = info.get("hash")
-            if not h:
-                continue
-            if h not in hash_to_image:
-                hash_to_image[h] = info
-    for h, info in all_unique_images.items():
-        if h not in hash_to_image:
-            hash_to_image[h] = info
-
-    suspicious_hashes: List[str] = []
-    for h, cap in caption_cache_global.items():
-        if not cap:
-            continue
-        if not is_suspicious_chart_caption(cap):
-            continue
-        # 非 force 模式下，如果已有图表判断结果，则跳过，避免重复推理
-        if not args.force and h in chart_cache_global:
-            continue
-        suspicious_hashes.append(h)
-
-    print(f"[placeholderall] 可疑图表图片数: {len(suspicious_hashes)}")
-
-    if vlm_backend == "api":
-        chart_updates = detect_charts_with_vlm(
-            suspicious_hashes,
-            hash_to_image,
-            base_url=base_url,
-            api_key=api_key,
-            model=api_model,
-            timeout=timeout,
-            retries=retries,
-            qps=qps,
-            sleep_sec=sleep_sec,
-            workers=workers,
-        )
+            chart_updates = {
+                str(row.get("image_hash", "")): extract_is_chart(str(row.get("generated_text", "")))
+                for row in outputs
+                if row.get("image_hash")
+            }
+    
+        # 先将没有任何判断结果的 hash 默认标记为 False，再用 VLM 结果覆盖
+        for h in caption_cache_global.keys():
+            chart_cache_global.setdefault(h, False)
+        for h, flag in chart_updates.items():
+            chart_cache_global[h] = bool(flag)
+    
+        # 阶段3：为每个子目录执行占位替换（replace），并写目录级缓存
+        run_replace_stage("Replace", caption_cache_global, chart_cache_global)
+    
     else:
-        chart_prompt = (
-            "你是图像类型判定助手。请仅根据图片内容判断这是否是“纯数据可视化图表”，"
-            "例如：柱状图、折线图、饼图、散点图、面积图、雷达图、直方图等。"
-            "如果是纯图表（主要内容是数据可视化），请输出严格 JSON："
-            '{"is_chart": true}；否则输出 {"is_chart": false}。'
-            "只输出 JSON，不要输出任何多余文字。"
-        )
-        chart_prompt = chart_prompt
-        chart_items: List[Dict[str, str]] = []
-        for h in suspicious_hashes:
-            info = hash_to_image.get(h) or {}
-            img_path = info.get("path", "")
-            if not img_path or not Path(img_path).exists():
-                chart_cache_global[h] = False
-                continue
-            chart_items.append({"image_hash": h, "image_path": img_path, "prompt": chart_prompt})
-        outputs = run_vllm_batch(
-            chart_items,
-            model_source=vllm_model,
-            temperature=0.0,
-            max_tokens=64,
-            batch_size=args.vllm_batch_size,
-            concurrency=args.vllm_concurrency,
-            max_model_len=args.vllm_max_model_len,
-            max_batched_tokens=args.vllm_max_batched_tokens,
-            tensor_parallel_size=args.vllm_tensor_parallel_size,
-            enable_chunked_prefill=args.vllm_enable_chunked_prefill,
-            ray_address=args.ray_address,
-            ray_log_to_driver=args.ray_log_to_driver,
-        )
-        chart_updates = {
-            str(row.get("image_hash", "")): extract_is_chart(str(row.get("generated_text", "")))
-            for row in outputs
-            if row.get("image_hash")
-        }
-
-    # 先将没有任何判断结果的 hash 默认标记为 False，再用 VLM 结果覆盖
-    for h in caption_cache_global.keys():
-        chart_cache_global.setdefault(h, False)
-    for h, flag in chart_updates.items():
-        chart_cache_global[h] = bool(flag)
-
-    # 阶段3：为每个子目录执行占位替换（replace），并写目录级缓存
-    run_replace_stage("Replace", caption_cache_global, chart_cache_global)
+        print("[placeholderall] 跳过 Chart 阶段 (--stage 未包含 chart)")
 
     # 阶段4：根据全局 caption_cache / chart_cache 写出全局图表缓存
     for h, is_chart in chart_cache_global.items():
