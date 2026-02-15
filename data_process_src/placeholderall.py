@@ -636,6 +636,7 @@ def main() -> None:
     global_caption_path = global_cache_dir / "caption_cache.json"
     global_chart_path = global_cache_dir / "chart_cache.json"
     global_chart_captions_path = global_cache_dir / "chart_captions.json"
+    global_skipped_path = global_cache_dir / "skipped_images.json"
 
     if args.force:
         caption_cache_global: Dict[str, str] = {}
@@ -829,8 +830,9 @@ def main() -> None:
                     on_batch_done=_caption_batch_done,
                 )
                 # 正常结果已由 _caption_batch_done 回调实时写入 caption_cache_global
-                # 这里只收集被截断的项用于重跑
+                # 这里收集被截断的项 + 被跳过的项
                 truncated_items: List[Dict[str, str]] = []
+                skipped_images: List[Dict[str, str]] = []
                 hash_to_item = {str(it["image_hash"]): it for it in caption_items}
                 for row in outputs:
                     h = str(row.get("image_hash", ""))
@@ -840,6 +842,25 @@ def main() -> None:
                     if finish_reason == "length":
                         if h in hash_to_item:
                             truncated_items.append(hash_to_item[h])
+                    elif finish_reason == "skipped":
+                        skipped_images.append({
+                            "hash": h,
+                            "path": hash_to_item[h]["image_path"] if h in hash_to_item else "",
+                            "reason": str(row.get("generated_text", "")),
+                        })
+
+                # 持久化记录跳过的图片（含极端宽高比、打开失败等）
+                if skipped_images:
+                    # 追加模式：合并旧记录
+                    old_skipped = load_json(global_skipped_path)
+                    if isinstance(old_skipped, list):
+                        existing_hashes = {s.get("hash") for s in old_skipped}
+                        for s in skipped_images:
+                            if s["hash"] not in existing_hashes:
+                                old_skipped.append(s)
+                        skipped_images = old_skipped
+                    save_json(global_skipped_path, skipped_images)
+                    print(f"[placeholderall] 共 {len(skipped_images)} 张图片被跳过，已记录到 {global_skipped_path}")
 
                 # 自动重跑被截断的 caption（max_tokens 翻倍，上限 2048）
                 if truncated_items:
