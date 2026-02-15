@@ -250,10 +250,12 @@ def run_vllm_batch(
         results = llm.generate(inputs, sampling_params=sampling_params)
         for h, result in zip(hashes, results):
             text = ""
+            finish_reason = "unknown"
             outputs_list = getattr(result, "outputs", None)
             if outputs_list:
                 text = getattr(outputs_list[0], "text", "") or ""
-            outputs.append({"image_hash": h, "generated_text": text})
+                finish_reason = getattr(outputs_list[0], "finish_reason", "unknown") or "unknown"
+            outputs.append({"image_hash": h, "generated_text": text, "finish_reason": finish_reason})
         if progress_label:
             processed = min(start + step, total_items)
             pct = (processed / total_items * 100.0) if total_items else 100.0
@@ -784,11 +786,58 @@ def main() -> None:
                     ray_log_to_driver=args.ray_log_to_driver,
                     progress_label="Caption VLM",
                 )
+                # 收集正常结果 & 检测被截断的项
+                truncated_items: List[Dict[str, str]] = []
+                hash_to_item = {str(it["image_hash"]): it for it in caption_items}
                 for row in outputs:
                     h = str(row.get("image_hash", ""))
                     if not h:
                         continue
+                    finish_reason = str(row.get("finish_reason", ""))
+                    if finish_reason == "length":
+                        # 被 max_tokens 截断，先暂存，后面用更高 token 重跑
+                        if h in hash_to_item:
+                            truncated_items.append(hash_to_item[h])
+                        continue
                     caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
+
+                # 自动重跑被截断的 caption（max_tokens 翻倍，上限 2048）
+                if truncated_items:
+                    retry_max_tokens = min(caption_max_tokens * 2, 2048)
+                    print(
+                        f"[placeholderall] 检测到 {len(truncated_items)} 条 caption 被截断 "
+                        f"(finish_reason=length)，以 max_tokens={retry_max_tokens} 重跑..."
+                    )
+                    retry_outputs = run_vllm_batch(
+                        truncated_items,
+                        model_source=vllm_model,
+                        temperature=temperature,
+                        max_tokens=retry_max_tokens,
+                        batch_size=args.vllm_batch_size,
+                        concurrency=args.vllm_concurrency,
+                        max_model_len=args.vllm_max_model_len,
+                        max_batched_tokens=args.vllm_max_batched_tokens,
+                        tensor_parallel_size=args.vllm_tensor_parallel_size,
+                        enable_chunked_prefill=args.vllm_enable_chunked_prefill,
+                        ray_address=args.ray_address,
+                        ray_log_to_driver=args.ray_log_to_driver,
+                        progress_label="Caption VLM (retry truncated)",
+                    )
+                    still_truncated = 0
+                    for row in retry_outputs:
+                        h = str(row.get("image_hash", ""))
+                        if not h:
+                            continue
+                        if str(row.get("finish_reason", "")) == "length":
+                            still_truncated += 1
+                        caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
+                    if still_truncated:
+                        print(
+                            f"[placeholderall] 警告: 重跑后仍有 {still_truncated} 条被截断，"
+                            f"已保留当前结果。可手动用更大 --max-tokens 再跑一次 stage 2。"
+                        )
+                    else:
+                        print("[placeholderall] 所有截断项重跑完成，无遗留截断。")
         else:
             print("[placeholderall] 无需 caption：没有新图片需要处理。")
 
