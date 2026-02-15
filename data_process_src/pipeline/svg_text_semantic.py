@@ -95,45 +95,6 @@ def parse_json_from_text(text: str) -> Optional[Dict[str, object]]:
                     start_idx = -1
                     brace_count = 0
     
-    # 如果上面的方法失败，尝试修复不完整的 JSON（被截断的情况）
-    # 策略：找到最后一个完整的节点，然后手动闭合 JSON
-    if cleaned.startswith('{') and '"nodes"' in cleaned and not cleaned.rstrip().endswith('}'):
-        # 找到最后一个完整的节点（以 } 结尾的节点对象）
-        # 从后往前找，找到最后一个完整的节点
-        nodes_start = cleaned.find('"nodes": [')
-        if nodes_start != -1:
-            # 找到最后一个完整的节点对象（以 }, 或 }] 结尾）
-            # 尝试找到最后一个完整的节点：以 }, 结尾，且前面有完整的结构
-            last_complete_node_pos = -1
-            for i in range(len(cleaned) - 1, nodes_start, -1):
-                if cleaned[i] == '}' and (i + 1 >= len(cleaned) or cleaned[i + 1] in [',', ']', ' ']):
-                    # 检查这个 } 前面是否有完整的节点结构
-                    # 简单检查：前面有 "item_ids" 或 "children"
-                    before_brace = cleaned[max(0, i - 200):i]
-                    if ('"item_ids"' in before_brace or '"children"' in before_brace) and '"id"' in before_brace:
-                        last_complete_node_pos = i + 1
-                        break
-            
-            if last_complete_node_pos > 0:
-                # 构造完整的 JSON
-                candidate = cleaned[:last_complete_node_pos] + ']'
-                # 检查是否有 root 字段，如果没有就添加一个默认的
-                if '"root"' not in candidate:
-                    # 尝试从 nodes 中提取第一个节点的 id 作为 root
-                    root_match = re.search(r'"id"\s*:\s*"([^"]+)"', candidate)
-                    if root_match:
-                        root_id = root_match.group(1)
-                        candidate = candidate + f', "root": "{root_id}"'
-                    else:
-                        candidate = candidate + ', "root": "g-root"'
-                candidate = candidate + '}'
-                try:
-                    parsed = json.loads(candidate)
-                    if isinstance(parsed, dict) and "nodes" in parsed:
-                        return parsed
-                except Exception:
-                    pass
-    
     # 如果上面的方法失败，回退到原来的正则匹配
     match = re.search(r"\{.*\}", cleaned, re.S)
     if match:
@@ -182,47 +143,116 @@ def call_text_llm(
     temperature: float,
     timeout: int,
 ) -> Tuple[Optional[str], Optional[str]]:
-    url = base_url.rstrip("/") + "/v1/chat/completions"
-    payload = {
-        "model": model,
-        "messages": [
-            {
-                "role": "system",
-                "content": "You are an SVG text semantic annotator. Output JSON only.",
+    # 检测是否为 Google Gemini API
+    is_google_api = "generativelanguage.googleapis.com" in base_url.lower()
+    
+    if is_google_api:
+        # Google Gemini API 格式
+        url = f"{base_url.rstrip('/')}/v1beta/models/{model}:generateContent?key={api_key}"
+        user_content = prompt + "\n\nINPUT_JSON:\n" + json.dumps(items, ensure_ascii=False)
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": f"You are an SVG text semantic annotator. Output JSON only.\n\n{user_content}"
+                        }
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "maxOutputTokens": max_tokens,
+                "temperature": temperature,
+                "thinkingConfig": {
+                    "thinkingBudget": 128,
+                },
             },
-            {
-                "role": "user",
-                "content": prompt + "\n\nINPUT_JSON:\n" + json.dumps(items, ensure_ascii=False),
+        }
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
             },
-        ],
-        "max_tokens": max_tokens,
-        "temperature": temperature,
-    }
-    req = urllib.request.Request(
-        url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except Exception as exc:
-        err_msg = str(exc)
+        )
         try:
-            if hasattr(exc, "read"):
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            err_msg = f"HTTP {exc.code}: {exc.reason}"
+            try:
                 err_body = exc.read().decode("utf-8", errors="ignore")
                 if err_body:
                     err_msg = err_msg + "\n" + err_body
+                    # 尝试解析错误 JSON
+                    try:
+                        err_data = json.loads(err_body)
+                        if "error" in err_data:
+                            err_msg = err_msg + f"\n错误详情: {json.dumps(err_data['error'], ensure_ascii=False, indent=2)}"
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+            return None, err_msg
+        except urllib.error.URLError as exc:
+            return None, f"URL 错误: {str(exc)}"
+        except Exception as exc:
+            err_msg = f"异常: {type(exc).__name__}: {str(exc)}"
+            return None, err_msg
+        try:
+            # Google Gemini API 响应格式
+            if "candidates" not in data or len(data["candidates"]) == 0:
+                return None, f"API 响应中没有 candidates: {json.dumps(data, ensure_ascii=False, indent=2)}"
+            if "content" not in data["candidates"][0]:
+                return None, f"API 响应格式异常: {json.dumps(data, ensure_ascii=False, indent=2)}"
+            return data["candidates"][0]["content"]["parts"][0]["text"].strip(), None
+        except KeyError as e:
+            return None, f"响应格式错误，缺少字段 {e}: {json.dumps(data, ensure_ascii=False, indent=2)}"
+        except Exception as e:
+            return None, f"解析响应失败: {type(e).__name__}: {str(e)}"
+    else:
+        # OpenAI 兼容格式
+        url = base_url.rstrip("/") + "/v1/chat/completions"
+        payload = {
+            "model": model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are an SVG text semantic annotator. Output JSON only.",
+                },
+                {
+                    "role": "user",
+                    "content": prompt + "\n\nINPUT_JSON:\n" + json.dumps(items, ensure_ascii=False),
+                },
+            ],
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+        }
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+        except Exception as exc:
+            err_msg = str(exc)
+            try:
+                if hasattr(exc, "read"):
+                    err_body = exc.read().decode("utf-8", errors="ignore")
+                    if err_body:
+                        err_msg = err_msg + "\n" + err_body
+            except Exception:
+                pass
+            return None, err_msg
+        try:
+            return data["choices"][0]["message"]["content"].strip(), None
         except Exception:
-            pass
-        return None, err_msg
-    try:
-        return data["choices"][0]["message"]["content"].strip(), None
-    except Exception:
-        return None, "Invalid response format."
+            return None, "Invalid response format."
 
 
 def call_text_llm_with_retries(
@@ -623,13 +653,15 @@ def normalize_tree_plan(
         if node.get("type") == "group":
             node["children"] = [c for c in node.get("children", []) if c in node_ids and c != node.get("id")]
 
+    child_ids = set()
+    for node in nodes_map.values():
+        if node.get("type") == "group":
+            child_ids.update(node.get("children", []))
+    top_level = [nid for nid in nodes_map if nid not in child_ids]
+    top_level.sort(key=lambda nid: nodes_map.get(nid, {}).get("order", 0))
+
     root = plan.get("root") if isinstance(plan, dict) else None
     if not isinstance(root, str) or root not in nodes_map:
-        child_ids = set()
-        for node in nodes_map.values():
-            if node.get("type") == "group":
-                child_ids.update(node.get("children", []))
-        top_level = [nid for nid in nodes_map if nid not in child_ids]
         root = "g-root"
         nodes_map[root] = {
             "id": root,
@@ -639,6 +671,39 @@ def normalize_tree_plan(
             "children": top_level,
             "confidence": 1.0,
         }
+    else:
+        def collect_reachable(start_id: str) -> set:
+            visited = set()
+            stack = [start_id]
+            while stack:
+                node_id = stack.pop()
+                if node_id in visited:
+                    continue
+                visited.add(node_id)
+                node = nodes_map.get(node_id)
+                if node and node.get("type") == "group":
+                    for child_id in node.get("children", []):
+                        if isinstance(child_id, str) and child_id in nodes_map:
+                            stack.append(child_id)
+            return visited
+
+        reachable = collect_reachable(root)
+        if len(reachable) != len(nodes_map):
+            new_root = "g-root"
+            if new_root in nodes_map:
+                suffix = 1
+                while new_root in nodes_map:
+                    new_root = f"g-root-{suffix}"
+                    suffix += 1
+            nodes_map[new_root] = {
+                "id": new_root,
+                "type": "group",
+                "role": "unknown",
+                "order": 0,
+                "children": top_level,
+                "confidence": 1.0,
+            }
+            root = new_root
 
     return {"nodes": list(nodes_map.values()), "root": root, "unassigned": []}
 
@@ -655,6 +720,269 @@ def parse_font_size(value: object) -> float:
         return float(match.group(1))
     except Exception:
         return 0.0
+
+
+def merge_adjacent_textboxes(
+    plan: Dict[str, object],
+    items: List[Dict[str, object]],
+    font_size_tol: float = 2.0,
+    align_ratio: float = 0.5,
+    overlap_ratio: float = 0.6,
+    max_gap_ratio: float = 1.4,
+    min_gap_ratio: float = -0.3,
+) -> Dict[str, object]:
+    node_list = plan.get("nodes")
+    if not isinstance(node_list, list):
+        return plan
+
+    node_map = {
+        n.get("id"): n
+        for n in node_list
+        if isinstance(n, dict) and isinstance(n.get("id"), str)
+    }
+    if not node_map:
+        return plan
+
+    item_map = {
+        it.get("id"): it
+        for it in items
+        if isinstance(it, dict) and isinstance(it.get("id"), str)
+    }
+    if not item_map:
+        return plan
+
+    def norm_str(value: object) -> str:
+        if not isinstance(value, str):
+            return ""
+        return value.strip().strip('"').strip("'").lower()
+
+    def norm_anchor(value: object) -> str:
+        val = norm_str(value)
+        if val in ("end", "right"):
+            return "end"
+        if val in ("middle", "center"):
+            return "middle"
+        return "start"
+
+    def consistent_style(styles: List[Dict[str, object]], key: str, normalizer) -> str:
+        values: List[str] = []
+        for style in styles:
+            if not isinstance(style, dict):
+                continue
+            raw = style.get(key)
+            if raw is None:
+                continue
+            values.append(normalizer(raw))
+        if not values:
+            return ""
+        first = values[0]
+        if any(v != first for v in values):
+            return ""
+        return first
+
+    def textbox_font_size(styles: List[Dict[str, object]]) -> float:
+        sizes = []
+        for style in styles:
+            if not isinstance(style, dict):
+                continue
+            size = parse_font_size(style.get("fontSize"))
+            if size > 0:
+                sizes.append(size)
+        if not sizes:
+            return 0.0
+        if max(sizes) - min(sizes) > font_size_tol:
+            return 0.0
+        return sum(sizes) / len(sizes)
+
+    def anchor_pos(bbox: Dict[str, float], anchor: str) -> float:
+        if anchor == "end":
+            return float(bbox.get("x", 0.0) + bbox.get("w", 0.0))
+        if anchor == "middle":
+            return float(bbox.get("x", 0.0) + bbox.get("w", 0.0) / 2)
+        return float(bbox.get("x", 0.0))
+
+    def overlap_ratio_x(b1: Dict[str, float], b2: Dict[str, float]) -> float:
+        left = max(b1.get("x", 0.0), b2.get("x", 0.0))
+        right = min(b1.get("x", 0.0) + b1.get("w", 0.0), b2.get("x", 0.0) + b2.get("w", 0.0))
+        overlap = max(0.0, right - left)
+        min_w = min(b1.get("w", 0.0), b2.get("w", 0.0))
+        if min_w <= 0:
+            return 0.0
+        return overlap / min_w
+
+    def build_textbox_info(node: Dict[str, object]) -> Optional[Dict[str, object]]:
+        item_ids = node.get("item_ids")
+        if not isinstance(item_ids, list):
+            return None
+        cleaned_ids = [iid for iid in item_ids if isinstance(iid, str) and iid in item_map]
+        if not cleaned_ids:
+            return None
+        bbs: List[Dict[str, float]] = []
+        styles: List[Dict[str, object]] = []
+        for iid in cleaned_ids:
+            item = item_map.get(iid)
+            if not isinstance(item, dict):
+                continue
+            bbox = item.get("bbox")
+            if isinstance(bbox, dict):
+                bbs.append(bbox)
+            style = item.get("style")
+            if isinstance(style, dict):
+                styles.append(style)
+        if not bbs:
+            return None
+        role = node.get("role", "unknown")
+        if not isinstance(role, str):
+            role = "unknown"
+        order = node.get("order")
+        try:
+            order_val = int(order)
+        except Exception:
+            order_val = 0
+        font_size = textbox_font_size(styles)
+        font_family = consistent_style(styles, "fontFamily", norm_str)
+        font_weight = consistent_style(styles, "fontWeight", norm_str)
+        font_style = consistent_style(styles, "fontStyle", norm_str)
+        text_anchor = consistent_style(styles, "textAnchor", norm_anchor)
+        text_anchor = norm_anchor(text_anchor) if text_anchor else ""
+        bbox = union_bbox(bbs, pad=0.0)
+        return {
+            "id": node.get("id"),
+            "role": role,
+            "order": order_val,
+            "item_ids": cleaned_ids,
+            "font_size": font_size,
+            "font_family": font_family,
+            "font_weight": font_weight,
+            "font_style": font_style,
+            "text_anchor": text_anchor,
+            "bbox": bbox,
+        }
+
+    def can_merge(group: Dict[str, object], info: Dict[str, object]) -> Optional[float]:
+        if not group.get("text_anchor") or not info.get("text_anchor"):
+            return None
+        if group.get("text_anchor") != info.get("text_anchor"):
+            return None
+        for key in ("font_family", "font_weight", "font_style"):
+            if not group.get(key) or not info.get(key) or group.get(key) != info.get(key):
+                return None
+        size_a = float(group.get("font_size", 0.0))
+        size_b = float(info.get("font_size", 0.0))
+        if size_a <= 0 or size_b <= 0:
+            return None
+        if abs(size_a - size_b) > font_size_tol:
+            return None
+        line_size = min(size_a, size_b)
+        min_width = min(
+            float(group["last_bbox"].get("w", 0.0)),
+            float(info["bbox"].get("w", 0.0)),
+        )
+        align_tol = max(2.0, line_size * align_ratio, min_width * 0.1)
+        anchor_a = float(group.get("anchor_pos", 0.0))
+        anchor_b = anchor_pos(info["bbox"], info["text_anchor"])
+        if abs(anchor_a - anchor_b) > align_tol:
+            return None
+        if overlap_ratio_x(group["last_bbox"], info["bbox"]) < overlap_ratio:
+            return None
+        gap = info["bbox"]["y"] - (group["last_bbox"]["y"] + group["last_bbox"]["h"])
+        if gap > line_size * max_gap_ratio:
+            return None
+        if gap < line_size * min_gap_ratio:
+            return None
+        return abs(gap)
+
+    merged_into: Dict[str, str] = {}
+
+    infos_by_role: Dict[str, List[Dict[str, object]]] = {}
+    for node in node_list:
+        if not isinstance(node, dict):
+            continue
+        if node.get("type") != "textbox":
+            continue
+        info = build_textbox_info(node)
+        if not info:
+            continue
+        infos_by_role.setdefault(info["role"], []).append(info)
+
+    for role, infos in infos_by_role.items():
+        infos.sort(key=lambda x: (x["bbox"]["y"], x["bbox"]["x"]))
+        groups: List[Dict[str, object]] = []
+        for info in infos:
+            best_idx = None
+            best_score = None
+            for idx, group in enumerate(groups):
+                score = can_merge(group, info)
+                if score is None:
+                    continue
+                if best_score is None or score < best_score:
+                    best_score = score
+                    best_idx = idx
+            if best_idx is None:
+                groups.append(
+                    {
+                        "base_id": info["id"],
+                        "role": role,
+                        "order": info["order"],
+                        "item_ids": list(info["item_ids"]),
+                        "font_size": info["font_size"],
+                        "font_family": info["font_family"],
+                        "font_weight": info["font_weight"],
+                        "font_style": info["font_style"],
+                        "text_anchor": info["text_anchor"],
+                        "anchor_pos": anchor_pos(info["bbox"], info["text_anchor"]),
+                        "last_bbox": info["bbox"],
+                    }
+                )
+                continue
+
+            group = groups[best_idx]
+            merged_into[info["id"]] = group["base_id"]
+            existing = set(group["item_ids"])
+            for item_id in info["item_ids"]:
+                if item_id not in existing:
+                    group["item_ids"].append(item_id)
+                    existing.add(item_id)
+            group["last_bbox"] = info["bbox"]
+            group["order"] = min(int(group.get("order", 0)), int(info.get("order", 0)))
+
+        for group in groups:
+            base_id = group["base_id"]
+            base_node = node_map.get(base_id)
+            if not isinstance(base_node, dict):
+                continue
+            base_node["item_ids"] = group["item_ids"]
+            base_node["order"] = group["order"]
+
+    if not merged_into:
+        return plan
+
+    for node in node_list:
+        if not isinstance(node, dict) or node.get("type") != "group":
+            continue
+        children = node.get("children")
+        if not isinstance(children, list):
+            continue
+        new_children: List[str] = []
+        seen = set()
+        for child_id in children:
+            if not isinstance(child_id, str):
+                continue
+            target = merged_into.get(child_id, child_id)
+            if target not in node_map:
+                continue
+            if target in seen:
+                continue
+            new_children.append(target)
+            seen.add(target)
+        node["children"] = new_children
+
+    root_id = plan.get("root")
+    if isinstance(root_id, str) and root_id in merged_into:
+        plan["root"] = merged_into[root_id]
+
+    plan["nodes"] = [n for n in node_list if n.get("id") not in merged_into]
+    return plan
 
 
 def enforce_font_size_groups(
@@ -779,7 +1107,10 @@ def apply_plan_to_svg(
         parent = parent_map.get(elem)
         if parent is None:
             return
-        parent.remove(elem)
+        try:
+            parent.remove(elem)
+        except ValueError:
+            return
         new_parent.append(elem)
 
     built: Dict[str, Tuple[ET.Element, Dict[str, float]]] = {}
@@ -986,9 +1317,10 @@ def process_svg(
 
         parsed = parse_json_from_text(response or "")
 
-        # 如果第一次解析失败（可能是输出被截断或格式混乱），再用更高 max_tokens 重试一次。
-        if not parsed and (response is not None):
-            retry_max_tokens = min(max_tokens * 2, 2000)
+        # 如果第一次解析失败（可能是输出被截断、超时或格式混乱），再用更高 max_tokens 重试一次。
+        if not parsed:
+            retry_max_tokens = max(max_tokens * 2, 2000)
+            retry_timeout = max(timeout * 2, timeout)
             response_retry, error_retry = call_text_llm_with_retries(
                 base_url,
                 api_key,
@@ -997,7 +1329,7 @@ def process_svg(
                 items_doc,
                 retry_max_tokens,
                 temperature,
-                timeout,
+                retry_timeout,
                 retries,
                 limiter,
             )
@@ -1020,6 +1352,7 @@ def process_svg(
             return False, error or "invalid JSON"
 
         plan = normalize_tree_plan(parsed or {}, [it["id"] for it in items if it.get("id")])
+        plan = merge_adjacent_textboxes(plan, items)
 
     plan_path = meta_plans_dir / (svg_path.stem + ".json")
     plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -1050,6 +1383,7 @@ def main() -> None:
     parser.add_argument("--prompt", default="", help="Override LLM prompt.")
     parser.add_argument("--enforce-font-size", action="store_true", help="Force same font size inside a textbox.")
     parser.add_argument("--font-size-tol", type=float, default=None, help="Font size tolerance.")
+    parser.add_argument("--force", action="store_true", help="Reprocess all SVGs even if outputs exist.")
     parser.add_argument("--require-success", action="store_true", help="Exit non-zero if any failures occurred.")
     args = parser.parse_args()
 
@@ -1067,9 +1401,17 @@ def main() -> None:
     base_url = args.base_url or str(config.get("base_url", "")) or os.getenv("OPENAI_BASE_URL", "")
     api_key = args.api_key or str(config.get("api_key", "")) or os.getenv("OPENAI_API_KEY", "")
     model = args.model or str(config.get("text_model", "")) or os.getenv("OPENAI_MODEL", "")
-    max_tokens = args.max_tokens if args.max_tokens is not None else int(config.get("text_max_tokens", 1200))
+    max_tokens = (
+        args.max_tokens
+        if args.max_tokens is not None
+        else max(int(config.get("text_max_tokens", 1200)), 2000)
+    )
     temperature = args.temperature if args.temperature is not None else float(config.get("text_temperature", 0.2))
-    timeout = args.timeout if args.timeout is not None else int(config.get("text_timeout", 60))
+    timeout = (
+        args.timeout
+        if args.timeout is not None
+        else max(int(config.get("text_timeout", 60)), 120)
+    )
     workers = args.workers if args.workers is not None else int(config.get("text_workers", 1))
     qps = args.qps if args.qps is not None else float(config.get("text_qps", 0.5))
     retries = args.retries if args.retries is not None else int(config.get("text_retries", 2))
@@ -1101,11 +1443,14 @@ def main() -> None:
             failed_prev = {}
 
     failed_names = set(failed_prev.keys())
-    todo = []
-    for svg_path in sorted(svg_files):
-        out_svg = output_dir / svg_path.name
-        if svg_path.name in failed_names or not out_svg.exists():
-            todo.append(svg_path)
+    if args.force:
+        todo = sorted(svg_files)
+    else:
+        todo = []
+        for svg_path in sorted(svg_files):
+            out_svg = output_dir / svg_path.name
+            if svg_path.name in failed_names or not out_svg.exists():
+                todo.append(svg_path)
     if not todo:
         print("No SVG files need processing.")
         return

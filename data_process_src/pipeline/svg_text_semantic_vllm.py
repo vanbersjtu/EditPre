@@ -29,6 +29,7 @@ from typing import Dict, List, Optional, Tuple
 import xml.etree.ElementTree as ET
 
 from vllm import LLM, SamplingParams
+from transformers import AutoTokenizer
 
 from .svg_text_semantic import (  # type: ignore
     ROLE_SET,
@@ -79,6 +80,11 @@ class VLLMSemanticEngine:
             max_tokens=max_tokens,
         )
 
+        try:
+            self.tokenizer = self.llm.get_tokenizer()
+        except Exception:
+            self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+
     def generate_batch(self, prompts: List[str]) -> List[str]:
         """对一组 prompt 进行推理，返回每个 prompt 的生成文本。"""
         if not prompts:
@@ -91,6 +97,19 @@ class VLLMSemanticEngine:
             else:
                 results.append(out.outputs[0].text)
         return results
+
+    def build_chat_prompt(self, system_prompt: str, user_prompt: str) -> str:
+        tokenizer = getattr(self, "tokenizer", None)
+        if tokenizer is None:
+            raise RuntimeError("Tokenizer not initialized.")
+        apply_chat_template = getattr(tokenizer, "apply_chat_template", None)
+        if apply_chat_template is None:
+            raise RuntimeError("Tokenizer does not support chat template.")
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+        return apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
     def generate_with_retry(
         self,
@@ -167,10 +186,12 @@ def build_prompt(role_list: List[str]) -> str:
         "5) 若存在主标题/副标题，应与所有 bullet groups 一起归入更高层的 group。"
         "6) 阅读顺序：先上后下，同一行从左到右。"
         "输出约束："
-        "每个 item_id 只能出现 0 或 1 次；"
+        "每个 item_id 必须出现且只能出现 1 次，不能遗漏；"
+        "如果无法归组，必须单独放入 textbox；"
         "children 只能引用 nodes 中存在的 id；"
         "不要产生循环引用；"
-        "只输出 nodes 与 root 字段，不要输出额外字段。"
+        "只输出 nodes 与 root 字段，不要输出额外字段；"
+        "只输出一个 JSON，不要重复多份。"
     )
 
 
@@ -312,7 +333,8 @@ def process_directory_with_vllm(
     output_dir: Path,
     meta_dir: Path,
     engine: VLLMSemanticEngine,
-    prompt_template: str,
+    system_prompt: str,
+    user_prompt_template: str,
     max_tokens: int,
     retries: int,
 ) -> None:
@@ -372,11 +394,12 @@ def process_directory_with_vllm(
     prompts: List[str] = []
     for t in tasks:
         items_doc = t["items_doc"]  # type: ignore[assignment]
-        text = prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+        user_prompt = user_prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+        text = engine.build_chat_prompt(system_prompt, user_prompt)
         prompts.append(text)
 
     # 批量调用 vLLM，并带一次 retry 逻辑
-    retry_max_tokens = min(max_tokens * 2, 2000)
+    retry_max_tokens = max(max_tokens * 2, 2000)
     results = engine.generate_with_retry(prompts, max_tokens=max_tokens, retry_max_tokens=retry_max_tokens)
 
     processed = 0
@@ -497,7 +520,8 @@ def main() -> None:
     meta_dir = Path(args.meta) if args.meta else output_dir / "meta"
 
     config = load_config(Path(args.config) if args.config else None)
-    max_tokens = args.max_tokens if args.max_tokens is not None else int(config.get("text_max_tokens", 1200))
+    config_tokens = int(config.get("text_max_tokens", 1200))
+    max_tokens = args.max_tokens if args.max_tokens is not None else max(config_tokens, 2000)
     temperature = args.temperature if args.temperature is not None else float(config.get("text_temperature", 0.2))
 
     # 初始化 vLLM 引擎
@@ -512,14 +536,16 @@ def main() -> None:
         max_batched_tokens=args.max_batched_tokens,
     )
 
-    prompt_template = build_prompt(ROLE_SET)
+    system_prompt = "You are an SVG text semantic annotator. Output JSON only."
+    user_prompt_template = build_prompt(ROLE_SET)
 
     process_directory_with_vllm(
         input_dir=input_dir,
         output_dir=output_dir,
         meta_dir=meta_dir,
         engine=engine,
-        prompt_template=prompt_template,
+        system_prompt=system_prompt,
+        user_prompt_template=user_prompt_template,
         max_tokens=max_tokens,
         retries=args.retries,
     )
@@ -527,4 +553,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

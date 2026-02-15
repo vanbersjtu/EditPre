@@ -277,7 +277,8 @@ def main() -> None:
         return
 
     config = load_config(Path(args.config) if args.config else None)
-    max_tokens = args.max_tokens if args.max_tokens is not None else int(config.get("text_max_tokens", 1200))
+    config_tokens = int(config.get("text_max_tokens", 1200))
+    max_tokens = args.max_tokens if args.max_tokens is not None else max(config_tokens, 2000)
     temperature = args.temperature if args.temperature is not None else float(config.get("text_temperature", 0.2))
 
     # 初始化 vLLM 引擎（全局仅一次）
@@ -293,8 +294,8 @@ def main() -> None:
     )
 
     # 与 HTTP 版本保持一致的“系统角色”说明，直接拼进文本 prompt 里
-    system_prefix = "You are an SVG text semantic annotator. Output JSON only.\n\n"
-    prompt_template = system_prefix + build_prompt(ROLE_SET)
+    system_prompt = "You are an SVG text semantic annotator. Output JSON only."
+    user_prompt_template = build_prompt(ROLE_SET)
 
     # 构造全局任务列表
     # 每个任务包含：svg_path / out_svg / meta_dir
@@ -333,7 +334,7 @@ def main() -> None:
     print(f"Semantic (vLLM global): {total} SVGs to process.")
 
     batch_size = max(args.batch_size, 1)
-    retry_max_tokens = min(max_tokens * 2, 2000)
+    retry_max_tokens = max(max_tokens * 2, 2000)
     failures_by_meta: Dict[Path, Dict[str, str]] = {m: {} for m in failed_cache.keys()}
     processed = 0
 
@@ -347,7 +348,8 @@ def main() -> None:
             meta_dir: Path = t["meta_dir"]
             items_doc = extract_items_for_svg(svg_path, meta_dir / "items")
             batch_items_docs.append(items_doc)
-            text = prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+            user_prompt = user_prompt_template + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+            text = engine.build_chat_prompt(system_prompt, user_prompt)
             prompts.append(text)
 
         if args.debug:
