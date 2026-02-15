@@ -24,7 +24,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Callable, Dict, List, Tuple, Optional
 
 from pipeline.svg_image_placeholder import (
     collect_unique_images,
@@ -157,6 +157,7 @@ def run_vllm_batch(
     ray_address: str,
     ray_log_to_driver: bool,
     progress_label: str = "",
+    on_batch_done: Optional[Callable] = None,
 ) -> List[Dict[str, object]]:
     if not items:
         return []
@@ -282,6 +283,9 @@ def run_vllm_batch(
             print(
                 f"[placeholderall] {progress_label}: {processed}/{total_items} ({pct:.1f}%)"
             )
+        # 每批完成后调用回调（可用于增量保存缓存）
+        if on_batch_done is not None:
+            on_batch_done(outputs)
 
     return outputs
 
@@ -784,13 +788,30 @@ def main() -> None:
                 caption_prompt = prompt
                 caption_items: List[Dict[str, str]] = []
                 for h, info in all_unique_images.items():
+                    # 跳过已有缓存的（增量：崩溃重跑时不重复推理）
+                    if h in caption_cache_global:
+                        continue
                     img_path = info.get("path", "")
                     if not img_path or not Path(img_path).exists():
-                        caption_cache_global[h] = "图片占位"
+                        caption_cache_global[h] = "image placeholder"
                         continue
                     caption_items.append(
                         {"image_hash": h, "image_path": img_path, "prompt": caption_prompt}
                     )
+
+                # 增量保存回调：每批完成后把新结果写入 caption_cache_global 并落盘
+                def _caption_batch_done(batch_outputs: List[Dict[str, object]]) -> None:
+                    for row in batch_outputs:
+                        rh = str(row.get("image_hash", ""))
+                        if not rh:
+                            continue
+                        fr = str(row.get("finish_reason", ""))
+                        if fr == "length" or fr == "skipped":
+                            continue  # 截断的和跳过的先不写缓存，后面统一处理
+                        caption_cache_global[rh] = extract_caption(str(row.get("generated_text", "")))
+                    save_json(global_caption_path, caption_cache_global)
+
+                print(f"[placeholderall] 待 caption 图片数（排除已缓存）: {len(caption_items)}")
                 outputs = run_vllm_batch(
                     caption_items,
                     model_source=vllm_model,
@@ -805,8 +826,10 @@ def main() -> None:
                     ray_address=args.ray_address,
                     ray_log_to_driver=args.ray_log_to_driver,
                     progress_label="Caption VLM",
+                    on_batch_done=_caption_batch_done,
                 )
-                # 收集正常结果 & 检测被截断的项
+                # 正常结果已由 _caption_batch_done 回调实时写入 caption_cache_global
+                # 这里只收集被截断的项用于重跑
                 truncated_items: List[Dict[str, str]] = []
                 hash_to_item = {str(it["image_hash"]): it for it in caption_items}
                 for row in outputs:
@@ -815,11 +838,8 @@ def main() -> None:
                         continue
                     finish_reason = str(row.get("finish_reason", ""))
                     if finish_reason == "length":
-                        # 被 max_tokens 截断，先暂存，后面用更高 token 重跑
                         if h in hash_to_item:
                             truncated_items.append(hash_to_item[h])
-                        continue
-                    caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
 
                 # 自动重跑被截断的 caption（max_tokens 翻倍，上限 2048）
                 if truncated_items:
@@ -851,6 +871,8 @@ def main() -> None:
                         if str(row.get("finish_reason", "")) == "length":
                             still_truncated += 1
                         caption_cache_global[h] = extract_caption(str(row.get("generated_text", "")))
+                    # 重跑结果也落盘
+                    save_json(global_caption_path, caption_cache_global)
                     if still_truncated:
                         print(
                             f"[placeholderall] 警告: 重跑后仍有 {still_truncated} 条被截断，"
