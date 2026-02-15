@@ -187,27 +187,41 @@ def run_vllm_batch(
         inputs: List[Dict[str, object]] = []
         hashes: List[str] = []
 
+        skipped_in_batch: List[str] = []  # 本批次因图片异常而跳过的 hash
         for row in batch:
             image_path = str(row.get("image_path", ""))
             prompt = str(row.get("prompt", ""))
+            h = str(row.get("image_hash", ""))
             if image_path:
                 image_item: Dict[str, object] = {"type": "image", "image": image_path}
                 resized_height: Optional[int] = None
                 resized_width: Optional[int] = None
                 image_obj = None
+                skip_image = False
                 try:
                     with Image.open(image_path) as img:
                         width, height = img.size
-                        max_edge = max(width, height)
-                        if max_edge > 0:
-                            scale = min(1.0, 1024 / max_edge)
-                            resized_width = max(1, int(round(width * scale)))
-                            resized_height = max(1, int(round(height * scale)))
-                        image_obj = img.convert("RGB")
-                except Exception:
-                    resized_height = None
-                    resized_width = None
-                    image_obj = None
+                        # qwen_vl_utils 要求宽高比 < 200，超过的跳过
+                        if min(width, height) > 0:
+                            aspect = max(width, height) / min(width, height)
+                            if aspect >= 200:
+                                print(f"[placeholderall] 跳过极端宽高比图片: {image_path} ({width}x{height}, ratio={aspect:.1f})")
+                                skip_image = True
+                        if not skip_image:
+                            max_edge = max(width, height)
+                            if max_edge > 0:
+                                scale = min(1.0, 1024 / max_edge)
+                                resized_width = max(1, int(round(width * scale)))
+                                resized_height = max(1, int(round(height * scale)))
+                            image_obj = img.convert("RGB")
+                except Exception as exc:
+                    print(f"[placeholderall] 图片打开失败，跳过: {image_path} -> {exc}")
+                    skip_image = True
+
+                if skip_image:
+                    skipped_in_batch.append(h)
+                    outputs.append({"image_hash": h, "generated_text": "image placeholder", "finish_reason": "skipped"})
+                    continue
 
                 if image_obj is not None:
                     image_item["image"] = image_obj
@@ -223,13 +237,19 @@ def run_vllm_batch(
                 content = [{"type": "text", "text": prompt}]
 
             messages = [{"role": "user", "content": content}]
-            text_prompt = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-            image_inputs, video_inputs, video_kwargs = process_vision_info(
-                messages,
-                image_patch_size=patch_size,
-                return_video_kwargs=True,
-                return_video_metadata=True,
-            )
+            try:
+                text_prompt = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                image_inputs, video_inputs, video_kwargs = process_vision_info(
+                    messages,
+                    image_patch_size=patch_size,
+                    return_video_kwargs=True,
+                    return_video_metadata=True,
+                )
+            except (ValueError, Exception) as exc:
+                print(f"[placeholderall] 图片预处理失败，跳过: {image_path} -> {exc}")
+                skipped_in_batch.append(h)
+                outputs.append({"image_hash": h, "generated_text": "image placeholder", "finish_reason": "skipped"})
+                continue
 
             mm_data: Dict[str, object] = {}
             if image_inputs is not None:
@@ -245,7 +265,7 @@ def run_vllm_batch(
                 payload["mm_processor_kwargs"] = video_kwargs
 
             inputs.append(payload)
-            hashes.append(str(row.get("image_hash", "")))
+            hashes.append(h)
 
         results = llm.generate(inputs, sampling_params=sampling_params)
         for h, result in zip(hashes, results):
