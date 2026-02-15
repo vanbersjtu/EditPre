@@ -123,7 +123,12 @@ def _load_vllm_engine(
     from vllm import LLM
     from transformers import AutoProcessor
 
-    engine_kwargs: Dict[str, object] = {"model": model_source, "trust_remote_code": True}
+    engine_kwargs: Dict[str, object] = {
+        "model": model_source,
+        "trust_remote_code": True,
+        "enforce_eager": True,          # 跳过 torch.compile，避免 collective_fusion 导入 bug
+        "disable_log_stats": True,
+    }
     if enable_chunked_prefill:
         engine_kwargs["enable_chunked_prefill"] = True
     if max_model_len:
