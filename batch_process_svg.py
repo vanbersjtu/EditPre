@@ -40,9 +40,9 @@ try:
 except Exception:
     sync_playwright = None
 
-INPUT_BASE = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/tes_foler_placeholder")
-OUTPUT_ROOT = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/tes_foler_semantic_google")
-VIS_SCRIPT = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/data_process_src/pipeline/visualize_semantic_plan.py")
+INPUT_BASE = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/random2000_placeholder")
+OUTPUT_ROOT = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/random2000_semantic_google")
+VIS_SCRIPT = Path("/mnt/cache/liwenbo/PPT2SVG-SlideSVG/data_process_srgsutil iam ch serviceAccount:service-294775835829@gcp-sa-aiplatform.iam.gserviceaccount.com:objectCreator gs://test111134c/pipeline/visualize_semantic_plan.py")
 
 XML_DECL_RE = re.compile(r"<\?xml[^>]*\?>", re.I)
 PLAYWRIGHT_JS = r"""
@@ -123,19 +123,19 @@ PW_BROWSER = None
 PW_PAGE = None
 
 APIS = [
-    {"api_key": "key1"},
-    {"api_key": "key2"},
-    {"api_key": "key3"},
+    {"api_key": "AQ.Ab8RN6KViGS7Ni5JV5D9Dr5IqX5KGp8Aj9vOpPilHf8u1kiCCw"},
+    {"api_key": "AQ.Ab8RN6Kfmm4XWRfXGkQSeV3UWRsDZA8A5B83q1Qrjvw-jGYivw"},  # 403: project 233193089005 未启用 Vertex AI API
+    {"api_key": "AQ.Ab8RN6Kfmm4XWRfXGkQSeV3UWRsDZA8A5B83q1Qrjvw-jGYivw"},
 ]
 
 COMMON = {
-    "base_url": "https://generativelanguage.googleapis.com",
-    "model": "gemini-3-pro-preview",
-    "max_tokens": 4096,
+    "base_url": "https://aiplatform.googleapis.com/v1/publishers/google/models",
+    "model": "gemini-3-flash-preview",
+    "max_tokens": 8192,
     "temperature": 0.2,
     "timeout": 120,
-    "retries": 2,
-    "qps": 8,
+    "retries": 5,
+    "qps": 5,
 }
 
 
@@ -223,6 +223,53 @@ def read_tasks(tasks_path: Path) -> Tuple[List[Dict[str, str]], set]:
             seen.add(key)
             tasks.append(item)
     return tasks, seen
+
+
+def write_batch_requests(tasks_path: Path, output_path: Path) -> int:
+    tasks, _ = read_tasks(tasks_path)
+    if not tasks:
+        return 0
+    prompt = build_prompt(ROLE_SET)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    written = 0
+    with output_path.open("w", encoding="utf-8") as f:
+        for task in tasks:
+            folder = task.get("folder")
+            stem = task.get("stem")
+            items_path_value = task.get("items_path")
+            if not isinstance(folder, str) or not isinstance(stem, str):
+                continue
+            if not isinstance(items_path_value, str):
+                continue
+            items_doc = load_json(Path(items_path_value))
+            if not isinstance(items_doc, dict):
+                continue
+            user_content = prompt + "\n\nINPUT_JSON:\n" + json.dumps(items_doc, ensure_ascii=False)
+            entry = {
+                "key": task_key(folder, stem),
+                "request": {
+                    "contents": [
+                        {
+                            "role": "user",
+                            "parts": [
+                                {
+                                    "text": (
+                                        "You are an SVG text semantic annotator. Output JSON only.\n\n"
+                                        + user_content
+                                    )
+                                }
+                            ],
+                        }
+                    ],
+                    "generation_config": {
+                        "temperature": float(COMMON["temperature"]),
+                        "max_output_tokens": int(COMMON["max_tokens"]),
+                    },
+                },
+            }
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+            written += 1
+    return written
 
 
 def stage1_worker(task: Dict[str, str]) -> Tuple[str, str, Optional[str]]:
@@ -325,20 +372,28 @@ def visualize_worker(folder_output: str) -> Tuple[str, Optional[str]]:
 def stage1_extract_items(force: bool, workers: int) -> Tuple[int, int, float]:
     global_cache = OUTPUT_ROOT / "global_cache"
     tasks_path = global_cache / "tasks.jsonl"
+    batch_requests_path = global_cache / "batch_requests.jsonl"
     global_cache.mkdir(parents=True, exist_ok=True)
 
     _, existing = read_tasks(tasks_path)
     extraction_tasks: List[Dict[str, str]] = []
     total_svgs = 0
     appended = 0
+    folder_count = 0
 
     with tasks_path.open("a", encoding="utf-8") as f:
-        for folder in sorted(INPUT_BASE.iterdir()):
+        folders = sorted(INPUT_BASE.iterdir())
+        for folder_idx, folder in enumerate(folders):
             if not folder.is_dir() or folder.name.startswith("."):
                 continue
+            folder_count += 1
+            if folder_count % 50 == 0 or folder_idx == 0:
+                print(f"Scanning folders: {folder_count}/{len([f for f in folders if f.is_dir() and not f.name.startswith('.')])} - current: {folder.name}")
+            
             output_folder = OUTPUT_ROOT / folder.name
             items_dir = output_folder / "meta" / "items"
-            for svg_path in sorted(folder.glob("*.SVG")):
+            svg_files = sorted(folder.glob("*.SVG"))
+            for svg_idx, svg_path in enumerate(svg_files):
                 if svg_path.name.startswith("._"):
                     continue
                 stem = svg_path.stem
@@ -358,7 +413,10 @@ def stage1_extract_items(force: bool, workers: int) -> Tuple[int, int, float]:
                 if force or not items_path.exists():
                     extraction_tasks.append(task)
 
+    print(f"Scan complete: found {total_svgs} SVG files, {len(extraction_tasks)} need extraction")
+
     if not extraction_tasks:
+        write_batch_requests(tasks_path, batch_requests_path)
         print("Stage 1: no items need extraction")
         return 0, total_svgs, 0.0
 
@@ -377,6 +435,7 @@ def stage1_extract_items(force: bool, workers: int) -> Tuple[int, int, float]:
 
     duration = time.time() - start
     print(f"Stage 1 appended tasks: {appended}, extracted: {processed}, failed: {failures}")
+    write_batch_requests(tasks_path, batch_requests_path)
     return processed, total_svgs, duration
 
 
@@ -391,6 +450,8 @@ def stage2_generate_plans(force: bool, workers_per_key: int) -> Tuple[int, float
     plans_dir = global_cache / "plans"
     raw_dir = global_cache / "raw"
     failed_path = global_cache / "failed.jsonl"
+    if failed_path.exists():
+        failed_path.unlink()
     plans_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
 
@@ -429,99 +490,183 @@ def stage2_generate_plans(force: bool, workers_per_key: int) -> Tuple[int, float
     if missing_items:
         print(f"Stage 2 skipped {missing_items} tasks with missing items.json")
 
-    total = len(tasks_for_stage2)
-    processed = 0
-    start = time.time()
-    lock = threading.Lock()
+    def run_stage2_batch(
+        tasks_batch: List[Dict[str, str]],
+        batch_max_tokens: int,
+        progress_label: str,
+    ) -> int:
+        total = len(tasks_batch)
+        processed = 0
+        lock = threading.Lock()
 
-    def record_failure(task: Dict[str, str], error: str) -> None:
-        entry = {
-            "folder": task.get("folder"),
-            "stem": task.get("stem"),
-            "svg_path": task.get("svg_path"),
-            "error": error,
-        }
-        with lock:
-            with failed_path.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        def record_failure(task: Dict[str, str], error: str) -> None:
+            entry = {
+                "folder": task.get("folder"),
+                "stem": task.get("stem"),
+                "svg_path": task.get("svg_path"),
+                "error": error,
+            }
+            with lock:
+                with failed_path.open("a", encoding="utf-8") as f:
+                    f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    def worker(task: Dict[str, str]) -> Optional[str]:
-        api_idx = task["api_idx"]
-        limiter = limiters[api_idx]
-        api_key = APIS[api_idx]["api_key"]
-        items_path = Path(task["items_path"])
-        raw_path = Path(task["raw_path"])
-        if not items_path.exists():
-            return "items.json missing"
-        items_doc = load_json(items_path)
-        if not isinstance(items_doc, dict):
-            return "items.json invalid"
-        items = items_doc.get("items") if isinstance(items_doc.get("items"), list) else []
-        item_ids = [it.get("id") for it in items if isinstance(it, dict) and isinstance(it.get("id"), str)]
+        def worker(task: Dict[str, str]) -> Optional[str]:
+            api_idx = task["api_idx"]
+            limiter = limiters[api_idx]
+            api_key = APIS[api_idx]["api_key"]
+            items_path = Path(task["items_path"])
+            raw_path = Path(task["raw_path"])
+            plan_path = Path(task["plan_path"])
+            if not items_path.exists():
+                return "items.json missing"
+            items_doc = load_json(items_path)
+            if not isinstance(items_doc, dict):
+                return "items.json invalid"
+            items = items_doc.get("items") if isinstance(items_doc.get("items"), list) else []
+            item_ids = [it.get("id") for it in items if isinstance(it, dict) and isinstance(it.get("id"), str)]
 
-        with semaphores[api_idx]:
-            response, error = call_text_llm_with_retries(
-                COMMON["base_url"],
-                api_key,
-                COMMON["model"],
-                prompt,
-                items_doc,
-                max_tokens,
-                float(COMMON["temperature"]),
-                int(COMMON["timeout"]),
-                int(COMMON["retries"]),
-                limiter,
-            )
-
-        if response:
-            raw_path.write_text(response, encoding="utf-8")
-        if not response:
-            return error or "llm request failed"
-        plan = parse_json_from_text(response)
-        if not plan:
             with semaphores[api_idx]:
-                retry_resp, retry_err = call_text_llm_with_retries(
+                response, error = call_text_llm_with_retries(
                     COMMON["base_url"],
                     api_key,
                     COMMON["model"],
                     prompt,
                     items_doc,
-                    max_tokens * 2,
+                    batch_max_tokens,
                     float(COMMON["temperature"]),
                     int(COMMON["timeout"]),
                     int(COMMON["retries"]),
                     limiter,
                 )
-            if retry_resp:
-                raw_path.write_text(retry_resp, encoding="utf-8")
-                plan = parse_json_from_text(retry_resp)
+
+            if response:
+                raw_path.write_text(response, encoding="utf-8")
+            if not response:
+                return error or "llm request failed"
+            plan = parse_json_from_text(response)
             if not plan:
-                return retry_err or "parse json failed"
+                with semaphores[api_idx]:
+                    retry_resp, retry_err = call_text_llm_with_retries(
+                        COMMON["base_url"],
+                        api_key,
+                        COMMON["model"],
+                        prompt,
+                        items_doc,
+                        batch_max_tokens * 2,
+                        float(COMMON["temperature"]),
+                        int(COMMON["timeout"]),
+                        int(COMMON["retries"]),
+                        limiter,
+                    )
+                if retry_resp:
+                    raw_path.write_text(retry_resp, encoding="utf-8")
+                    plan = parse_json_from_text(retry_resp)
+                if not plan:
+                    return retry_err or "parse json failed"
 
-        normalized = normalize_tree_plan(plan, item_ids)
-        merged = merge_adjacent_textboxes(normalized, items)
-        plan_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
-        return None
+            normalized = normalize_tree_plan(plan, item_ids)
+            merged = merge_adjacent_textboxes(normalized, items)
+            plan_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
+            return None
 
-    max_workers = workers_per_key * len(APIS)
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_map = {executor.submit(worker, task): task for task in tasks_for_stage2}
-        for future in as_completed(future_map):
-            task = future_map[future]
-            error = None
+        max_workers = workers_per_key * len(APIS)
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_map = {executor.submit(worker, task): task for task in tasks_batch}
+            for future in as_completed(future_map):
+                task = future_map[future]
+                error = None
+                try:
+                    error = future.result()
+                except Exception as exc:
+                    error = f"{type(exc).__name__}: {exc}"
+                if error:
+                    record_failure(task, error)
+                with lock:
+                    processed += 1
+                    print(f"{progress_label}: {processed}/{total}")
+        return processed
+
+    task_map = {
+        (task.get("folder"), task.get("stem")): task
+        for task in tasks_for_stage2
+        if isinstance(task.get("folder"), str) and isinstance(task.get("stem"), str)
+    }
+
+    def load_retry_tasks() -> List[Dict[str, str]]:
+        if not failed_path.exists() or failed_path.stat().st_size == 0:
+            return []
+        retry: List[Dict[str, str]] = []
+        for line in failed_path.read_text(encoding="utf-8").splitlines():
             try:
-                error = future.result()
-            except Exception as exc:
-                error = f"{type(exc).__name__}: {exc}"
-            if error:
-                record_failure(task, error)
-            with lock:
-                processed += 1
-                if processed % 50 == 0 or processed == total:
-                    print(f"Stage 2 progress: {processed}/{total}")
+                entry = json.loads(line)
+            except Exception:
+                continue
+            if not isinstance(entry, dict):
+                continue
+            key = (entry.get("folder"), entry.get("stem"))
+            task = task_map.get(key)
+            if task:
+                retry.append(task)
+        return retry
+
+    start = time.time()
+    processed = run_stage2_batch(tasks_for_stage2, max_tokens, "Stage 2 progress")
+
+    retry_tasks = load_retry_tasks()
+    retry_round = 1
+    max_token_cap = max(max_tokens, 8192)
+    retry_max_tokens = min(max_tokens * 2, max_token_cap)
+    while retry_tasks:
+        failed_path.unlink(missing_ok=True)
+        processed += run_stage2_batch(
+            retry_tasks,
+            retry_max_tokens,
+            f"Stage 2 retry {retry_round} progress",
+        )
+        retry_tasks = load_retry_tasks()
+        retry_round += 1
+        if retry_max_tokens < max_token_cap:
+            retry_max_tokens = min(retry_max_tokens * 2, max_token_cap)
 
     duration = time.time() - start
     return processed, duration
+
+
+def rebuild_plan_from_raw(
+    task: Dict[str, str],
+    plans_dir: Path,
+    raw_dir: Path,
+) -> Optional[Path]:
+    folder = task.get("folder")
+    stem = task.get("stem")
+    items_path_value = task.get("items_path")
+    if not isinstance(folder, str) or not isinstance(stem, str):
+        return None
+    if not isinstance(items_path_value, str):
+        return None
+    items_path = Path(items_path_value)
+    if not items_path.exists():
+        return None
+    raw_path = raw_dir / f"{folder}__{stem}.txt"
+    if not raw_path.exists():
+        return None
+    plan = parse_json_from_text(raw_path.read_text(encoding="utf-8"))
+    if not plan:
+        return None
+    items_doc = load_json(items_path)
+    if not isinstance(items_doc, dict):
+        return None
+    items = items_doc.get("items") if isinstance(items_doc.get("items"), list) else []
+    item_ids = [
+        it.get("id")
+        for it in items
+        if isinstance(it, dict) and isinstance(it.get("id"), str)
+    ]
+    normalized = normalize_tree_plan(plan, item_ids)
+    merged = merge_adjacent_textboxes(normalized, items)
+    plan_path = plans_dir / f"{folder}__{stem}.json"
+    plan_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8")
+    return plan_path
 
 
 def stage3_apply_plans(force: bool, workers: int) -> Tuple[int, float]:
@@ -549,6 +694,10 @@ def stage3_apply_plans(force: bool, workers: int) -> Tuple[int, float]:
             continue
         plan_path = plans_dir / f"{folder}__{stem}.json"
         raw_path = raw_dir / f"{folder}__{stem}.txt"
+        if force or not plan_path.exists():
+            rebuilt = rebuild_plan_from_raw(task, plans_dir, raw_dir)
+            if rebuilt:
+                plan_path = rebuilt
         if not plan_path.exists():
             continue
         output_folder = OUTPUT_ROOT / folder
@@ -650,7 +799,7 @@ def main() -> None:
     parser.add_argument("--force", action="store_true", help="强制重新处理")
     parser.add_argument("--stage", type=int, choices=[1, 2, 3], help="只运行指定 stage")
     parser.add_argument("--stage1-workers", type=int, default=64, help="Stage 1 进程数")
-    parser.add_argument("--stage2-workers", type=int, default=8, help="Stage 2 每个 key 线程数")
+    parser.add_argument("--stage2-workers", type=int, default=4, help="Stage 2 每个 key 线程数")
     parser.add_argument("--stage3-workers", type=int, default=80, help="Stage 3 进程数")
     args = parser.parse_args()
 

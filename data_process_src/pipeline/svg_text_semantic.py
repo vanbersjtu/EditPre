@@ -24,6 +24,8 @@ except Exception:  # pragma: no cover - optional dependency
 
 SVG_NS = "http://www.w3.org/2000/svg"
 XML_DECL_RE = re.compile(r"<\\?xml[^>]*\\?>", re.I)
+RETRY_DELAY_RE = re.compile(r"retryDelay\"\s*:\s*\"([0-9]+(?:\\.[0-9]+)?)s\"", re.I)
+RETRY_IN_RE = re.compile(r"retry in ([0-9]+(?:\\.[0-9]+)?)s", re.I)
 
 ROLE_SET = [
     "title",
@@ -133,6 +135,49 @@ class RateLimiter:
             self.next_time = max(now, self.next_time) + self.min_interval
 
 
+def extract_candidate_text(candidates: object) -> Optional[str]:
+    if not isinstance(candidates, list):
+        return None
+    parts: List[str] = []
+    for candidate in candidates:
+        if not isinstance(candidate, dict):
+            continue
+        content = candidate.get("content")
+        if not isinstance(content, dict):
+            continue
+        content_parts = content.get("parts")
+        if not isinstance(content_parts, list):
+            continue
+        for part in content_parts:
+            if not isinstance(part, dict):
+                continue
+            text = part.get("text")
+            if isinstance(text, str):
+                parts.append(text)
+    if not parts:
+        return None
+    return "".join(parts)
+
+
+def parse_stream_chunks(raw_text: str) -> List[Dict[str, object]]:
+    chunks: List[Dict[str, object]] = []
+    for line in raw_text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("data:"):
+            line = line[5:].strip()
+            if not line or line == "[DONE]":
+                continue
+        try:
+            parsed = json.loads(line)
+        except Exception:
+            continue
+        if isinstance(parsed, dict):
+            chunks.append(parsed)
+    return chunks
+
+
 def call_text_llm(
     base_url: str,
     api_key: str,
@@ -143,11 +188,11 @@ def call_text_llm(
     temperature: float,
     timeout: int,
 ) -> Tuple[Optional[str], Optional[str]]:
-    # 检测是否为 Google Gemini API
-    is_google_api = "generativelanguage.googleapis.com" in base_url.lower()
-    
+    base_url_lower = base_url.lower()
+    is_google_api = "generativelanguage.googleapis.com" in base_url_lower
+    is_vertex_api = "aiplatform.googleapis.com" in base_url_lower
+
     if is_google_api:
-        # Google Gemini API 格式
         url = f"{base_url.rstrip('/')}/v1beta/models/{model}:generateContent?key={api_key}"
         user_content = prompt + "\n\nINPUT_JSON:\n" + json.dumps(items, ensure_ascii=False)
         payload = {
@@ -184,7 +229,6 @@ def call_text_llm(
                 err_body = exc.read().decode("utf-8", errors="ignore")
                 if err_body:
                     err_msg = err_msg + "\n" + err_body
-                    # 尝试解析错误 JSON
                     try:
                         err_data = json.loads(err_body)
                         if "error" in err_data:
@@ -200,7 +244,6 @@ def call_text_llm(
             err_msg = f"异常: {type(exc).__name__}: {str(exc)}"
             return None, err_msg
         try:
-            # Google Gemini API 响应格式
             if "candidates" not in data or len(data["candidates"]) == 0:
                 return None, f"API 响应中没有 candidates: {json.dumps(data, ensure_ascii=False, indent=2)}"
             if "content" not in data["candidates"][0]:
@@ -210,8 +253,76 @@ def call_text_llm(
             return None, f"响应格式错误，缺少字段 {e}: {json.dumps(data, ensure_ascii=False, indent=2)}"
         except Exception as e:
             return None, f"解析响应失败: {type(e).__name__}: {str(e)}"
+    if is_vertex_api:
+        url = f"{base_url.rstrip('/')}/{model}:generateContent?key={api_key}"
+        user_content = prompt + "\n\nINPUT_JSON:\n" + json.dumps(items, ensure_ascii=False)
+        payload = {
+            "contents": [
+                {
+                    "role": "user",
+                    "parts": [
+                        {
+                            "text": f"You are an SVG text semantic annotator. Output JSON only.\n\n{user_content}"
+                        }
+                    ],
+                }
+            ],
+            "generationConfig": {
+                "maxOutputTokens": max_tokens,
+                "temperature": temperature,
+            },
+        }
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                raw_text = resp.read().decode("utf-8")
+        except urllib.error.HTTPError as exc:
+            err_msg = f"HTTP {exc.code}: {exc.reason}"
+            try:
+                err_body = exc.read().decode("utf-8", errors="ignore")
+                if err_body:
+                    err_msg = err_msg + "\n" + err_body
+                    try:
+                        err_data = json.loads(err_body)
+                        if "error" in err_data:
+                            err_msg = err_msg + f"\n错误详情: {json.dumps(err_data['error'], ensure_ascii=False, indent=2)}"
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+            return None, err_msg
+        except urllib.error.URLError as exc:
+            return None, f"URL 错误: {str(exc)}"
+        except Exception as exc:
+            err_msg = f"异常: {type(exc).__name__}: {str(exc)}"
+            return None, err_msg
+        data = None
+        try:
+            data = json.loads(raw_text)
+        except Exception:
+            data = parse_stream_chunks(raw_text)
+        text_parts: List[str] = []
+        if isinstance(data, dict):
+            text = extract_candidate_text(data.get("candidates"))
+            if text:
+                text_parts.append(text)
+        elif isinstance(data, list):
+            for chunk in data:
+                if not isinstance(chunk, dict):
+                    continue
+                text = extract_candidate_text(chunk.get("candidates"))
+                if text:
+                    text_parts.append(text)
+        if text_parts:
+            return "".join(text_parts).strip(), None
+        return None, f"API 响应格式异常: {raw_text[:1000]}"
     else:
-        # OpenAI 兼容格式
         url = base_url.rstrip("/") + "/v1/chat/completions"
         payload = {
             "model": model,
@@ -287,6 +398,19 @@ def call_text_llm_with_retries(
             last_error = err
         if attempt < retries:
             backoff = min(2 ** attempt, 10) + random.random() * 0.3
+            retry_after = None
+            if err:
+                retry_match = RETRY_DELAY_RE.search(err) or RETRY_IN_RE.search(err)
+                if retry_match:
+                    try:
+                        retry_after = float(retry_match.group(1))
+                    except ValueError:
+                        retry_after = None
+            if err and ("HTTP 429" in err or "RESOURCE_EXHAUSTED" in err):
+                if retry_after:
+                    backoff = max(backoff, retry_after)
+                else:
+                    backoff = max(backoff, 30.0)
             time.sleep(backoff)
     return None, last_error
 
@@ -735,20 +859,210 @@ def merge_adjacent_textboxes(
     if not isinstance(node_list, list):
         return plan
 
-    node_map = {
-        n.get("id"): n
-        for n in node_list
-        if isinstance(n, dict) and isinstance(n.get("id"), str)
-    }
-    if not node_map:
-        return plan
-
     item_map = {
         it.get("id"): it
         for it in items
         if isinstance(it, dict) and isinstance(it.get("id"), str)
     }
     if not item_map:
+        return plan
+
+    bullet_texts = {"•", "·", "●", "▪", "◦", "∙"}
+
+    def is_bullet_text(value: object) -> bool:
+        if not isinstance(value, str):
+            return False
+        return value.strip() in bullet_texts
+
+    def attach_bullets(nodes: List[Dict[str, object]]) -> List[Dict[str, object]]:
+        bullet_item_ids = {
+            item_id
+            for item_id, item in item_map.items()
+            if is_bullet_text(item.get("text"))
+        }
+        if not bullet_item_ids:
+            return nodes
+
+        candidate_nodes: List[Dict[str, object]] = []
+        bullet_nodes: List[Dict[str, object]] = []
+        node_bboxes: Dict[str, Dict[str, float]] = {}
+
+        for node in nodes:
+            if not isinstance(node, dict):
+                continue
+            if node.get("type") != "textbox":
+                continue
+            node_id = node.get("id")
+            if not isinstance(node_id, str):
+                continue
+            item_ids = node.get("item_ids")
+            if not isinstance(item_ids, list):
+                continue
+            cleaned_ids = [iid for iid in item_ids if iid in item_map]
+            if not cleaned_ids:
+                continue
+            bbs = []
+            for iid in cleaned_ids:
+                item = item_map.get(iid)
+                bbox = item.get("bbox") if isinstance(item, dict) else None
+                if isinstance(bbox, dict):
+                    bbs.append(bbox)
+            if not bbs:
+                continue
+            node_bboxes[node_id] = union_bbox(bbs, pad=0.0)
+            node["item_ids"] = cleaned_ids
+            if all(iid in bullet_item_ids for iid in cleaned_ids):
+                bullet_nodes.append(node)
+            else:
+                candidate_nodes.append(node)
+
+        if not bullet_nodes or not candidate_nodes:
+            return nodes
+
+        removed_node_ids = set()
+
+        def vertical_overlap_ratio(box_a: Dict[str, float], box_b: Dict[str, float]) -> float:
+            top = max(box_a.get("y", 0.0), box_b.get("y", 0.0))
+            bottom = min(
+                box_a.get("y", 0.0) + box_a.get("h", 0.0),
+                box_b.get("y", 0.0) + box_b.get("h", 0.0),
+            )
+            overlap = max(0.0, bottom - top)
+            min_height = min(box_a.get("h", 0.0), box_b.get("h", 0.0))
+            if min_height <= 0:
+                return 0.0
+            return overlap / min_height
+
+        def is_same_line(bbox_a: Dict[str, float], bbox_b: Dict[str, float]) -> bool:
+            top = max(bbox_a.get("y", 0.0), bbox_b.get("y", 0.0))
+            bottom = min(
+                bbox_a.get("y", 0.0) + bbox_a.get("h", 0.0),
+                bbox_b.get("y", 0.0) + bbox_b.get("h", 0.0),
+            )
+            overlap = max(0.0, bottom - top)
+            min_height = min(bbox_a.get("h", 0.0), bbox_b.get("h", 0.0))
+            if min_height <= 0:
+                return False
+            return (overlap / min_height) >= 0.6
+
+        def merge_inline_items(node_list: List[Dict[str, object]]) -> None:
+            for node in node_list:
+                if not isinstance(node, dict) or node.get("type") != "textbox":
+                    continue
+                item_ids = node.get("item_ids")
+                if not isinstance(item_ids, list) or len(item_ids) < 2:
+                    continue
+                line_groups: List[List[str]] = []
+                for iid in item_ids:
+                    item = item_map.get(iid)
+                    bbox = item.get("bbox") if isinstance(item, dict) else None
+                    if not isinstance(bbox, dict):
+                        line_groups.append([iid])
+                        continue
+                    placed = False
+                    for group in line_groups:
+                        sample_id = group[0]
+                        sample_item = item_map.get(sample_id)
+                        sample_bbox = sample_item.get("bbox") if isinstance(sample_item, dict) else None
+                        if not isinstance(sample_bbox, dict):
+                            continue
+                        if is_same_line(bbox, sample_bbox):
+                            group.append(iid)
+                            placed = True
+                            break
+                    if not placed:
+                        line_groups.append([iid])
+                if len(line_groups) <= 1:
+                    continue
+                first_group = line_groups[0]
+                for group in line_groups[1:]:
+                    if not group:
+                        continue
+                    new_id = f"tb-auto-{len(node_list) + 1}"
+                    new_node = {
+                        "id": new_id,
+                        "type": "textbox",
+                        "role": node.get("role", "unknown"),
+                        "order": node.get("order", 0),
+                        "item_ids": group,
+                        "confidence": node.get("confidence", 0.5),
+                    }
+                    node_list.append(new_node)
+                node["item_ids"] = first_group
+
+        if not bullet_nodes or not candidate_nodes:
+            merge_inline_items(nodes)
+            return nodes
+
+        for node in bullet_nodes:
+            node_id = node.get("id")
+            if not isinstance(node_id, str):
+                continue
+            item_ids = list(node.get("item_ids", []))
+            remaining_ids = []
+            for bullet_id in item_ids:
+                bullet_item = item_map.get(bullet_id)
+                bullet_box = bullet_item.get("bbox") if isinstance(bullet_item, dict) else None
+                if not isinstance(bullet_box, dict):
+                    remaining_ids.append(bullet_id)
+                    continue
+                best_node = None
+                best_dx = None
+                for candidate in candidate_nodes:
+                    candidate_id = candidate.get("id")
+                    if not isinstance(candidate_id, str):
+                        continue
+                    candidate_box = node_bboxes.get(candidate_id)
+                    if not isinstance(candidate_box, dict):
+                        continue
+                    if vertical_overlap_ratio(bullet_box, candidate_box) < 0.4:
+                        continue
+                    dx = candidate_box.get("x", 0.0) - (
+                        bullet_box.get("x", 0.0) + bullet_box.get("w", 0.0)
+                    )
+                    if dx < 0:
+                        continue
+                    max_dx = max(80.0, bullet_box.get("h", 0.0) * 4.0)
+                    if dx > max_dx:
+                        continue
+                    if best_dx is None or dx < best_dx:
+                        best_dx = dx
+                        best_node = candidate
+                if best_node is None:
+                    remaining_ids.append(bullet_id)
+                    continue
+                target_items = best_node.get("item_ids")
+                if not isinstance(target_items, list):
+                    best_node["item_ids"] = [bullet_id]
+                elif bullet_id not in target_items:
+                    best_node["item_ids"] = [bullet_id] + target_items
+            if not remaining_ids:
+                removed_node_ids.add(node_id)
+            else:
+                node["item_ids"] = remaining_ids
+
+        updated_nodes: List[Dict[str, object]] = []
+        for node in nodes:
+            node_id = node.get("id") if isinstance(node, dict) else None
+            if node_id in removed_node_ids:
+                continue
+            if isinstance(node, dict) and node.get("type") == "group":
+                children = node.get("children")
+                if isinstance(children, list):
+                    node["children"] = [c for c in children if c not in removed_node_ids]
+            updated_nodes.append(node)
+        merge_inline_items(updated_nodes)
+        return updated_nodes
+
+    node_list = attach_bullets(node_list)
+    plan["nodes"] = node_list
+
+    node_map = {
+        n.get("id"): n
+        for n in node_list
+        if isinstance(n, dict) and isinstance(n.get("id"), str)
+    }
+    if not node_map:
         return plan
 
     def norm_str(value: object) -> str:
