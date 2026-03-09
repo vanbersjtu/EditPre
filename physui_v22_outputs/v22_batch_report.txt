@@ -1,0 +1,11 @@
+=== PhysUI v2.2 Texture Routing Batch Report ===
+dataset_root: /Users/xiaoxiaobo/random2000
+processed: 1
+accepted: 1
+accepted_token_before: 30041
+accepted_token_after: 18562
+accepted_token_ratio: 0.6179
+accepted_mean_local_iou: 0.0873
+accepted_mean_soft_iou: 0.2147
+
+/Users/xiaoxiaobo/random2000/EAElQpsa1k4_紫红色现代简约建筑精致建筑介绍中文演示文稿/幻灯片1.SVG | accepted=True | cls=diagonal_stripes@0.555 | iou=0.0873 | soft_iou=0.2147 | tok=30041->18562 (0.6179) | cand=idx=22,z=71,sub=71,elong=0.775,ang=95.53±44.41,cls=diagonal_stripes@0.555,n=10,std=51.57 | reason=ok

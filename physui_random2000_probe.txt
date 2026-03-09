@@ -1,0 +1,32 @@
+=== PhysUI Dataset Probe ===
+root: /Users/xiaoxiaobo/random2000
+total_svg_files: 2083
+empty_svg_files: 0
+nonempty_svg_files: 2083
+nonempty_with_path: 1818
+nonempty_raster_only(base64 image, no path): 228
+nonempty_other(no path, no base64 image): 37
+total_path_count: 142797
+total_path_tokens: 17557452
+
+Top files by path tokens:
+  /Users/xiaoxiaobo/random2000/EADcCRSq4O4_黑色黑板文具背景毕业答辩演示文稿/幻灯片1.SVG | size=6454822 | paths=6433 | path_tokens=566007 | images=4 | base64_images=4
+  /Users/xiaoxiaobo/random2000/EADcCRSq4O4_黑色黑板文具背景毕业答辩演示文稿/幻灯片10.SVG | size=6454520 | paths=6433 | path_tokens=566007 | images=4 | base64_images=4
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片9.SVG | size=3551376 | paths=395 | path_tokens=497354 | images=40 | base64_images=40
+  /Users/xiaoxiaobo/random2000/EADcCRSq4O4_黑色黑板文具背景毕业答辩演示文稿/幻灯片8.SVG | size=2933452 | paths=5077 | path_tokens=360096 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EADcCRSq4O4_黑色黑板文具背景毕业答辩演示文稿/幻灯片4.SVG | size=2933274 | paths=5077 | path_tokens=360096 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片3.SVG | size=2598865 | paths=20 | path_tokens=357216 | images=2 | base64_images=2
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片1.SVG | size=2695941 | paths=27 | path_tokens=351872 | images=1 | base64_images=1
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片15.SVG | size=2682888 | paths=27 | path_tokens=351872 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片2.SVG | size=2489555 | paths=21 | path_tokens=346539 | images=3 | base64_images=3
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片12.SVG | size=2298207 | paths=165 | path_tokens=322564 | images=24 | base64_images=24
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片1.SVG | size=2276537 | paths=225 | path_tokens=321260 | images=18 | base64_images=18
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片6.SVG | size=2198586 | paths=365 | path_tokens=306916 | images=19 | base64_images=19
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片5.SVG | size=1983070 | paths=12 | path_tokens=291269 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EADuiqwAN_U_黑粉色卡通小学演示文稿/幻灯片7.SVG | size=2942675 | paths=4183 | path_tokens=257653 | images=1 | base64_images=1
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片4.SVG | size=1845933 | paths=400 | path_tokens=253594 | images=23 | base64_images=23
+  /Users/xiaoxiaobo/random2000/EAEoqJlTfnQ_蓝黄色卡通学生插画元素卡通校园分享中文演示文稿/幻灯片1.SVG | size=2326337 | paths=5088 | path_tokens=225600 | images=85 | base64_images=85
+  /Users/xiaoxiaobo/random2000/EADjAH0xICM_蓝白色学者简笔画创意演示文稿/幻灯片4.SVG | size=1822499 | paths=3814 | path_tokens=218708 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片3.SVG | size=1524739 | paths=166 | path_tokens=215867 | images=3 | base64_images=3
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片7.SVG | size=1483643 | paths=10 | path_tokens=212558 | images=0 | base64_images=0
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片11.SVG | size=1486265 | paths=38 | path_tokens=208206 | images=21 | base64_images=21

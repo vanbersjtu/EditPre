@@ -1,0 +1,638 @@
+{
+  "$defs": {
+    "Asset": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "asset_type": {
+          "enum": [
+            "pattern",
+            "texture",
+            "gradient",
+            "stroke"
+          ],
+          "title": "Asset Type",
+          "type": "string"
+        },
+        "canonical_name_en": {
+          "title": "Canonical Name En",
+          "type": "string"
+        },
+        "canonical_name_zh": {
+          "title": "Canonical Name Zh",
+          "type": "string"
+        },
+        "source_standard": {
+          "enum": [
+            "OOXML",
+            "VBA_MSO",
+            "CUSTOM"
+          ],
+          "title": "Source Standard",
+          "type": "string"
+        },
+        "source_enum": {
+          "title": "Source Enum",
+          "type": "string"
+        },
+        "source_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Source Value"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "retrieval_features": {
+          "$ref": "#/$defs/RetrievalFeatures"
+        },
+        "param_slots": {
+          "items": {
+            "$ref": "#/$defs/ParamSlot"
+          },
+          "minItems": 1,
+          "title": "Param Slots",
+          "type": "array"
+        },
+        "svg_template": {
+          "title": "Svg Template",
+          "type": "string"
+        },
+        "routing_policy": {
+          "$ref": "#/$defs/RoutingPolicy"
+        },
+        "quality_gate": {
+          "$ref": "#/$defs/QualityGate"
+        },
+        "type_specific": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeSpecific"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "required": [
+        "asset_id",
+        "asset_type",
+        "canonical_name_en",
+        "canonical_name_zh",
+        "source_standard",
+        "source_enum",
+        "source_value",
+        "retrieval_features",
+        "param_slots",
+        "svg_template",
+        "routing_policy",
+        "quality_gate",
+        "provenance"
+      ],
+      "title": "Asset",
+      "type": "object"
+    },
+    "GradientSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "gradient_kind": {
+          "enum": [
+            "linear",
+            "radial"
+          ],
+          "title": "Gradient Kind",
+          "type": "string"
+        },
+        "angle_deg": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Angle Deg"
+        },
+        "stops": {
+          "items": {
+            "$ref": "#/$defs/GradientStop"
+          },
+          "minItems": 2,
+          "title": "Stops",
+          "type": "array"
+        }
+      },
+      "required": [
+        "gradient_kind",
+        "stops"
+      ],
+      "title": "GradientSpec",
+      "type": "object"
+    },
+    "GradientStop": {
+      "additionalProperties": false,
+      "properties": {
+        "offset": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Offset",
+          "type": "number"
+        },
+        "color": {
+          "title": "Color",
+          "type": "string"
+        }
+      },
+      "required": [
+        "offset",
+        "color"
+      ],
+      "title": "GradientStop",
+      "type": "object"
+    },
+    "ParamSlot": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "color",
+            "float",
+            "int",
+            "bool",
+            "string"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "default": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Default"
+        },
+        "description_en": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description En"
+        },
+        "description_zh": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description Zh"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "required"
+      ],
+      "title": "ParamSlot",
+      "type": "object"
+    },
+    "PatternSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "orientation_deg": {
+          "title": "Orientation Deg",
+          "type": "number"
+        },
+        "tile_ratio": {
+          "exclusiveMinimum": 0,
+          "title": "Tile Ratio",
+          "type": "number"
+        }
+      },
+      "required": [
+        "orientation_deg",
+        "tile_ratio"
+      ],
+      "title": "PatternSpec",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "created_from": {
+          "title": "Created From",
+          "type": "string"
+        },
+        "license": {
+          "title": "License",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date",
+          "title": "Created At",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "created_from",
+        "license",
+        "created_at"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "QualityGate": {
+      "additionalProperties": false,
+      "properties": {
+        "min_iou": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Iou",
+          "type": "number"
+        },
+        "max_token_ratio": {
+          "exclusiveMinimum": 0,
+          "title": "Max Token Ratio",
+          "type": "number"
+        },
+        "min_soft_iou": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Soft Iou"
+        }
+      },
+      "required": [
+        "min_iou",
+        "max_token_ratio"
+      ],
+      "title": "QualityGate",
+      "type": "object"
+    },
+    "RetrievalFeatures": {
+      "additionalProperties": false,
+      "properties": {
+        "orientation_deg": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orientation Deg"
+        },
+        "period_px_norm": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Px Norm"
+        },
+        "duty_cycle": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duty Cycle"
+        },
+        "anisotropy": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Anisotropy"
+        },
+        "frequency_peaks": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Frequency Peaks",
+          "type": "array"
+        },
+        "granularity": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Granularity"
+        },
+        "stochasticity": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stochasticity"
+        }
+      },
+      "title": "RetrievalFeatures",
+      "type": "object"
+    },
+    "RoutingPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "min_confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Confidence",
+          "type": "number"
+        },
+        "fallback": {
+          "enum": [
+            "physics_fit",
+            "keep_original",
+            "manual_review"
+          ],
+          "title": "Fallback",
+          "type": "string"
+        }
+      },
+      "required": [
+        "min_confidence",
+        "fallback"
+      ],
+      "title": "RoutingPolicy",
+      "type": "object"
+    },
+    "StrokeSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "dash_array": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dash Array"
+        },
+        "linecap": {
+          "anyOf": [
+            {
+              "enum": [
+                "butt",
+                "round",
+                "square"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linecap"
+        },
+        "linejoin": {
+          "anyOf": [
+            {
+              "enum": [
+                "miter",
+                "round",
+                "bevel"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Linejoin"
+        }
+      },
+      "title": "StrokeSpec",
+      "type": "object"
+    },
+    "TextureSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "texture_family": {
+          "title": "Texture Family",
+          "type": "string"
+        },
+        "frequency_band": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Frequency Band"
+        }
+      },
+      "required": [
+        "texture_family"
+      ],
+      "title": "TextureSpec",
+      "type": "object"
+    },
+    "TypeSpecific": {
+      "additionalProperties": false,
+      "properties": {
+        "pattern": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PatternSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "texture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextureSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "gradient": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GradientSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "stroke": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StrokeSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "TypeSpecific",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "library_id": {
+      "title": "Library Id",
+      "type": "string"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Created At"
+    },
+    "assets": {
+      "items": {
+        "$ref": "#/$defs/Asset"
+      },
+      "minItems": 1,
+      "title": "Assets",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "library_id",
+    "assets"
+  ],
+  "title": "AssetLibrary",
+  "type": "object"
+}

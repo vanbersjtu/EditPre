@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slide Forge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./config.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail">
+        <div class="brand-block">
+          <p class="eyebrow">Lab Tooling</p>
+          <h1>Slide Forge</h1>
+          <p class="lede">Upload a PDF. The app renders pages to PNG, runs the slide SVG pipeline, shows each generated SVG, and returns a PPTX.</p>
+        </div>
+        <div class="settings-card">
+          <label for="apiBase">Backend service URL</label>
+          <input id="apiBase" type="url" placeholder="https://your-slide-api.example.com" />
+          <p class="hint">Leave blank only when frontend and backend share the same origin.</p>
+        </div>
+        <form id="uploadForm" class="upload-card">
+          <label class="drop-zone" for="pdfFile">
+            <span class="drop-title">Drop PDF here</span>
+            <span class="drop-copy">or click to choose a file</span>
+          </label>
+          <input id="pdfFile" name="file" type="file" accept="application/pdf,.pdf" hidden />
+
+          <div class="option-block">
+            <label for="requestProvider">Model request format</label>
+            <select id="requestProvider" name="requestProvider">
+              <option value="openai-compatible">OpenAI-compatible</option>
+              <option value="gemini-native">Gemini native</option>
+            </select>
+          </div>
+
+          <div class="option-block">
+            <label for="requestApiBase">Model API base</label>
+            <input id="requestApiBase" type="url" placeholder="https://cdn.12ai.org/v1" />
+          </div>
+
+          <div class="option-block">
+            <label for="requestApiKey">Model API key</label>
+            <input id="requestApiKey" type="password" placeholder="sk-... or Gemini key" autocomplete="off" />
+            <p class="hint">The key is sent with this job, but the browser does not cache it and the backend redacts it from the saved runtime config after execution.</p>
+          </div>
+
+          <div class="field-grid">
+            <div class="option-block">
+              <label for="defaultModel">Code model</label>
+              <input id="defaultModel" type="text" placeholder="gemini-3.1-pro-preview" />
+            </div>
+            <div class="option-block">
+              <label for="imageModel">Image model</label>
+              <input id="imageModel" type="text" placeholder="gemini-3.1-flash-image-preview" />
+            </div>
+          </div>
+
+          <div class="option-block">
+            <label for="refillMode">Image placeholder strategy</label>
+            <select id="refillMode" name="refillMode">
+              <option value="source-crop">Crop from source page</option>
+              <option value="gemini">Generate with image model</option>
+              <option value="auto">Auto fallback</option>
+              <option value="off">Disable refill</option>
+            </select>
+            <p class="hint">Choose how image placeholders are resolved during SVG to PPTX compilation.</p>
+          </div>
+          <button id="submitBtn" type="submit">Run Pipeline</button>
+        </form>
+        <div class="status-card" id="statusCard">
+          <div class="status-head">
+            <span class="status-label">Status</span>
+            <span class="status-pill" id="statusPill">idle</span>
+          </div>
+          <p id="statusText">No job running.</p>
+          <div class="stats">
+            <div>
+              <span class="stat-label">Pages</span>
+              <strong id="pageCount">0</strong>
+            </div>
+            <div>
+              <span class="stat-label">SVG</span>
+              <strong id="svgCount">0</strong>
+            </div>
+          </div>
+          <p class="setting-line">Refill: <strong id="refillModeValue">source-crop</strong></p>
+          <p class="setting-line">Provider: <strong id="requestProviderValue">openai-compatible</strong></p>
+          <p class="setting-line">Model API: <strong id="requestApiBaseValue">https://cdn.12ai.org/v1</strong></p>
+          <p class="setting-line">Code model: <strong id="defaultModelValue">gemini-3.1-pro-preview</strong></p>
+          <p class="setting-line">Image model: <strong id="imageModelValue">gemini-3.1-flash-image-preview</strong></p>
+          <a id="pptxLink" class="download-link hidden" href="#" target="_blank" rel="noreferrer">Download PPTX</a>
+        </div>
+      </aside>
+
+      <main class="canvas">
+        <section class="hero-panel">
+          <div>
+            <p class="eyebrow">Workflow</p>
+            <h2>PDF to editable deck without touching the CLI</h2>
+          </div>
+          <ol class="steps">
+            <li>Upload one PDF</li>
+            <li>Watch page-level SVGs appear</li>
+            <li>Download the final PPTX</li>
+          </ol>
+        </section>
+
+        <section class="log-panel">
+          <div class="panel-head">
+            <h3>Run Log</h3>
+            <button id="clearJobBtn" class="ghost-button" type="button">Clear</button>
+          </div>
+          <pre id="logTail">Pipeline output will appear here.</pre>
+        </section>
+
+        <section class="svg-panel">
+          <div class="panel-head">
+            <h3>Generated SVG Pages</h3>
+            <span id="svgMeta">0 pages</span>
+          </div>
+          <div id="svgGrid" class="svg-grid"></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

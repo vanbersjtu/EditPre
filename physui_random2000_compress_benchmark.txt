@@ -1,0 +1,8 @@
+=== PhysUI random2000 Compression Benchmark ===
+root: /Users/xiaoxiaobo/random2000
+files: 2083
+Original: svg_chars=1363098970, path_chars=126415839, path_tokens=17557452, path_count=142797
+Quantize(d=2): svg_chars=1343841942, path_chars=107158811, path_tokens=17554685, path_count=142797
+Quantize+NoBase64(d=2): svg_chars=126349912, path_chars=107158811, path_tokens=17554685, path_count=142797
+Quantize(d=2) ratio vs original: svg=0.9859, path_chars=0.8477, path_tokens=0.9998
+Quantize+NoBase64(d=2) ratio vs original: svg=0.0927, path_chars=0.8477, path_tokens=0.9998

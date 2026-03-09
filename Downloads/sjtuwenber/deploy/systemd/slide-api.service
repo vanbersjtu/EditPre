@@ -1,0 +1,19 @@
+[Unit]
+Description=Slide Forge API
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/slide-forge
+Environment=SLIDE_APP_CORS_ORIGINS=https://your-vercel-app.vercel.app
+Environment=SLIDE_APP_MAX_PDF_MB=64
+Environment=SLIDE_APP_PDF_RENDER_SCALE=2.0
+Environment=SLIDE_APP_MAX_CONCURRENT=8
+Environment=OPENAI_API_KEY=replace-with-your-real-key
+ExecStart=/opt/slide-forge/.venv/bin/uvicorn main:app --app-dir apps/slide-api --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

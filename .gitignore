@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+Downloads/sjtuwenber/.DS_Store
+Downloads/sjtuwenber/.venv/
+Downloads/sjtuwenber/gemini_pipeline/input/
+Downloads/sjtuwenber/gemini_pipeline/output/
+Downloads/sjtuwenber/gemini_pipeline/app_data/jobs/*
+!Downloads/sjtuwenber/gemini_pipeline/app_data/jobs/.gitkeep

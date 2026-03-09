@@ -1,0 +1,33 @@
+=== PhysUI random2000 Texture Mode Probe ===
+root: /Users/xiaoxiaobo/random2000
+z_min: 20
+scanned_heavy_paths: 989
+
+Mode statistics:
+  other_compiled: count=390, token=1713706, token_share=0.1797
+  diagonal_stripes_noisy: count=329, token=3752962, token_share=0.3936
+  diagonal_stripes_clean: count=129, token=474107, token_share=0.0497
+  hatching_multi_dir: count=103, token=1746891, token_share=0.1832
+  dots_or_speckles: count=38, token=1847250, token_share=0.1937
+
+Top heavy paths:
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片5.SVG | mode=dots_or_speckles | tokens=273634 | z=6505 | sub=6506 | elong=0.183 | angle_std=67.69
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片1.SVG | mode=dots_or_speckles | tokens=185813 | z=4498 | sub=4499 | elong=0.178 | angle_std=68.06
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片9.SVG | mode=diagonal_stripes_noisy | tokens=184646 | z=4504 | sub=4504 | elong=0.704 | angle_std=54.62
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片11.SVG | mode=diagonal_stripes_noisy | tokens=184646 | z=4504 | sub=4504 | elong=0.704 | angle_std=54.58
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片2.SVG | mode=diagonal_stripes_noisy | tokens=174018 | z=10473 | sub=10473 | elong=0.402 | angle_std=36.19
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片1.SVG | mode=other_compiled | tokens=171909 | z=2083 | sub=2083 | elong=0.257 | angle_std=73.27
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片1.SVG | mode=other_compiled | tokens=171909 | z=2083 | sub=2083 | elong=0.259 | angle_std=73.27
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片15.SVG | mode=other_compiled | tokens=171909 | z=2083 | sub=2083 | elong=0.257 | angle_std=73.27
+  /Users/xiaoxiaobo/random2000/EAE5igsbuBM_蓝紫色课堂展示现代校园交流中文演示文稿/幻灯片15.SVG | mode=other_compiled | tokens=171909 | z=2083 | sub=2083 | elong=0.259 | angle_std=73.27
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片11.SVG | mode=dots_or_speckles | tokens=164554 | z=3978 | sub=3979 | elong=0.188 | angle_std=67.23
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片3.SVG | mode=other_compiled | tokens=139832 | z=7020 | sub=7020 | elong=0.373 | angle_std=53.86
+  /Users/xiaoxiaobo/random2000/EAElQhRC9jI_灰金色古典风格建筑欧式简洁建筑交流中文演示文稿/幻灯片12.SVG | mode=hatching_multi_dir | tokens=122340 | z=1923 | sub=1923 | elong=0.716 | angle_std=60.14
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片7.SVG | mode=dots_or_speckles | tokens=118922 | z=2531 | sub=2532 | elong=0.076 | angle_std=70.01
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片1.SVG | mode=diagonal_stripes_noisy | tokens=99702 | z=2581 | sub=2581 | elong=0.623 | angle_std=43.92
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片12.SVG | mode=diagonal_stripes_noisy | tokens=99010 | z=2584 | sub=2584 | elong=0.662 | angle_std=52.83
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片6.SVG | mode=hatching_multi_dir | tokens=91408 | z=2057 | sub=2057 | elong=0.584 | angle_std=66.27
+  /Users/xiaoxiaobo/random2000/EAE5txulnXA_白黄色社员活动策划创意校园交流中文演示文稿/幻灯片2.SVG | mode=other_compiled | tokens=83023 | z=1740 | sub=1740 | elong=0.286 | angle_std=84.68
+  /Users/xiaoxiaobo/random2000/EAE5itj8rxM_紫红色心理健康主题班会创意校园交流中文演示文稿/幻灯片12.SVG | mode=diagonal_stripes_noisy | tokens=82344 | z=2151 | sub=2151 | elong=0.675 | angle_std=51.62
+  /Users/xiaoxiaobo/random2000/EAEjBvYC9W0_蓝白色商务金融分享中文演示文稿/幻灯片9.SVG | mode=dots_or_speckles | tokens=82198 | z=1725 | sub=1726 | elong=0.075 | angle_std=76.94
+  /Users/xiaoxiaobo/random2000/EADuiqwAN_U_黑粉色卡通小学演示文稿/幻灯片7.SVG | mode=hatching_multi_dir | tokens=80264 | z=267 | sub=267 | elong=0.697 | angle_std=62.06

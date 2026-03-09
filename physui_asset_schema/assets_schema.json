@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://physui.dev/schema/asset-library/1-0-0",
+  "title": "PhysUI Asset Library Schema",
+  "description": "Canonical schema for pattern/texture/gradient/stroke assets used by retrieval routing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "library_id",
+    "assets"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "library_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "asset_type",
+        "canonical_name_en",
+        "canonical_name_zh",
+        "source_standard",
+        "source_enum",
+        "source_value",
+        "retrieval_features",
+        "param_slots",
+        "svg_template",
+        "routing_policy",
+        "quality_gate",
+        "provenance"
+      ],
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+([._-][a-z0-9]+)*$"
+        },
+        "asset_type": {
+          "type": "string",
+          "enum": [
+            "pattern",
+            "texture",
+            "gradient",
+            "stroke"
+          ]
+        },
+        "canonical_name_en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_name_zh": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_standard": {
+          "type": "string",
+          "enum": [
+            "OOXML",
+            "VBA_MSO",
+            "CUSTOM"
+          ]
+        },
+        "source_enum": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_value": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "retrieval_features": {
+          "$ref": "#/$defs/retrieval_features"
+        },
+        "param_slots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/param_slot"
+          }
+        },
+        "svg_template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "routing_policy": {
+          "$ref": "#/$defs/routing_policy"
+        },
+        "quality_gate": {
+          "$ref": "#/$defs/quality_gate"
+        },
+        "type_specific": {
+          "$ref": "#/$defs/type_specific"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      }
+    },
+    "param_slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type",
+        "required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "color",
+            "float",
+            "int",
+            "bool",
+            "string"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": {},
+        "description_en": {
+          "type": "string"
+        },
+        "description_zh": {
+          "type": "string"
+        }
+      }
+    },
+    "retrieval_features": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "orientation_deg": {
+          "type": "number"
+        },
+        "period_px_norm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duty_cycle": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "anisotropy": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "frequency_peaks": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "granularity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "stochasticity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "routing_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_confidence",
+        "fallback"
+      ],
+      "properties": {
+        "min_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "fallback": {
+          "type": "string",
+          "enum": [
+            "physics_fit",
+            "keep_original",
+            "manual_review"
+          ]
+        }
+      }
+    },
+    "quality_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_iou",
+        "max_token_ratio"
+      ],
+      "properties": {
+        "min_iou": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_token_ratio": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "min_soft_iou": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "pattern_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "orientation_deg",
+        "tile_ratio"
+      ],
+      "properties": {
+        "orientation_deg": {
+          "type": "number"
+        },
+        "tile_ratio": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "texture_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "texture_family"
+      ],
+      "properties": {
+        "texture_family": {
+          "type": "string"
+        },
+        "frequency_band": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "gradient_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gradient_kind",
+        "stops"
+      ],
+      "properties": {
+        "gradient_kind": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "radial"
+          ]
+        },
+        "angle_deg": {
+          "type": "number"
+        },
+        "stops": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/gradient_stop"
+          }
+        }
+      }
+    },
+    "gradient_stop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "offset",
+        "color"
+      ],
+      "properties": {
+        "offset": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "stroke_spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dash_array": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "linecap": {
+          "type": "string",
+          "enum": [
+            "butt",
+            "round",
+            "square"
+          ]
+        },
+        "linejoin": {
+          "type": "string",
+          "enum": [
+            "miter",
+            "round",
+            "bevel"
+          ]
+        }
+      }
+    },
+    "type_specific": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pattern": {
+          "$ref": "#/$defs/pattern_spec"
+        },
+        "texture": {
+          "$ref": "#/$defs/texture_spec"
+        },
+        "gradient": {
+          "$ref": "#/$defs/gradient_spec"
+        },
+        "stroke": {
+          "$ref": "#/$defs/stroke_spec"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_from",
+        "license",
+        "created_at"
+      ],
+      "properties": {
+        "created_from": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

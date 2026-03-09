@@ -1,0 +1,1466 @@
+{
+  "schema_version": "1.0.0",
+  "library_id": "physui.office.patterns.v1",
+  "created_at": "2026-03-04",
+  "assets": [
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_1",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-1",
+      "canonical_name_zh": "对角线条纹 v1-1",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct5",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 30.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 30.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 30.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_2",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-2",
+      "canonical_name_zh": "对角线条纹 v1-2",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct10",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 45.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 45.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 45.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_3",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-3",
+      "canonical_name_zh": "对角线条纹 v1-3",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct20",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 60.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 60.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 60.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_4",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-4",
+      "canonical_name_zh": "对角线条纹 v1-4",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct30",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 120.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 120.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 120.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_5",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-5",
+      "canonical_name_zh": "对角线条纹 v1-5",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct40",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 135.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 135.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 135.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.diagonal.stripe_v1_6",
+      "asset_type": "pattern",
+      "canonical_name_en": "Diagonal Stripe v1-6",
+      "canonical_name_zh": "对角线条纹 v1-6",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "pct50",
+      "tags": [
+        "stripe",
+        "diagonal",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.001,
+        "anisotropy": 0.7,
+        "stochasticity": 0.34,
+        "frequency_peaks": [
+          0.001,
+          0.002
+        ],
+        "orientation_deg": 150.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 150.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.6,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.78,
+        "max_token_ratio": 0.7,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 150.0,
+          "tile_ratio": 0.001
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_1",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-1",
+      "canonical_name_zh": "多方向网纹 v1-1",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "ltDnDiag",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.002,
+        "anisotropy": 0.65,
+        "stochasticity": 0.62,
+        "frequency_peaks": [
+          0.002,
+          0.004
+        ],
+        "orientation_deg": 90.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 90.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 90.0,
+          "tile_ratio": 0.002
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_2",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-2",
+      "canonical_name_zh": "多方向网纹 v1-2",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "dkDnDiag",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.002,
+        "anisotropy": 0.68,
+        "stochasticity": 0.66,
+        "frequency_peaks": [
+          0.002,
+          0.004
+        ],
+        "orientation_deg": 105.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 105.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 105.0,
+          "tile_ratio": 0.002
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_3",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-3",
+      "canonical_name_zh": "多方向网纹 v1-3",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "ltUpDiag",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0016,
+        "anisotropy": 0.62,
+        "stochasticity": 0.7,
+        "frequency_peaks": [
+          0.0016,
+          0.0032
+        ],
+        "orientation_deg": 75.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 75.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 75.0,
+          "tile_ratio": 0.0016
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_4",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-4",
+      "canonical_name_zh": "多方向网纹 v1-4",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "dkUpDiag",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0018,
+        "anisotropy": 0.7,
+        "stochasticity": 0.64,
+        "frequency_peaks": [
+          0.0018,
+          0.0036
+        ],
+        "orientation_deg": 120.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 120.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 120.0,
+          "tile_ratio": 0.0018
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_5",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-5",
+      "canonical_name_zh": "多方向网纹 v1-5",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "smCheck",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0014,
+        "anisotropy": 0.58,
+        "stochasticity": 0.78,
+        "frequency_peaks": [
+          0.0014,
+          0.0028
+        ],
+        "orientation_deg": 45.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 45.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 45.0,
+          "tile_ratio": 0.0014
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.hatching.multi_v1_6",
+      "asset_type": "pattern",
+      "canonical_name_en": "Hatching Multi-dir v1-6",
+      "canonical_name_zh": "多方向网纹 v1-6",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "diagCross",
+      "tags": [
+        "hatching",
+        "multi_dir",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0015,
+        "anisotropy": 0.6,
+        "stochasticity": 0.82,
+        "frequency_peaks": [
+          0.0015,
+          0.003
+        ],
+        "orientation_deg": 135.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 135.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.58,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.74,
+        "max_token_ratio": 0.72,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 135.0,
+          "tile_ratio": 0.0015
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dots.speckle_v1_1",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dots Speckle v1-1",
+      "canonical_name_zh": "点状纹理 v1-1",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "smGrid",
+      "tags": [
+        "dots",
+        "speckle",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0011,
+        "anisotropy": 0.12,
+        "stochasticity": 0.72,
+        "frequency_peaks": [
+          0.0011,
+          0.0022
+        ]
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 0.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.55,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.72,
+        "max_token_ratio": 0.75,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 0.0,
+          "tile_ratio": 0.0011
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dots.speckle_v1_2",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dots Speckle v1-2",
+      "canonical_name_zh": "点状纹理 v1-2",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "lgGrid",
+      "tags": [
+        "dots",
+        "speckle",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0018,
+        "anisotropy": 0.15,
+        "stochasticity": 0.68,
+        "frequency_peaks": [
+          0.0018,
+          0.0036
+        ]
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 0.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.55,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.72,
+        "max_token_ratio": 0.75,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 0.0,
+          "tile_ratio": 0.0018
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dots.speckle_v1_3",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dots Speckle v1-3",
+      "canonical_name_zh": "点状纹理 v1-3",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "dotGrid",
+      "tags": [
+        "dots",
+        "speckle",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0013,
+        "anisotropy": 0.1,
+        "stochasticity": 0.75,
+        "frequency_peaks": [
+          0.0013,
+          0.0026
+        ]
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 0.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.55,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.72,
+        "max_token_ratio": 0.75,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 0.0,
+          "tile_ratio": 0.0013
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dots.speckle_v1_4",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dots Speckle v1-4",
+      "canonical_name_zh": "点状纹理 v1-4",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "solidDmnd",
+      "tags": [
+        "dots",
+        "speckle",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0009,
+        "anisotropy": 0.18,
+        "stochasticity": 0.62,
+        "frequency_peaks": [
+          0.0009,
+          0.0018
+        ]
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 0.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.55,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.72,
+        "max_token_ratio": 0.75,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 0.0,
+          "tile_ratio": 0.0009
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dense.fragment_v1_1",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dense Fragment v1-1",
+      "canonical_name_zh": "稠密碎片纹理 v1-1",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "wdDnDiag",
+      "tags": [
+        "dense_fragments",
+        "compiled",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.003,
+        "anisotropy": 0.35,
+        "stochasticity": 0.85,
+        "frequency_peaks": [
+          0.003,
+          0.006
+        ],
+        "orientation_deg": 45.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 45.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.5,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.7,
+        "max_token_ratio": 0.8,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 45.0,
+          "tile_ratio": 0.003
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dense.fragment_v1_2",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dense Fragment v1-2",
+      "canonical_name_zh": "稠密碎片纹理 v1-2",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "wdUpDiag",
+      "tags": [
+        "dense_fragments",
+        "compiled",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.003,
+        "anisotropy": 0.35,
+        "stochasticity": 0.85,
+        "frequency_peaks": [
+          0.003,
+          0.006
+        ],
+        "orientation_deg": 135.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 135.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.5,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.7,
+        "max_token_ratio": 0.8,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 135.0,
+          "tile_ratio": 0.003
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    },
+    {
+      "asset_id": "pattern.dense.fragment_v1_3",
+      "asset_type": "pattern",
+      "canonical_name_en": "Dense Fragment v1-3",
+      "canonical_name_zh": "稠密碎片纹理 v1-3",
+      "source_standard": "OOXML",
+      "source_enum": "ST_PresetPatternVal",
+      "source_value": "plaid",
+      "tags": [
+        "dense_fragments",
+        "compiled",
+        "office",
+        "pattern"
+      ],
+      "retrieval_features": {
+        "period_px_norm": 0.0026,
+        "anisotropy": 0.42,
+        "stochasticity": 0.88,
+        "frequency_peaks": [
+          0.0026,
+          0.0052
+        ],
+        "orientation_deg": 90.0
+      },
+      "param_slots": [
+        {
+          "name": "fg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "bg_color",
+          "type": "color",
+          "required": true
+        },
+        {
+          "name": "stroke_width",
+          "type": "float",
+          "required": false,
+          "default": 1.0
+        },
+        {
+          "name": "tile",
+          "type": "float",
+          "required": false,
+          "default": 8.0
+        },
+        {
+          "name": "angle",
+          "type": "float",
+          "required": false,
+          "default": 90.0
+        }
+      ],
+      "svg_template": "<defs><pattern id='{{id}}' width='{{tile}}' height='{{tile}}' patternUnits='userSpaceOnUse' patternTransform='rotate({{angle}})'><rect width='100%' height='100%' fill='{{bg_color}}'/><line x1='0' y1='0' x2='0' y2='{{tile}}' stroke='{{fg_color}}' stroke-width='{{stroke_width}}'/></pattern></defs>",
+      "routing_policy": {
+        "min_confidence": 0.5,
+        "fallback": "physics_fit"
+      },
+      "quality_gate": {
+        "min_iou": 0.7,
+        "max_token_ratio": 0.8,
+        "min_soft_iou": 0.88
+      },
+      "type_specific": {
+        "pattern": {
+          "orientation_deg": 90.0,
+          "tile_ratio": 0.0026
+        }
+      },
+      "provenance": {
+        "created_from": "random2000_mode_probe + ooxml_mapping",
+        "license": "internal_research",
+        "created_at": "2026-03-04",
+        "notes": "Bootstrap v1; retrieval-first template mapping."
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "figure",
+  "pipeline": {
+    "prompt_suffix": "\\n\\n[PROFILE: figure] This task is a scientific/technical figure. Prioritize exact arrow topology, connector endpoints, panel boundaries, legends/axis labels, and annotation consistency. Prefer vector reconstruction for arrows/connectors/boxes whenever feasible; use image-placeholder only when the region is photorealistic or overly complex raster content."
+  },
+  "compiler": {
+    "object_profile": "figure"
+  },
+  "compiler_cli": {
+    "semantic_mode": "absolute"
+  }
+}
