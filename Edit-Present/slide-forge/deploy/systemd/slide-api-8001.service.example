@@ -1,0 +1,20 @@
+# 本机部署示例：端口 8001，监听所有网卡
+# 使用前请复制到 /etc/systemd/system/ 并修改 WorkingDirectory/User/ExecStart 路径
+[Unit]
+Description=Slide Forge API (port 8001)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/mnt/cache/liwenbo/PPT2SVG-SlideSVG/Edit-Present/slide-forge
+Environment=SLIDE_APP_CORS_ORIGINS=*
+Environment=SLIDE_APP_MAX_PDF_MB=64
+Environment=SLIDE_APP_PDF_RENDER_SCALE=2.0
+Environment=SLIDE_APP_MAX_CONCURRENT=8
+ExecStart=/mnt/cache/liwenbo/PPT2SVG-SlideSVG/Edit-Present/slide-forge/.venv/bin/uvicorn main:app --app-dir apps/slide-api --host 0.0.0.0 --port 8001
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+{
+  "name": "poster",
+  "pipeline": {
+    "prompt_suffix": "\\n\\n[PROFILE: poster] This task is a poster/single-page visual layout. Prioritize large visual hierarchy, stable title blocks, background layering, and locked composition. Preserve text editability for main titles/subtitles/body while keeping decorative visuals grouped by spatial modules."
+  },
+  "compiler": {
+    "object_profile": "poster"
+  },
+  "compiler_cli": {
+    "semantic_mode": "textbox"
+  }
+}
